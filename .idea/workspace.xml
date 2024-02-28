@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9f974bf5-1666-4d65-9ac9-c7af8d92059e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/grade-calculator/src/main/java/com/example/gradecalculator/users/GradeSystem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/grade-calculator/src/main/java/com/example/gradecalculator/users/GradeType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/grade-calculator/src/main/java/com/example/gradecalculator/users/Schoolyear.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/grade-calculator/src/main/java/com/example/gradecalculator/users/Subject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/grade-calculator/src/main/java/com/example/gradecalculator/users/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/grade-calculator/src/main/java/com/example/gradecalculator/users/UserType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grade-calculator/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/grade-calculator/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/grade-calculator/src/main/java/com/example/gradecalculator/GradeCalculatorApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/grade-calculator/src/main/java/com/example/gradecalculator/GradeCalculatorApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/grade-calculator/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/grade-calculator/src/main/resources/application.properties" afterDir="false" />
     </list>
@@ -16,6 +23,21 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Asman97&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="eb5fc567-f397-4c70-af27-75ec280d0a6d" />
+        <option name="url" value="git@github.com:IoT-Ausbildung/grade-calculator.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -29,7 +51,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Merging Datenbank-anbindung",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/diana.mirlanbekova/Desktop/PROJECT",
     "node.js.detected.package.eslint": "true",
@@ -57,6 +79,7 @@
       <updated>1709030543470</updated>
       <workItem from="1709030544483" duration="15000" />
       <workItem from="1709039686215" duration="3491000" />
+      <workItem from="1709124322577" duration="311000" />
     </task>
     <servers />
   </component>
