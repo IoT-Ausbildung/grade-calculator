@@ -1,0 +1,104 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"9f974bf5-1666-4d65-9ac9-c7af8d92059e\" name=\"Changes\" comment=\"\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/grade-calculator/.gitignore\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/grade-calculator/.mvn/wrapper/maven-wrapper.jar\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/grade-calculator/.mvn/wrapper/maven-wrapper.properties\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/grade-calculator/mvnw\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/grade-calculator/mvnw.cmd\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/grade-calculator/pom.xml\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/grade-calculator/src/main/java/com/example/gradecalculator/GradeCalculatorApplication.java\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/grade-calculator/src/main/java/com/example/gradecalculator/users/GradeSystem.java\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/grade-calculator/src/main/java/com/example/gradecalculator/users/GradeType.java\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/grade-calculator/src/main/java/com/example/gradecalculator/users/Schoolyear.java\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/grade-calculator/src/main/java/com/example/gradecalculator/users/Subject.java\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/grade-calculator/src/main/java/com/example/gradecalculator/users/User.java\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/grade-calculator/src/main/java/com/example/gradecalculator/users/UserType.java\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/grade-calculator/src/main/resources/application.properties\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/grade-calculator/src/test/java/com/example/gradecalculator/GradeCalculatorApplicationTests.java\" beforeDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"MarkdownSettingsMigration\">\n    <option name=\"stateVersion\" value=\"1\" />\n  </component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 1\n}</component>\n  <component name=\"ProjectId\" id=\"2cwlV0IMaiKcM2V2UKa8Wlnxgxl\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">{\n  &quot;keyToString&quot;: {\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\n    &quot;git-widget-placeholder&quot;: &quot;Push-branch-before-main&quot;,\n    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,\n    &quot;last_opened_file_path&quot;: &quot;/Users/louis.huefner/Documents/grade-calculator&quot;,\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\n  }\n}</component>\n  <component name=\"RunManager\">\n    <configuration name=\"GradeCalculatorApplication\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\" nameIsGenerated=\"true\">\n      <module name=\"grade-calculator\" />\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"com.example.gradecalculator.GradeCalculatorApplication\" />\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n  </component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"jdk-21.0.1-openjdk-21.0.1-4caba194b151-9b16c6e2\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"9f974bf5-1666-4d65-9ac9-c7af8d92059e\" name=\"Changes\" comment=\"\" />\n      <created>1709030543470</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1709030543470</updated>\n      <workItem from=\"1709030544483\" duration=\"15000\" />\n      <workItem from=\"1709129798657\" duration=\"204000\" />\n      <workItem from=\"1709130038691\" duration=\"83000\" />\n    </task>\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -1,24 +1,10 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
++  <component name="AutoImportSettings">
++    <option name="autoReloadType" value="SELECTIVE" />
++  </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="9f974bf5-1666-4d65-9ac9-c7af8d92059e" name="Changes" comment="">
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/grade-calculator/.gitignore" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/grade-calculator/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/grade-calculator/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/grade-calculator/mvnw" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/grade-calculator/mvnw.cmd" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/grade-calculator/pom.xml" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/grade-calculator/src/main/java/com/example/gradecalculator/GradeCalculatorApplication.java" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/grade-calculator/src/main/java/com/example/gradecalculator/users/GradeSystem.java" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/grade-calculator/src/main/java/com/example/gradecalculator/users/GradeType.java" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/grade-calculator/src/main/java/com/example/gradecalculator/users/Schoolyear.java" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/grade-calculator/src/main/java/com/example/gradecalculator/users/Subject.java" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/grade-calculator/src/main/java/com/example/gradecalculator/users/User.java" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/grade-calculator/src/main/java/com/example/gradecalculator/users/UserType.java" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/grade-calculator/src/main/resources/application.properties" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/grade-calculator/src/test/java/com/example/gradecalculator/GradeCalculatorApplicationTests.java" beforeDir="false" />
+-    </list>
++    <list default="true" id="9f974bf5-1666-4d65-9ac9-c7af8d92059e" name="Changes" comment="" />
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+Index: src/main/java/com/example/gradecalculator/users/Subject.java
+===================================================================
+diff --git a/src/main/java/com/example/gradecalculator/users/Subject.java b/src/main/java/com/example/gradecalculator/entities/Subject.java
+rename from src/main/java/com/example/gradecalculator/users/Subject.java
+rename to src/main/java/com/example/gradecalculator/entities/Subject.java
+--- a/src/main/java/com/example/gradecalculator/users/Subject.java	
++++ b/src/main/java/com/example/gradecalculator/entities/Subject.java	
+@@ -1,4 +1,4 @@
+-package com.example.gradecalculator.users;
++package com.example.gradecalculator.entities;
+ 
+ import jakarta.persistence.*;
+ 
+Index: src/main/java/com/example/gradecalculator/users/GradeType.java
+===================================================================
+diff --git a/src/main/java/com/example/gradecalculator/users/GradeType.java b/src/main/java/com/example/gradecalculator/entities/GradeType.java
+rename from src/main/java/com/example/gradecalculator/users/GradeType.java
+rename to src/main/java/com/example/gradecalculator/entities/GradeType.java
+--- a/src/main/java/com/example/gradecalculator/users/GradeType.java	
++++ b/src/main/java/com/example/gradecalculator/entities/GradeType.java	
+@@ -1,4 +1,4 @@
+-package com.example.gradecalculator.users;
++package com.example.gradecalculator.entities;
+ 
+ import jakarta.persistence.*;
+ 
+Index: src/main/java/com/example/gradecalculator/users/UserType.java
+===================================================================
+diff --git a/src/main/java/com/example/gradecalculator/users/UserType.java b/src/main/java/com/example/gradecalculator/entities/UserType.java
+rename from src/main/java/com/example/gradecalculator/users/UserType.java
+rename to src/main/java/com/example/gradecalculator/entities/UserType.java
+--- a/src/main/java/com/example/gradecalculator/users/UserType.java	
++++ b/src/main/java/com/example/gradecalculator/entities/UserType.java	
+@@ -1,4 +1,4 @@
+-package com.example.gradecalculator.users;
++package com.example.gradecalculator.entities;
+ 
+ import jakarta.persistence.*;
+ 
+Index: src/main/java/com/example/gradecalculator/users/GradeSystem.java
+===================================================================
+diff --git a/src/main/java/com/example/gradecalculator/users/GradeSystem.java b/src/main/java/com/example/gradecalculator/entities/GradeSystem.java
+rename from src/main/java/com/example/gradecalculator/users/GradeSystem.java
+rename to src/main/java/com/example/gradecalculator/entities/GradeSystem.java
+--- a/src/main/java/com/example/gradecalculator/users/GradeSystem.java	
++++ b/src/main/java/com/example/gradecalculator/entities/GradeSystem.java	
+@@ -1,4 +1,4 @@
+-package com.example.gradecalculator.users;
++package com.example.gradecalculator.entities;
+ 
+ import jakarta.persistence.*;
+ 
+Index: src/main/java/com/example/gradecalculator/users/Schoolyear.java
+===================================================================
+diff --git a/src/main/java/com/example/gradecalculator/users/Schoolyear.java b/src/main/java/com/example/gradecalculator/entities/Schoolyear.java
+rename from src/main/java/com/example/gradecalculator/users/Schoolyear.java
+rename to src/main/java/com/example/gradecalculator/entities/Schoolyear.java
+--- a/src/main/java/com/example/gradecalculator/users/Schoolyear.java	
++++ b/src/main/java/com/example/gradecalculator/entities/Schoolyear.java	
+@@ -1,4 +1,4 @@
+-package com.example.gradecalculator.users;
++package com.example.gradecalculator.entities;
+ 
+ import jakarta.persistence.*;
+ 
