@@ -5,22 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9f974bf5-1666-4d65-9ac9-c7af8d92059e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/entities/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/repository/GradeSystemRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/repository/GradeTypeRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/repository/SchoolyearRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/repository/SubjectRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/repository/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/repository/UserTypeRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/bean.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/GradeSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/entities/GradeSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/GradeType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/entities/GradeType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/Schoolyear.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/entities/Schoolyear.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/Subject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/entities/Subject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/UserType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/entities/UserType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/GradeCalculatorApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/GradeCalculatorApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/GradeSystem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/GradeType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/Schoolyear.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/Subject.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/UserType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/GradeCalculatorApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/GradeCalculatorApplication.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/users/GradeSystem.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/users/GradeType.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/users/Schoolyear.class" beforeDir="false" />
@@ -76,7 +69,22 @@
       <recent name="$PROJECT_DIR$/target" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.GradeCalculatorApplicationTests">
+    <configuration name="GradeCalculatorApplicationTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="grade-calculator" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.gradecalculator.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.gradecalculator" />
+      <option name="MAIN_CLASS_NAME" value="com.example.gradecalculator.GradeCalculatorApplicationTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="GradeCalculatorApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="grade-calculator" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.gradecalculator.GradeCalculatorApplication" />
@@ -84,6 +92,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.GradeCalculatorApplicationTests" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -112,5 +125,29 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/org/hibernate/orm/hibernate-core/6.4.4.Final/hibernate-core-6.4.4.Final.jar!/org/hibernate/internal/TransactionManagement.class</url>
+          <line>34</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="org.springframework.data.mapping.PropertyReferenceException" package="org.springframework.data.mapping" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/gradecalculator/repository/GradeTypeRepository.java</url>
+          <line>11</line>
+          <properties class="com.example.gradecalculator.repository.GradeTypeRepository" method="findById">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
