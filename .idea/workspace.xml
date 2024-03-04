@@ -5,28 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9f974bf5-1666-4d65-9ac9-c7af8d92059e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/entities/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/repository/GradeSystemRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/repository/GradeTypeRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/repository/SchoolyearRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/repository/SubjectRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/repository/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/repository/UserTypeRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/GradeSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/entities/GradeSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/GradeType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/entities/GradeType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/Schoolyear.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/entities/Schoolyear.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/Subject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/entities/Subject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/UserType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/entities/UserType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/users/GradeSystem.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/users/GradeType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/users/Schoolyear.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/users/Subject.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/users/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/users/UserType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/GradeSystem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/GradeType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/Schoolyear.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/Subject.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/UserType.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,10 +27,29 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="main" />
+      </list>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+      </MavenGeneralSettings>
+    </option>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -63,9 +67,10 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "4-database-connection",
+    "git-widget-placeholder": "6-registration",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/diana.mirlanbekova/Desktop/PROJECT",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
