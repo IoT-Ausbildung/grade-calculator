@@ -4,22 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9f974bf5-1666-4d65-9ac9-c7af8d92059e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/bean.xml" afterDir="false" />
+    <list default="true" id="9f974bf5-1666-4d65-9ac9-c7af8d92059e" name="Changes" comment="no message">
+      <changelist_data name="Diana Mirlanbekova" email="diana.mirlanbekova@maibornwolff.de" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/grade-calculator.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/gradecalculator.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/GradeCalculatorApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/GradeCalculatorApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/GradeSystem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/GradeType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/Schoolyear.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/Subject.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/UserType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/GradeCalculatorApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/GradeCalculatorApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/users/GradeSystem.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/users/GradeType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/users/Schoolyear.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/users/Subject.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/users/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/users/UserType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/entities/Schoolyear.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/entities/SchoolYear.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/repository/GradeSystemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/repository/GradeSystemRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/repository/GradeTypeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/repository/GradeTypeRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/repository/SchoolyearRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/repository/SchoolYearRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/repository/SubjectRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/repository/SubjectRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/repository/UserTypeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/repository/UserTypeRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/gradecalculator/GradeCalculatorApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/gradecalculator/GradeCalculatorApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/entities/Schoolyear.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/entities/Schoolyear.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/repository/GradeSystemRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/repository/GradeSystemRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/repository/GradeTypeRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/repository/GradeTypeRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/repository/SchoolyearRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/repository/SchoolyearRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/repository/SubjectRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/repository/SubjectRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/repository/UserTypeRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/gradecalculator/repository/UserTypeRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/example/gradecalculator/GradeCalculatorApplicationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/example/gradecalculator/GradeCalculatorApplicationTests.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +40,33 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Diana Mirlanbekova &lt;diana.mirlanbekova@maibornwolff.de&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Asman97&quot;
+  }
+}</component>
+  <component name="GithubProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="main" />
+      </list>
+    </option>
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="eb5fc567-f397-4c70-af27-75ec280d0a6d" />
+        <option name="url" value="git@github.com:IoT-Ausbildung/grade-calculator.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -51,18 +82,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "4-database-connection",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/diana.mirlanbekova/Desktop/PROJECT",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JUnit.GradeCalculatorApplicationTests.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;4-database-connection&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/diana.mirlanbekova/Desktop/PROJECT&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/com/example/gradecalculator/users/GradeSystem" />
@@ -80,6 +116,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.example.gradecalculator" />
       <option name="MAIN_CLASS_NAME" value="com.example.gradecalculator.GradeCalculatorApplicationTests" />
+      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -92,6 +129,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="JUnit.GradeCalculatorApplicationTests" />
+      <item itemvalue="Spring Boot.GradeCalculatorApplication" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.GradeCalculatorApplicationTests" />
@@ -120,11 +161,16 @@
       <workItem from="1709131151473" duration="1297000" />
       <workItem from="1709198055437" duration="44000" />
       <workItem from="1709198244283" duration="6000" />
+      <workItem from="1710753492208" duration="3019000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="no message" />
+    <option name="LAST_COMMIT_MESSAGE" value="no message" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

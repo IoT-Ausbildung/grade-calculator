@@ -3,8 +3,8 @@ package com.example.gradecalculator.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table( name = "schoolyear")
-public class Schoolyear {
+@Table( name = "schoolYear")
+public class SchoolYear {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,9 +14,9 @@ public class Schoolyear {
     @Column( name = "name")
     private String name;
 
-    public Schoolyear(){
+    public SchoolYear(){
     }
-    public Schoolyear(Long id, String name){
+    public SchoolYear(Long id, String name){
         this.id = id;
         this.name = name;
     }
