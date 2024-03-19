@@ -8,17 +8,47 @@ public class GradeType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column( name = "id")
     private Long id;
-
-    @Column( name = "name")
+    @Column( unique = true)
     private String name;
+
+    private String description;
+    private int weightage;
+
+    @ManyToOne
+    @JoinColumn(name = "grade_system")
+    private GradeSystem gradeSystem;
 
     public GradeType(){
     }
-    public GradeType(Long id, String name){
-        this.id = id;
+    public GradeType(String name, String description, int weightage) {
         this.name = name;
+        this.description = description;
+        this.weightage = weightage;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getWeightage() {
+        return weightage;
+    }
+
+    public void setWeightage(int weightage) {
+        this.weightage = weightage;
+    }
+
+    public GradeSystem getGradeSystem() {
+        return gradeSystem;
+    }
+
+    public void setGradeSystem(GradeSystem gradeSystem) {
+        this.gradeSystem = gradeSystem;
     }
 
     public Long getId(){return id;}

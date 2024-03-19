@@ -14,8 +14,8 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean id = "GradeSystem" class = "src/main/java/com/example/gradecalculator/entities/GradeSystem.java" >
-            <constructor-arg ref = "GradeSystem"/>
+    <bean id = "GradeSystem" class = "com/example/gradecalculator/entities/GradeSystem.java" >
+            <constructor-arg ref = "GradeSystemRepository"/>
     </bean>
 
 
@@ -34,6 +34,7 @@
     <bean id = "UserType" class = "src/main/java/com/example/gradecalculator/entities/UserType.java">
         <constructor-arg ref = "UserType"/>
     </bean>
+
 
 
 </beans>

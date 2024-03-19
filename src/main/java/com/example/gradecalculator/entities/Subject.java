@@ -8,17 +8,40 @@ public class Subject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column( name = "id")
     private Long id;
 
-    @Column( name = "name")
+    @Column(unique = true)
     private String name;
+
+    private String description;
+
+    //private int creditValue;
+
+    @ManyToOne
+    @JoinColumn(name = "school_year")
+    private SchoolYear schoolYear;
 
     public Subject(){
     }
-    public Subject(Long id, String name){
-        this.id = id;
+    public Subject(String name, String description) {
         this.name = name;
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public SchoolYear getSchoolYear() {
+        return schoolYear;
+    }
+
+    public void setSchoolYear(SchoolYear schoolYear) {
+        this.schoolYear = schoolYear;
     }
 
     public Long getId(){return id;}

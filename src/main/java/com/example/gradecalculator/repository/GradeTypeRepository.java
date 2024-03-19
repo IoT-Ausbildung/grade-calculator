@@ -1,4 +1,5 @@
 package com.example.gradecalculator.repository;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
@@ -8,6 +9,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface GradeTypeRepository extends CrudRepository<GradeType, Long> {
 
 
-
-    GradeType findById(long id);
+    List<GradeType> findByGradeSystem(GradeSystem gradeSystem);
 }
