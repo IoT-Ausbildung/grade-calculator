@@ -2,24 +2,64 @@ package com.example.gradecalculator.entities;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+
 @Entity
 @Table(name = "grade_type")
 public class GradeType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
-
-    @Column(name = "name")
+    @Column(unique = true)
     private String name;
+
+    private String description;
+    @Column(precision = 5, scale = 2)
+    private BigDecimal weightage;
+
+    @ManyToOne
+    @JoinColumn(name = "grade_system")
+    private GradeSystem gradeSystem;
 
     public GradeType() {
     }
 
-    public GradeType(Long id, String name) {
-        this.id = id;
+    public String getWeightagePercentage() {
+        DecimalFormat df = new DecimalFormat("#.##");
+        BigDecimal weightagePercentage = weightage.multiply(BigDecimal.valueOf(100));
+        return df.format(weightagePercentage) + "%";
+    }
+
+    public GradeType(String name, String description, BigDecimal weightage) {
         this.name = name;
+        this.description = description;
+        this.weightage = weightage;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public BigDecimal getWeightage() {
+        return weightage;
+    }
+
+    public void setWeightage(int weightage) {
+        this.weightage = BigDecimal.valueOf(weightage);
+    }
+
+    public GradeSystem getGradeSystem() {
+        return gradeSystem;
+    }
+
+    public void setGradeSystem(GradeSystem gradeSystem) {
+        this.gradeSystem = gradeSystem;
     }
 
     public Long getId() {

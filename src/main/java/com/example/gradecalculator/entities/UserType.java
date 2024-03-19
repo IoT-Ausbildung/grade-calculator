@@ -3,23 +3,35 @@ package com.example.gradecalculator.entities;
 import jakarta.persistence.*;
 import org.apache.catalina.User;
 
+import java.util.List;
+
 @Entity
 @Table(name = "user_type")
 public class UserType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(unique = true)
     private String name;
 
-    public UserType(){
+    private String description;
+
+    public UserType() {
     }
-    public UserType(Long id, String name) {
-        this.id = id;
+
+    public UserType(String name, String description) {
         this.name = name;
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Long getId() {
