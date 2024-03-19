@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class GradeCalculatorApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GradeCalculatorApplication.class, args);
-		ApplicationContext context = new ClassPathXmlApplicationContext("bean.xml");
 	}
 
 }
