@@ -15,7 +15,7 @@ public class Subject {
 
     private String description;
 
-    //private int creditValue;
+    private int creditValue;
 
     @ManyToOne
     @JoinColumn(name = "school_year")
@@ -51,4 +51,12 @@ public class Subject {
     public String getName(){return name;}
 
     public void setName(String name){this.name = name;}
+
+    public int getCreditValue() {
+        return creditValue;
+    }
+
+    public void setCreditValue(int creditValue) {
+        this.creditValue = creditValue;
+    }
 }
