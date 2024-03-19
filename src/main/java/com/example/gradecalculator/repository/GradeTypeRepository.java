@@ -8,6 +8,5 @@ import com.example.gradecalculator.entities.GradeType;
 import org.springframework.data.repository.CrudRepository;
 public interface GradeTypeRepository extends CrudRepository<GradeType, Long> {
 
-
     List<GradeType> findByGradeSystem(GradeSystem gradeSystem);
 }

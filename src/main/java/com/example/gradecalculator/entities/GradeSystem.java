@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
+
 @Entity
 @Table( name = "grade_system")
 public class GradeSystem {
