@@ -14,9 +14,9 @@ public class SignupValidation {
 
     }
 
-    public static boolean valEmail(String email){
+    public static boolean valEmail(String email) {
         String emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
-        Pattern emailPat = Pattern.compile(emailRegex,Pattern.CASE_INSENSITIVE);
+        Pattern emailPat = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = emailPat.matcher(email);
         return matcher.find();
     }

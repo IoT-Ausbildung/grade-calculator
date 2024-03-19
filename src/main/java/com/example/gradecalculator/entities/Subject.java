@@ -3,7 +3,7 @@ package com.example.gradecalculator.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table( name = "subject")
+@Table(name = "subject")
 public class Subject {
 
     @Id
@@ -21,8 +21,9 @@ public class Subject {
     @JoinColumn(name = "school_year")
     private SchoolYear schoolYear;
 
-    public Subject(){
+    public Subject() {
     }
+
     public Subject(String name, String description) {
         this.name = name;
         this.description = description;
@@ -44,13 +45,21 @@ public class Subject {
         this.schoolYear = schoolYear;
     }
 
-    public Long getId(){return id;}
+    public Long getId() {
+        return id;
+    }
 
-    public void setId(Long id){this.id = id;}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getName(){return name;}
+    public String getName() {
+        return name;
+    }
 
-    public void setName(String name){this.name = name;}
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public int getCreditValue() {
         return creditValue;

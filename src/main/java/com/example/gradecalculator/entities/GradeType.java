@@ -6,13 +6,13 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 @Entity
-@Table( name = "grade_type")
+@Table(name = "grade_type")
 public class GradeType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column( unique = true)
+    @Column(unique = true)
     private String name;
 
     private String description;
@@ -23,7 +23,7 @@ public class GradeType {
     @JoinColumn(name = "grade_system")
     private GradeSystem gradeSystem;
 
-    public GradeType(){
+    public GradeType() {
     }
 
     public String getWeightagePercentage() {
@@ -62,11 +62,19 @@ public class GradeType {
         this.gradeSystem = gradeSystem;
     }
 
-    public Long getId(){return id;}
+    public Long getId() {
+        return id;
+    }
 
-    public void setId(Long id){this.id = id;}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getName(){return name;}
+    public String getName() {
+        return name;
+    }
 
-    public void setName(String name){this.name = name;}
+    public void setName(String name) {
+        this.name = name;
+    }
 }

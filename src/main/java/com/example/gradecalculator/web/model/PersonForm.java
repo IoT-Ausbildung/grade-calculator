@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 public class PersonForm {
 
     @NotNull
-    @Size(min=2,max=30)
+    @Size(min = 2, max = 30)
     private String name;
 
     @NotNull
@@ -33,5 +33,4 @@ public class PersonForm {
     public String toString() {
         return "Person(Name: " + this.name + ", Age: " + this.age + ")";
     }
-
 }

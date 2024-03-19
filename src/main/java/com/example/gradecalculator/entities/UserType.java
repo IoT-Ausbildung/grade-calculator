@@ -6,19 +6,21 @@ import org.apache.catalina.User;
 import java.util.List;
 
 @Entity
-@Table( name = "user_type")
+@Table(name = "user_type")
 public class UserType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column( unique = true)
+    @Column(unique = true)
     private String name;
 
     private String description;
-    public UserType(){
+
+    public UserType() {
     }
+
     public UserType(String name, String description) {
         this.name = name;
         this.description = description;
@@ -32,11 +34,19 @@ public class UserType {
         this.description = description;
     }
 
-    public Long getId(){return id;}
+    public Long getId() {
+        return id;
+    }
 
-    public void setId(Long id){this.id = id;}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getName(){return name;}
+    public String getName() {
+        return name;
+    }
 
-    public void setName(String name){this.name = name;}
+    public void setName(String name) {
+        this.name = name;
+    }
 }
