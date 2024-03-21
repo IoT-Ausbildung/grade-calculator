@@ -1,6 +1,6 @@
 package com.example.gradecalculator.web.controller;
-import com.example.gradecalculator.entities.AllUsers;
-import com.example.gradecalculator.repository.AllUsersRepository;
+import com.example.gradecalculator.entities.User;
+import com.example.gradecalculator.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @SpringBootApplication
 public class FormController {
 
-    private final AllUsersRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public FormController(AllUsersRepository userRepository) {
+    public FormController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @PostMapping("/submit")
     @ResponseBody
     public String handleSubmit(@RequestParam String name, @RequestParam String email, @RequestParam String message) {
-        AllUsers user = new AllUsers(name, email, message);
+        User user = new User(name, email, message);
         userRepository.save(user);
         System.out.println("Name: " + name);
         System.out.println("E-Mail: " + email);

@@ -7,7 +7,7 @@ import java.text.DecimalFormat;
 
 @Entity
 @Table(name = "grade_type")
-public class GradeType {
+public  class GradeType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,11 @@ public class GradeType {
     @JoinColumn(name = "grade_system")
     private GradeSystem gradeSystem;
 
+    public GradeType(long l, String description, GradeSystem gradeSystem) {
+    }
+
     public GradeType() {
+
     }
 
     public String getWeightagePercentage() {

@@ -1,9 +1,5 @@
 package com.example.gradecalculator.repository;
 
-import org.springframework.data.repository.CrudRepository;
-
-import java.util.List;
-
 import com.example.gradecalculator.entities.GradeSystem;
 import org.springframework.data.repository.CrudRepository;
 

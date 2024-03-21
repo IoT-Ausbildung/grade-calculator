@@ -1,12 +1,9 @@
 package com.example.gradecalculator.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
-public class AllUsers {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,13 +11,20 @@ public class AllUsers {
     private String email;
     private String message;
 
-    public AllUsers() {
+    @ManyToOne
+    @JoinColumn(name = "user_type_id")
+    private UserType userType;
+
+    public User() {
     }
 
-    public AllUsers(String name, String email, String message) {
+    public User(String name, String email, String message) {
         this.name = name;
         this.email = email;
         this.message = message;
+    }
+
+    public User(String doe, String john) {
     }
 
     public Long getId() {

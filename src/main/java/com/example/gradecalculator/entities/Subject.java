@@ -29,6 +29,9 @@ public class Subject {
         this.description = description;
     }
 
+    public Subject(String math) {
+    }
+
     public String getDescription() {
         return description;
     }
