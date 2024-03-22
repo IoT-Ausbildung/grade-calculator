@@ -1,22 +1,20 @@
 package com.example.gradecalculator.web.controller;
+
 import com.example.gradecalculator.entities.User;
 import com.example.gradecalculator.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@SpringBootApplication
-public class FormController {
+public class UserController {
 
     private final UserRepository userRepository;
 
     @Autowired
-    public FormController(UserRepository userRepository) {
+    public UserController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -29,9 +27,5 @@ public class FormController {
         System.out.println("E-Mail: " + email);
         System.out.println("Nachricht: " + message);
         return "Daten wurden im Terminal angezeigt.";
-    }
-
-    public static void main(String[] args) {
-        SpringApplication.run(FormController.class, args);
     }
 }

@@ -29,7 +29,7 @@ public class Subject {
         this.description = description;
     }
 
-    public Subject(String math) {
+    public Subject(String subject) {
     }
 
     public String getDescription() {

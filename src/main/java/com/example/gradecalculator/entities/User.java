@@ -24,7 +24,7 @@ public class User {
         this.message = message;
     }
 
-    public User(String doe, String john) {
+    public User(String name, String surname) {
     }
 
     public Long getId() {
