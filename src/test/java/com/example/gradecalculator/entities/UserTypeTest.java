@@ -1,77 +1,69 @@
 package com.example.gradecalculator.entities;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.assertEquals;
 
 public class UserTypeTest {
 
     @Test
     public void testGetId() {
-        UserType userType = new UserType("Admin", "Administrator");
+        UserType userType = new UserType();
         userType.setId(1L);
-        assertEquals(1L, userType.getId().longValue());
+        Assertions.assertEquals(1L, userType.getId());
     }
 
     @Test
     public void testGetName() {
-        UserType userType = new UserType("Admin", "Administrator");
-        assertEquals("Admin", userType.getName());
+        UserType userType = new UserType();
+        userType.setName("Admin");
+        Assertions.assertEquals("Admin", userType.getName());
     }
 
     @Test
     public void testSetName() {
-        UserType userType = new UserType("Admin", "Administrator");
-        userType.setName("SuperAdmin");
-        assertEquals("SuperAdmin", userType.getName());
+        UserType userType = new UserType();
+        userType.setName("Admin");
+        userType.setName("Super Admin");
+        Assertions.assertEquals("Super Admin", userType.getName());
     }
 
     @Test
     public void testGetDescription() {
-        UserType userType = new UserType("Admin", "Administrator");
-        assertEquals("Administrator", userType.getDescription());
+        UserType userType = new UserType();
+        userType.setDescription("Administrator user type");
+        Assertions.assertEquals("Administrator user type", userType.getDescription());
     }
 
     @Test
     public void testSetDescription() {
-        UserType userType = new UserType("Admin", "Administrator");
-        userType.setDescription("Super Administrator");
-        assertEquals("Super Administrator", userType.getDescription());
+        UserType userType = new UserType();
+        userType.setDescription("Administrator user type");
+        userType.setDescription("Super user type");
+        Assertions.assertEquals("Super user type", userType.getDescription());
     }
 
     @Test
     public void testGetUsers() {
-        User user1 = new User("Doe", "John");
-        User user2 = new User("Jane", "Smith");
-
         List<User> users = new ArrayList<>();
-        users.add(user1);
-        users.add(user2);
-
-        UserType userType = new UserType("Admin", "Administrator");
+        users.add(new User());
+        users.add(new User());
+        UserType userType = new UserType();
         userType.setUsers(users);
-
-        assertEquals(users, userType.getUsers());
+        Assertions.assertEquals(users, userType.getUsers());
     }
 
     @Test
     public void testSetUsers() {
-        User user1 = new User("John", "Doe");
-        User user2 = new User("Jane", "Smith");
-
         List<User> users1 = new ArrayList<>();
-        users1.add(user1);
-
+        users1.add(new User());
         List<User> users2 = new ArrayList<>();
-        users2.add(user2);
-
-        UserType userType = new UserType("Admin", "Administrator");
+        users2.add(new User());
+        UserType userType = new UserType();
         userType.setUsers(users1);
         userType.setUsers(users2);
-
-        assertEquals(users2, userType.getUsers());
+        Assertions.assertEquals(users2, userType.getUsers());
     }
 }

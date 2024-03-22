@@ -28,10 +28,6 @@ public class Subject {
         this.name = name;
         this.description = description;
     }
-
-    public Subject(String subject) {
-    }
-
     public String getDescription() {
         return description;
     }

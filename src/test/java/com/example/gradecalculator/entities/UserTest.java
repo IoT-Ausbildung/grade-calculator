@@ -8,6 +8,7 @@ public class UserTest {
 
     @Test
     public void testGetId() {
+        String name;
         User user = new User();
         user.setId(1L);
         assertEquals(1L, user.getId().longValue());

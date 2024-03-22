@@ -24,9 +24,6 @@ public class User {
         this.message = message;
     }
 
-    public User(String name, String surname) {
-    }
-
     public Long getId() {
         return id;
     }

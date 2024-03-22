@@ -23,11 +23,7 @@ public  class GradeType {
     @JoinColumn(name = "grade_system")
     private GradeSystem gradeSystem;
 
-    public GradeType(long l, String description, GradeSystem gradeSystem) {
-    }
-
     public GradeType() {
-
     }
 
     public String getWeightagePercentage() {
