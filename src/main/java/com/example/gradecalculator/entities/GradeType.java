@@ -16,7 +16,7 @@ public  class GradeType {
     private String name;
 
     private String description;
-    @Column(precision = 5, scale = 2)
+    @Column(precision = 5)
     private Double weightage;
 
     @ManyToOne
