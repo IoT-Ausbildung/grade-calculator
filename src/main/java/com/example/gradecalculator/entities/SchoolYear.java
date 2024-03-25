@@ -33,6 +33,12 @@ public class SchoolYear {
         this.gradeSystem = gradeSystem;
     }
 
+    public SchoolYear(long id, String name, GradeSystem gradeSystem) {
+        this.id = id;
+        this.name = name;
+        this.gradeSystem = gradeSystem;
+    }
+
     public SchoolYear() {
 
     }

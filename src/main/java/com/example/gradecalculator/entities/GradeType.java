@@ -17,7 +17,7 @@ public  class GradeType {
 
     private String description;
     @Column(precision = 5, scale = 2)
-    private BigDecimal weightage;
+    private Double weightage;
 
     @ManyToOne
     @JoinColumn(name = "grade_system")
@@ -26,13 +26,18 @@ public  class GradeType {
     public GradeType() {
     }
 
-    public String getWeightagePercentage() {
-        DecimalFormat df = new DecimalFormat("#.##");
-        BigDecimal weightagePercentage = weightage.multiply(BigDecimal.valueOf(100));
-        return df.format(weightagePercentage) + "%";
+    public GradeType(long id, String description, GradeSystem gradeSystem) {
+        this.id = id;
+        this.description = description;
+        this.gradeSystem = gradeSystem;
     }
 
-    public GradeType(String name, String description, BigDecimal weightage) {
+    public String getWeightagePercentage() {
+        DecimalFormat df = new DecimalFormat("#.##");
+        return df.format(weightage * 100) + "%";
+    }
+
+    public GradeType(String name, String description, Double weightage) {
         this.name = name;
         this.description = description;
         this.weightage = weightage;
@@ -46,12 +51,12 @@ public  class GradeType {
         this.description = description;
     }
 
-    public BigDecimal getWeightage() {
+    public Double getWeightage() {
         return weightage;
     }
 
-    public void setWeightage(int weightage) {
-        this.weightage = BigDecimal.valueOf(weightage);
+    public void setWeightage(Double weightage) {
+        this.weightage = weightage;
     }
 
     public GradeSystem getGradeSystem() {

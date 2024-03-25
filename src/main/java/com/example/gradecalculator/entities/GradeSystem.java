@@ -52,6 +52,23 @@ public class GradeSystem {
         return description;
     }
 
-    public void setDescription(String s) {
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<GradeType> getGradeTypes() {
+        return gradeTypes;
+    }
+
+    public void setGradeTypes(List<GradeType> gradeTypes) {
+        this.gradeTypes = gradeTypes;
+    }
+
+    public List<SchoolYear> getSchoolYears() {
+        return schoolYears;
+    }
+
+    public void setSchoolYears(List<SchoolYear> schoolYears) {
+        this.schoolYears = schoolYears;
     }
 }
