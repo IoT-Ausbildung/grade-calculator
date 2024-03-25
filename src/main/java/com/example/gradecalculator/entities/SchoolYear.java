@@ -26,14 +26,21 @@ public class SchoolYear {
     @OneToMany(mappedBy = "schoolYear")
     private List<Subject> subjects;
 
-    public SchoolYear() {
-    }
-
     public SchoolYear(String name, LocalDate startDate, LocalDate endDate, GradeSystem gradeSystem) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.gradeSystem = gradeSystem;
+    }
+
+    public SchoolYear(long id, String name, GradeSystem gradeSystem) {
+        this.id = id;
+        this.name = name;
+        this.gradeSystem = gradeSystem;
+    }
+
+    public SchoolYear() {
+
     }
 
     public Long getId() {

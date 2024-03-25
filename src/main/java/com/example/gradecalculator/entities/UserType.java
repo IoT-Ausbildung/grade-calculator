@@ -1,7 +1,6 @@
 package com.example.gradecalculator.entities;
 
 import jakarta.persistence.*;
-import org.apache.catalina.User;
 
 import java.util.List;
 
@@ -17,6 +16,9 @@ public class UserType {
     private String name;
 
     private String description;
+
+    @OneToMany(mappedBy = "userType")
+    private List<User> users;
 
     public UserType() {
     }
@@ -48,5 +50,13 @@ public class UserType {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }

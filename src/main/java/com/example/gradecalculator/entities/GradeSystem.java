@@ -23,12 +23,13 @@ public class GradeSystem {
     @OneToMany(mappedBy = "gradeSystem")
     private List<SchoolYear> schoolYears;
 
-    public GradeSystem() {
-    }
-
     public GradeSystem(Long id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public GradeSystem() {
+
     }
 
     public Long getId() {
