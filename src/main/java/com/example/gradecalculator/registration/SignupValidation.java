@@ -6,12 +6,6 @@ import java.util.regex.Pattern;
 public class SignupValidation {
 
     public static void main(String[] agrs) {
-
-        String email = "louis.huefner@maibornwolff.de";
-        System.out.println(valEmail(email));
-        String password = "Louis1325!";
-        System.out.println(valPassword(password));
-
     }
 
     public static boolean valEmail(String email) {
@@ -22,7 +16,7 @@ public class SignupValidation {
     }
 
     public static boolean valPassword(String password) {
-        if (password.length() < 8) {
+        if (password == null || password.length() < 8) {
             return false;
         }
         if (!password.matches(".*[A-Z].*")) {
