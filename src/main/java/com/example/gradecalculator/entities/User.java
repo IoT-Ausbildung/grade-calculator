@@ -13,7 +13,7 @@ public class User {
     private String lastName;
     private String userName;
     private String email;
-    private String password;
+    private String encodedPassword;
 
     @ManyToOne
     @JoinColumn(name = "user_type_id")
@@ -22,13 +22,17 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, String userName, String email, String password) {
+    public User(String firstName, String lastName, String userName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
         this.email = email;
-        this.password = password;
     }
+
+    public User(String encodedPassword) {
+        this.encodedPassword = encodedPassword;
+    }
+
     public Long getId() {
         return id;
     }
@@ -69,12 +73,12 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getEncodedPassword() {
+        return encodedPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setEncodedPassword(String password) {
+        this.encodedPassword = encodedPassword;
     }
 
     public UserType getUserType() {
