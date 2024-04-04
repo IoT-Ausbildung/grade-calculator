@@ -15,7 +15,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void createUser(String username, String password) {
+    public void createUser(String password) {
         String encodedPassword = passwordEncoder.encode(password);
         var user = new User(encodedPassword);
         userRepository.save(user);

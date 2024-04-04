@@ -12,11 +12,9 @@ public class UserSignUpTO {
     @NotNull
     private String userName;
     @NotNull
-    //@Email(regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     private String email;
     @NotNull
-    //@Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$")
-    private String password;
+    private String encodedPassword;
     @NotNull
     private Long userType;
 
@@ -45,11 +43,11 @@ public class UserSignUpTO {
     public void setEmail(String email) {
         this.email = email;
     }
-    public String getPassword() {
-        return password;
+    public String getEncodedPassword() {
+        return encodedPassword;
     }
-    public void setPassword(String password) {
-        this.password = password;
+    public void setEncodedPassword(String encodedPassword) {
+        this.encodedPassword = encodedPassword;
     }
     public Long getUserType() {
         return userType;
