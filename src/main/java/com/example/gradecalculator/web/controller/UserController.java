@@ -39,9 +39,10 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerPost(Model model, @Valid UserSignUpTO registration, BindingResult bindingResult) {
+    public String registerPost(Model model, @Valid @ModelAttribute UserSignUpTO registration, BindingResult bindingResult) {
 
-        //ein Problem der Validierung in diesem absatz
+        var userTypes = userTypeRepository.findAll();
+        model.addAttribute("userTypes", userTypes);
 
         var regexForEmail = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
         if(registration.getEmail() == null || !validate(registration.getEmail())){
@@ -55,6 +56,8 @@ public class UserController {
             model.addAttribute("registration", registration);
             return "register";
         }
+
+        //Fragen ob ich die funktion für Password Hashing hier aufrufen soll (wo ist die Funktion für Passwort Hashing geschriben?)
 
         var user = userMapper.TOToEntity(registration);
         userRepository.save(user);

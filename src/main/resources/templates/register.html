@@ -7,7 +7,7 @@
     <body>
         <h2>SignUp</h2><br>
         <p>alle felder mit einem '*' sind verpflichtent</p>
-        <form th:action="@{/register}" th:object="${registration}" method="post">
+        <form action="#" th:action="@{/register}" th:object="${registration}" method="post">
 
             <label for="firstName">Vorname:</label>
             <input type="text" id="firstName" name="firstName" th:field="*{firstName}"><br><br>

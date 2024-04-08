@@ -1,10 +1,6 @@
 package com.example.gradecalculator.web.model;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-
 
 public class UserSignUpTO {
     private String firstName;
@@ -14,7 +10,7 @@ public class UserSignUpTO {
     @NotNull
     private String email;
     @NotNull
-    private String encodedPassword;
+    private String password;
     @NotNull
     private Long userType;
 
@@ -43,11 +39,11 @@ public class UserSignUpTO {
     public void setEmail(String email) {
         this.email = email;
     }
-    public String getEncodedPassword() {
-        return encodedPassword;
+    public String getPassword() {
+        return password;
     }
-    public void setEncodedPassword(String encodedPassword) {
-        this.encodedPassword = encodedPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
     public Long getUserType() {
         return userType;

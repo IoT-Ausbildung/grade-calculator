@@ -4,6 +4,7 @@ import com.example.gradecalculator.entities.User;
 import com.example.gradecalculator.entities.UserType;
 import com.example.gradecalculator.web.model.UserSignUpTO;
 import org.mapstruct.Mapper;
+
 @Mapper
 public abstract class UserRegistrationMapper {
     public abstract UserSignUpTO entityToTO(User user);
