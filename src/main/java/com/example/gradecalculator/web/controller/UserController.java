@@ -1,7 +1,6 @@
 package com.example.gradecalculator.web.controller;
 
 import com.example.gradecalculator.mapper.UserRegistrationMapper;
-import com.example.gradecalculator.registration.SignupValidation;
 import com.example.gradecalculator.repository.UserRepository;
 import com.example.gradecalculator.repository.UserTypeRepository;
 import com.example.gradecalculator.web.model.UserSignUpTO;
@@ -13,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -61,7 +59,7 @@ public class UserController {
 
         var user = userMapper.TOToEntity(registration);
         userRepository.save(user);
-        return "HomePage";
+        return "homepage";
     }
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
