@@ -1,6 +1,7 @@
 package com.example.gradecalculator.web.controller;
 
 import com.example.gradecalculator.mapper.UserRegistrationMapper;
+import com.example.gradecalculator.mapper.UserService;
 import com.example.gradecalculator.repository.UserRepository;
 import com.example.gradecalculator.repository.UserTypeRepository;
 import com.example.gradecalculator.web.model.UserSignUpTO;
@@ -33,7 +34,6 @@ public class UserController {
         var userTypes = userTypeRepository.findAll();
         model.addAttribute("userTypes", userTypes);
         var form = new UserSignUpTO();
-        form.setFirstName("Louis");
         model.addAttribute("registration", form);
         return "register";
     }
@@ -59,8 +59,7 @@ public class UserController {
 
         //Fragen ob ich die funktion für Password Hashing hier aufrufen soll (wo ist die Funktion für Passwort Hashing geschriben?)
 
-        var user = userMapper.TOToEntity(registration);
-        userRepository.save(user);
+        var user = userService.createUser(registration);
         return "HomePage";
     }
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
@@ -69,4 +68,7 @@ public class UserController {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
         return matcher.matches();
     }
+
+    @Autowired
+    private UserService userService;
 }

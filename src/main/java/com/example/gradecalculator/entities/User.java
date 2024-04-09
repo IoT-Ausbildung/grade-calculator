@@ -77,7 +77,7 @@ public class User {
         return encodedPassword;
     }
 
-    public void setEncodedPassword(String password) {
+    public void setEncodedPassword(String encodedPassword) {
         this.encodedPassword = encodedPassword;
     }
 

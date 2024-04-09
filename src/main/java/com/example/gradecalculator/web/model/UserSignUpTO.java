@@ -1,5 +1,6 @@
 package com.example.gradecalculator.web.model;
 
+import com.example.gradecalculator.entities.UserType;
 import jakarta.validation.constraints.NotNull;
 
 public class UserSignUpTO {

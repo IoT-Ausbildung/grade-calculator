@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import com.example.gradecalculator.entities.UserType;
 
 public interface UserTypeRepository extends CrudRepository<UserType, Long> {
-    UserType findByName(String name);
+    UserTypeRepository findById(long id);
 }
