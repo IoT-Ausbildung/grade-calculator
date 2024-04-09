@@ -1,0 +1,38 @@
+body {
+    background-color: whitesmoke;
+    font-family: "Poppins", sans-serif;
+
+}
+
+.col-lg-3 {
+
+    font-family: "Poppins", sans-serif;
+    margin-top: 15px;
+    box-sizing: border-box;
+    border: 5px white;
+
+}
+
+.site-header {
+    background-color: #1e194b;
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+}
+
+.site-header a {
+    font-family: "Poppins", sans-serif;
+    color: white;
+    transition: ease-in-out color .15s;
+    font-size: 20px;
+}
+
+.site-header a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.poppins-semibold {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
