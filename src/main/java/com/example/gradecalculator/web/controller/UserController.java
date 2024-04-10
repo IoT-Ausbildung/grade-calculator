@@ -1,5 +1,6 @@
 package com.example.gradecalculator.web.controller;
 
+import com.example.gradecalculator.mapper.UserMapper;
 import com.example.gradecalculator.mapper.UserRegistrationMapper;
 import com.example.gradecalculator.mapper.UserService;
 import com.example.gradecalculator.repository.UserRepository;
@@ -24,8 +25,10 @@ public class UserController {
 
     private final UserRepository userRepository;
     private final UserTypeRepository userTypeRepository;
-    private UserRegistrationMapper userMapper = Mappers.getMapper(UserRegistrationMapper.class);
+    private UserMapper userMapper = Mappers.getMapper(UserMapper.class);
 
+    @Autowired
+    private UserService userService;
     @Autowired
     public UserController(UserRepository userRepository, UserTypeRepository userTypeRepository) {
         this.userRepository = userRepository;
@@ -39,6 +42,13 @@ public class UserController {
         var form = new UserSignUpTO();
         model.addAttribute("registration", form);
         return "register";
+    }
+    @GetMapping("/user")
+    public String userGet(Model model){
+        var userTest = userRepository.findAll();
+        var users = userMapper.dataToTO(userTest);
+        model.addAttribute("users", users);
+        return "user";
     }
 
     @PostMapping("/register")
@@ -84,6 +94,4 @@ public class UserController {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
         return matcher.matches();
     }
-    @Autowired
-    private UserService userService;
 }

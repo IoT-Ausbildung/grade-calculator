@@ -24,8 +24,10 @@ public class UserService {
 
     public User createUser(UserSignUpTO registration) {
         String encodedPassword = passwordEncoder.encode(registration.getPassword());
+        // TODO: use mapper!
         User user = new User(registration.getFirstName(), registration.getLastName(), registration.getUserName(), registration.getEmail());
         user.setEncodedPassword(encodedPassword);
+        //User user = registration.UserRegistrationMapper;
 
         UserType userType = userTypeRepository.findById(registration.getUserType())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user type ID: " + registration.getUserType()));
