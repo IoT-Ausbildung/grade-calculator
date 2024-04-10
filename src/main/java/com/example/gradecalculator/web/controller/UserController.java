@@ -13,6 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,36 +42,48 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerPost(Model model, @Valid @ModelAttribute UserSignUpTO registration, BindingResult bindingResult) {
+    private String registerPost(Model model, @Valid @ModelAttribute UserSignUpTO registration, BindingResult bindingResult) {
+
+        var errors = validateUserSignUpTO(registration, bindingResult);
+
+        if(errors.isEmpty()){
+            var user = userService.createUser(registration);
+            return "HomePage";
+        }
 
         var userTypes = userTypeRepository.findAll();
         model.addAttribute("userTypes", userTypes);
+        model.addAttribute("registration", registration);
+        model.addAttribute("itemErrors", errors);
+        return "register";
+    }
 
-        var regexForEmail = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+    private ArrayList<String> validateUserSignUpTO(UserSignUpTO registration, BindingResult bindingResult) {
+        var errors = new ArrayList<String>();
+
+        if(userRepository.existsByEmail(registration.getEmail())) {
+            errors.add("Email wird schon verwendet.");
+        }
+
+        if(userRepository.existsByUserName(registration.getUserName())){
+            errors.add("Benutzername wird schon verwendet.");
+        }
+
         if(registration.getEmail() == null || !validate(registration.getEmail())){
-            model.addAttribute("registration", registration);
-            return "register";
+            errors.add("Email ist nicht valide.");
         }
 
         if(bindingResult.hasErrors()){
-            var errors = bindingResult.getAllErrors().stream().map(ObjectError::toString);
-            model.addAttribute("itemErrors", errors);
-            model.addAttribute("registration", registration);
-            return "register";
+           errors.addAll(bindingResult.getAllErrors().stream().map(ObjectError::toString).toList());
         }
-
-        //Fragen ob ich die funktion für Password Hashing hier aufrufen soll (wo ist die Funktion für Passwort Hashing geschriben?)
-
-        var user = userService.createUser(registration);
-        return "HomePage";
+        return errors;
     }
-    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
-            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
     public static boolean validate(String emailStr) {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
         return matcher.matches();
     }
-
     @Autowired
     private UserService userService;
 }
