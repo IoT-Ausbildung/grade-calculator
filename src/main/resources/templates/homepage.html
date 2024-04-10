@@ -21,15 +21,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#nav-placeholder").load("navbar.html")
+        })
+    </script>
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-<script src="//code.jquery.com/jquery.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $.get("navbar.html", function(data){
-            $("body").prepend(data);
-        });
-    });
-</script>
+   <div id="nav-placeholder"></div>
 </body>
 </html>
