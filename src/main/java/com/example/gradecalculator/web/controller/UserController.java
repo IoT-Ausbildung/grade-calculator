@@ -1,8 +1,7 @@
 package com.example.gradecalculator.web.controller;
 
 import com.example.gradecalculator.mapper.UserMapper;
-import com.example.gradecalculator.mapper.UserRegistrationMapper;
-import com.example.gradecalculator.mapper.UserService;
+import com.example.gradecalculator.service.UserService;
 import com.example.gradecalculator.repository.UserRepository;
 import com.example.gradecalculator.repository.UserTypeRepository;
 import com.example.gradecalculator.web.model.UserSignUpTO;
@@ -16,7 +15,6 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

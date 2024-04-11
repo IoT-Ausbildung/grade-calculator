@@ -1,4 +1,4 @@
-package com.example.gradecalculator.web.model;
+package com.example.gradecalculator.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

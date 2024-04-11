@@ -48,7 +48,7 @@
             <p>User Typ:</p>
             <div th:each="item : ${userTypes}">
                 <span th:text="${item.getName()}"></span>
-                <input type="radio" id="usertype" name="usertype" th:field="*{userType}" th:value="${item.getId()}">
+                <input type="radio" id="usertype" name="usertype" th:field="*{userType}" th:value="${item.getId()}" required="">
                 <label for="usertype"></label>
             </div>
             <ul th:each="error:${itemErrors}">
