@@ -28,7 +28,6 @@ public class UserService {
     public User createUser(UserSignUpTO registration) {
         String encodedPassword = passwordEncoder.encode(registration.getPassword());
 
-        // DAvid Fragen woran ich merke das mein UserRegistrationMapper jetzt verwendet wird um zu mappen
         User user = userRegistrationMapper.TOToEntity(registration);
         user.setEncodedPassword(encodedPassword);
 
