@@ -14,20 +14,22 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserTypeRepository userTypeRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserRegistrationMapper userRegistrationMapper;
 
     @Autowired
-    public UserService(UserRepository userRepository, UserTypeRepository userTypeRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, UserTypeRepository userTypeRepository, PasswordEncoder passwordEncoder, UserRegistrationMapper userRegistrationMapper) {
         this.userRepository = userRepository;
         this.userTypeRepository = userTypeRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userRegistrationMapper = userRegistrationMapper;
     }
 
     public User createUser(UserSignUpTO registration) {
         String encodedPassword = passwordEncoder.encode(registration.getPassword());
-        // TODO: use mapper!
-        User user = new User(registration.getFirstName(), registration.getLastName(), registration.getUserName(), registration.getEmail());
+
+        // DAvid Fragen woran ich merke das mein UserRegistrationMapper jetzt verwendet wird um zu mappen
+        User user = userRegistrationMapper.TOToEntity(registration);
         user.setEncodedPassword(encodedPassword);
-        //User user = registration.UserRegistrationMapper;
 
         UserType userType = userTypeRepository.findById(registration.getUserType())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user type ID: " + registration.getUserType()));
