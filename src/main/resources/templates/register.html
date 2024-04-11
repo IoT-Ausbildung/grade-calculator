@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>SignUp</title>
+    </head>
+    <body>
+        <h2>SignUp</h2><br>
+        <form action="#" th:action="@{/register}" th:object="${registration}" method="post">
+
+            <label for="firstName">Vorname:</label>
+            <input type="text" id="firstName" name="firstName" th:field="*{firstName}"><br><br>
+
+            <label for="lastName">Nachname:</label>
+            <input type="text" id="lastName" name="lastName" th:field="*{lastName}"><br><br>
+
+            <label for="userName">Nutzername:</label>
+            <input type="text" id="userName" name="userName" th:field="*{userName}" required=""
+                   placeholder="cannot be empty"><br><br>
+
+            <div>
+                <label for="email">Email Adress:</label>
+                <input type="email" id="email" name="email" th:field="*{email}" required=""
+                       placeholder="cannot be empty"><br><br>
+            </div>
+
+
+            <div class="password_match" data-msg="Password doesn't match.">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" th:field="*{password}"
+                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                       required="" title="8 Characts: 1 Upper, 1 Lower, 1 Digit, 1 Special Characts. Must Contain!!!"
+                       placeholder="cannot be empty">
+                <label>
+                    <input type="checkbox" onclick="togglePasswordVisibility('password')">
+                </label>Show Password<br><br>
+
+                <label for="passwordConfirm">Password wiederholen:</label>
+                <input type="password" id="passwordConfirm" name="passwordConfirm"
+                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                       required="" title="Must match password"
+                       placeholder="cannot be empty">
+                <label>
+                    <input type="checkbox" onclick="togglePasswordVisibility('passwordConfirm')">
+                </label>Show Password
+            </div>
+
+            <p>User Typ:</p>
+            <div th:each="item : ${userTypes}">
+                <span th:text="${item.getName()}"></span>
+                <input type="radio" id="usertype" name="usertype" th:field="*{userType}" th:value="${item.getId()}" required="">
+                <label for="usertype"></label>
+            </div>
+            <ul th:each="error:${itemErrors}">
+                <li style="color: #0000ff;" th:text="${error}"></li>
+            </ul>
+            <input type="submit" value="Submit"><br>
+        </form>
+        <script th:inline="javascript">
+            function validatePassword(){
+                var passwordIn = document.getElementById("password");
+                var passwordCf = document.getElementById("passwordConfirm");
+                if(passwordIn.value != passwordCf.value) {
+                    passwordCf.setCustomValidity("Passwords Don't Match");
+                } else {
+                    passwordCf.setCustomValidity('');
+                }
+            }
+            document.getElementById("password").onchange = validatePassword;
+            document.getElementById("passwordConfirm").onkeyup = validatePassword;
+            function togglePasswordVisibility(id) {
+                var passwordField = document.getElementById(id);
+                if (passwordField.type === "password") {
+                    passwordField.type = "text";
+                } else {
+                    passwordField.type = "password";
+                }
+            }
+        </script>
+    </body>
+</html>
