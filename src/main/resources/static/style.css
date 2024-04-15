@@ -41,10 +41,23 @@ h1 {
     margin-top: 20px;
 }
 .email {
-    margin-top: 100px;
+
 }
 
+.reset{
+    text-align: center;
+    margin-top: 20px;
+}
 .appName {
-    margin-top: 100px;
-    margin-left: 70px;
+    border-color: #1e194b;
+    border: 10px;
+    text-align: center;
+    font-size: 50px;
+}
+.headlineForLogin {
+    margin-top: 40px;
+    text-align: center;
+}
+.login {
+    --bs-btn-hover-bg: 0.3s;
 }
