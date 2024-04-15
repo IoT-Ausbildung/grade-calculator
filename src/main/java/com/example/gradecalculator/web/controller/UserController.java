@@ -1,5 +1,7 @@
 package com.example.gradecalculator.web.controller;
 
+import com.example.gradecalculator.service.EmailService;
+import com.example.gradecalculator.Verification.VerificationCodeGenerator;
 import com.example.gradecalculator.mapper.UserMapper;
 import com.example.gradecalculator.service.UserService;
 import com.example.gradecalculator.repository.UserRepository;
@@ -56,6 +58,10 @@ public class UserController {
 
         if(errors.isEmpty()){
             var user = userService.createUser(registration);
+            EmailService emailService = new EmailService();
+            VerificationCodeGenerator codeGenerator = new VerificationCodeGenerator();
+            String code = codeGenerator.generateCode();
+            emailService.sendVerificationEmail(user.getEmail(), code);
             return "HomePage";
         }
 
