@@ -1,9 +1,11 @@
 package com.example.gradecalculator.web.controller;
 
+import com.example.gradecalculator.entities.User;
 import com.example.gradecalculator.mapper.UserMapper;
 import com.example.gradecalculator.service.UserService;
 import com.example.gradecalculator.repository.UserRepository;
 import com.example.gradecalculator.repository.UserTypeRepository;
+import com.example.gradecalculator.web.model.LoginDTO;
 import com.example.gradecalculator.web.model.UserSignUpTO;
 import jakarta.validation.Valid;
 import org.mapstruct.factory.Mappers;
@@ -65,6 +67,15 @@ public class UserController {
         model.addAttribute("itemErrors", errors);
         return "register";
     }
+    @PostMapping("/login")
+    public String login(@RequestParam String email, @RequestParam String password, Model model) {
+        if (userService.isValidUser(email, password)) {
+            return "redirect:/homepage";
+        } else {
+            model.addAttribute("error", "Invalid email or password");
+            return "login";
+        }
+    }
 
     private ArrayList<String> validateUserSignUpTO(UserSignUpTO registration, BindingResult bindingResult) {
         var errors = new ArrayList<String>();
@@ -92,4 +103,6 @@ public class UserController {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
         return matcher.matches();
     }
+
+
 }

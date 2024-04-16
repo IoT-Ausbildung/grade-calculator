@@ -4,6 +4,7 @@ import com.example.gradecalculator.entities.UserType;
 import com.example.gradecalculator.mapper.UserRegistrationMapper;
 import com.example.gradecalculator.repository.UserRepository;
 import com.example.gradecalculator.repository.UserTypeRepository;
+import com.example.gradecalculator.web.model.LoginDTO;
 import com.example.gradecalculator.web.model.UserSignUpTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,7 +12,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-
+    public String loginUser(LoginDTO loginDTO) {
+        return null;
+    }
+    public boolean isValidUser(String email, String password) {
+        return true;
+    }
     private final UserRepository userRepository;
     private final UserTypeRepository userTypeRepository;
     private final PasswordEncoder passwordEncoder;
@@ -38,4 +44,6 @@ public class UserService {
         userRepository.save(user);
         return user;
     }
+
+
 }
