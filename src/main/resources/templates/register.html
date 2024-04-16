@@ -1,81 +1,118 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
     <title>SignUp</title>
 </head>
 <body>
-<h2>SignUp</h2><br>
-<form action="#" th:action="@{/register}" th:object="${registration}" method="post">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
 
-    <label for="firstName">Vorname:</label>
-    <input type="text" id="firstName" name="firstName" th:field="*{firstName}"><br><br>
+    <form action="#" th:action="@{/register}" th:object="${registration}" method="post"
+          class="container d-flex flex-column flex-md-col justify-content-between col-sm-12 col-md-6 col-lg-4">
 
-    <label for="lastName">Nachname:</label>
-    <input type="text" id="lastName" name="lastName" th:field="*{lastName}"><br><br>
+        <div class="appName">
 
-    <label for="userName">Nutzername:</label>
-    <input type="text" id="userName" name="userName" th:field="*{userName}" required=""
-           placeholder="cannot be empty"><br><br>
+                <span style="color: #ff008c">You</span><span style="color: #6ed2f0">rGr</span><span style="color: #3cfa50">ade</span>
 
-    <div>
-        <label for="email">Email Adress:</label>
-        <input type="email" id="email" name="email" th:field="*{email}" required=""
-               placeholder="cannot be empty"><br><br>
-    </div>
+        </div>
 
+        <div class="headlineForLogin container d-flex flex-column flex-md-row justify-content-between">
+            <div class="login col-sm-12 col-md-6"><h4><a href="login.html">Login</a></h4></div>
+            <div class="signup col-sm-12 col-md-6"><h4><a href="/register">Join</a></h4></div>
+        </div>
 
-    <div class="password_match" data-msg="Password doesn't match.">
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" th:field="*{password}"
-               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-               required="" title="8 Characts: 1 Upper, 1 Lower, 1 Digit, 1 Special Characts. Must Contain!!!"
-               placeholder="cannot be empty">
-        <label>
-            <input type="checkbox" onclick="togglePasswordVisibility('password')">
-        </label>Show Password<br><br>
+        <div class="firstName form-group">
+            <input type="text" id="firstName" class="form-control" placeholder="Enter First Name" th:field="*{firstName}">
+        </div>
 
-        <label for="passwordConfirm">Password wiederholen:</label>
-        <input type="password" id="passwordConfirm" name="passwordConfirm"
-               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-               required="" title="Must match password"
-               placeholder="cannot be empty">
-        <label>
-            <input type="checkbox" onclick="togglePasswordVisibility('passwordConfirm')">
-        </label>Show Password
-    </div>
+        <div class="lastName form-group">
+            <input type="text" id="lastName" class="form-control" placeholder="Enter Last Name" th:field="*{lastName}">
+        </div>
+        <div class="userName form-group">
+            <input type="text" id="userName" class="form-control" placeholder="Enter User Name (required)" th:field="*{userName}" required="">
+        </div>
 
-    <p>User Typ:</p>
-    <div th:each="item : ${userTypes}">
-        <span th:text="${item.getName()}"></span>
-        <input type="radio" id="usertype" name="usertype" th:field="*{userType}" th:value="${item.getId()}" required="">
-        <label for="usertype"></label>
-    </div>
-    <ul th:each="error:${itemErrors}">
-        <li style="color: #0000ff;" th:text="${error}"></li>
-    </ul>
-    <input type="submit" value="Submit"><br>
-</form>
-<script th:inline="javascript">
-    function validatePassword(){
-        var passwordIn = document.getElementById("password");
-        var passwordCf = document.getElementById("passwordConfirm");
-        if(passwordIn.value != passwordCf.value) {
-            passwordCf.setCustomValidity("Passwords Don't Match");
-        } else {
-            passwordCf.setCustomValidity('');
+        <div class="email form-group">
+            <input type="email" id="email" class="form-control" placeholder="Enter Email (required)" th:field="*{email}" required="">
+        </div>
+
+        <div class="password_match" data-msg="Password doesn't match.">
+            <div class="password form-group">
+                <input type="password" id="password" class="form-control" placeholder="Enter Password (required)"  th:field="*{password}"
+                       required="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                       title="8 Characts: 1 Upper, 1 Lower, 1 Digit, 1 Special Characts. Must Contain!!!">
+            </div>
+            <div class="passwordConfirm form-group">
+                <input type="password" id="passwordConfirm" class="form-control" placeholder="Enter Password again (required)"
+                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                       required="" title="Must match password">
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" onclick="togglePasswordVisibility()">
+                    <label class="form-check-lable">
+                        Show Password
+                    </label>
+                </label>
+            </div>
+        </div>
+
+        <div class="usertype form-group">
+            <p>UserType:</p>
+            <div th:each="item : ${userTypes}">
+                <input type="radio" id="usertype" name="usertype" th:field="*{userType}" th:value="${item.getId()}" required="">
+                <span th:text="${item.getName()}"></span>
+                <label for="usertype"></label>
+            </div>
+        </div>
+        <ul th:each="error:${itemErrors}">
+            <li style="color: #0000ff;" th:text="${error}"></li>
+        </ul>
+        <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
+    </form>
+    <script th:inline="javascript">
+        function validatePassword(){
+            var passwordIn = document.getElementById("password");
+            var passwordCf = document.getElementById("passwordConfirm");
+            if(passwordIn.value != passwordCf.value) {
+                passwordCf.setCustomValidity("Passwords Don't Match");
+            } else {
+                passwordCf.setCustomValidity('');
+            }
         }
-    }
-    document.getElementById("password").onchange = validatePassword;
-    document.getElementById("passwordConfirm").onkeyup = validatePassword;
-    function togglePasswordVisibility(id) {
-        var passwordField = document.getElementById(id);
-        if (passwordField.type === "password") {
-            passwordField.type = "text";
-        } else {
-            passwordField.type = "password";
+        document.getElementById("password").onchange = validatePassword;
+        document.getElementById("passwordConfirm").onkeyup = validatePassword;
+
+        function togglePasswordVisibility() {
+            var passwordField = document.getElementById("password");
+            var passwordConfirmField = document.getElementById("passwordConfirm");
+
+            toggleInputVisibility(passwordField);
+            toggleInputVisibility(passwordConfirmField);
         }
-    }
-</script>
+
+        function toggleInputVisibility(inputElement) {
+            if (inputElement.type === "password") {
+                inputElement.type = "text";
+            } else {
+                inputElement.type = "password";
+            }
+        }
+    </script>
 </body>
 </html>

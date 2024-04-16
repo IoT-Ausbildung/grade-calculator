@@ -6,7 +6,6 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -20,17 +19,17 @@ public class MyErrorController implements ErrorController {
             Integer statusCode = Integer.valueOf(status.toString());
 
             if(statusCode == HttpStatus.NOT_FOUND.value()) {
-                model.addAttribute("message", "Fehler 404: Seite nicht gefunden");
+                model.addAttribute("message", "Error " + statusCode + ": Page not found");
             }
             else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-                model.addAttribute("message", "Fehler 500: Interner Serverfehler");
+                model.addAttribute("message", "Error " + statusCode + ": Internal server error");
             }
             else {
-                model.addAttribute("message", "Ein Fehler ist aufgetreten");
+                model.addAttribute("message", "Error " + statusCode + ": An error occurred");
             }
         }
         else {
-            model.addAttribute("message", "Ein unerwarteter Fehler ist aufgetreten");
+            model.addAttribute("message", "An unexpected error occurred");
         }
         return "error";
     }
