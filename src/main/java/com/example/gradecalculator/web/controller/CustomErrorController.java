@@ -18,7 +18,6 @@ public class CustomErrorController implements ErrorController {
         String error = "";
 
         if (status != null) {
-            //HttpStatus statusCode = (HttpStatus) status;
             Integer statusCode = Integer.valueOf(status.toString());
             switch (statusCode) {
                 case 404:
