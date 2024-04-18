@@ -5,7 +5,7 @@ function validatePassword(){
     var passwordIn = document.getElementById(passwordId);
     var passwordCf = document.getElementById(passwordCfId);
     if(passwordIn.value != passwordCf.value) {
-        passwordCf.setCustomValidity("Passwords Don't Match");
+        passwordCf.setCustomValidity("Passwords don't match");
     } else {
         passwordCf.setCustomValidity('');
     }
