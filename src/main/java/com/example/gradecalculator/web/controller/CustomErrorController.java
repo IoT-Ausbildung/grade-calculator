@@ -14,28 +14,23 @@ public class CustomErrorController implements ErrorController {
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request, Model model) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-        String errormessage = "An unexpected error occurred";
-        String error = "";
 
         if (status != null) {
-            Integer statusCode = Integer.valueOf(status.toString());
+            Integer statusCode = (Integer) status;
             switch (statusCode) {
                 case 404:
-                    errormessage = ": Page not found";
-                    error = "Error";
+                    model.addAttribute("message", "Error " + statusCode + ": Page not found");
                     break;
                 case 500:
-                    errormessage = ": Internal server error";
-                    error = "Error";
+                    model.addAttribute("message", "Error " + statusCode + ": Internal server error");
                     break;
                 default:
-                    errormessage = ": Unknown error occurred";
+                    model.addAttribute("message", "Error " + statusCode + ": An error occurred");
                     break;
             }
-        }else {
-            status = "";
+        } else {
+            model.addAttribute("message", "An unexpected error occurred");
         }
-        model.addAttribute("message", error +" "+ status + errormessage);
         return "error";
     }
 }
