@@ -1,6 +1,5 @@
 package com.example.gradecalculator.web.controller;
 
-import com.example.gradecalculator.entities.User;
 import com.example.gradecalculator.mapper.UserMapper;
 import com.example.gradecalculator.service.UserService;
 import com.example.gradecalculator.repository.UserRepository;
@@ -10,6 +9,10 @@ import com.example.gradecalculator.web.model.UserSignUpTO;
 import jakarta.validation.Valid;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,15 +28,21 @@ public class UserController {
 
     private final UserRepository userRepository;
     private final UserTypeRepository userTypeRepository;
+    private final AuthenticationManager authenticationManager;
     private UserMapper userMapper = Mappers.getMapper(UserMapper.class);
 
     @Autowired
     private UserService userService;
+
+
     @Autowired
-    public UserController(UserRepository userRepository, UserTypeRepository userTypeRepository) {
+    public UserController(UserRepository userRepository, UserTypeRepository userTypeRepository, AuthenticationManager authenticationManager) {
         this.userRepository = userRepository;
         this.userTypeRepository = userTypeRepository;
+        this.authenticationManager = authenticationManager;
     }
+
+
 
     @GetMapping("/register")
     public String registerGet(Model model){
@@ -67,11 +76,21 @@ public class UserController {
         model.addAttribute("itemErrors", errors);
         return "register";
     }
+    @GetMapping("/login")
+    public String showLoginPage(Model model) {
+        model.addAttribute("error", "");
+        return "login";
+    }
+
     @PostMapping("/login")
-    public String login(@RequestParam String email, @RequestParam String password, Model model) {
-        if (userService.isValidUser(email, password)) {
-            return "redirect:/homepage";
-        } else {
+    public String login(@RequestBody LoginDTO loginDTO, Model model) {
+        Authentication authenticationRequest =
+                new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword());
+        try {
+            Authentication authenticationResponse =
+                    this.authenticationManager.authenticate(authenticationRequest);
+            return "redirect:/index.html";
+        } catch (AuthenticationException e) {
             model.addAttribute("error", "Invalid email or password");
             return "login";
         }
