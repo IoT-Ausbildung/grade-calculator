@@ -70,15 +70,15 @@ public class UserController {
         var errors = new ArrayList<String>();
 
         if(userRepository.existsByEmail(registration.getEmail())) {
-            errors.add("Email wird schon verwendet.");
+            errors.add("Email is already in use.");
         }
 
         if(userRepository.existsByUserName(registration.getUserName())){
-            errors.add("Benutzername wird schon verwendet.");
+            errors.add("Username is already in use.");
         }
 
         if(registration.getEmail() == null || !validate(registration.getEmail())){
-            errors.add("Email ist nicht valide.");
+            errors.add("Email is not Valid.");
         }
 
         if(bindingResult.hasErrors()){
