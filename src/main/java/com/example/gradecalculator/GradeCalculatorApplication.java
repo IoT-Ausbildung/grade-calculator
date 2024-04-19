@@ -17,23 +17,29 @@ public class GradeCalculatorApplication {
 	@Bean
 	public CommandLineRunner demoData(UserTypeRepository repo) {
 		return args -> {
+			if (repo.findByName("Auszubildender") == null) {
+				saveUsertyps("Auszubildender", repo);
+			}
+			if (repo.findByName("Ausbilder") == null) {
+				saveUsertyps("Ausbilder", repo);
+			}
+			if (repo.findByName("Werksstudent") == null) {
+				saveUsertyps("Werksstudent", repo);
+			}
 			if (repo.findByName("Trainee") == null) {
-				UserType auszubildender = new UserType();
-				auszubildender.setName("Trainee");
-				repo.save(auszubildender);
+				saveUsertyps("Trainee", repo);
 			}
-
 			if (repo.findByName("Trainer") == null) {
-				UserType ausbilder = new UserType();
-				ausbilder.setName("Trainer");
-				repo.save(ausbilder);
+				saveUsertyps("Trainer", repo);
 			}
-
 			if (repo.findByName("Student") == null) {
-				UserType werkstudent = new UserType();
-				werkstudent.setName("Student");
-				repo.save(werkstudent);
+				saveUsertyps("Student", repo);
 			}
 		};
+	}
+	public void saveUsertyps(String typs, UserTypeRepository repo) {
+		UserType usertype  = new UserType();
+		usertype.setName(typs);
+		repo.save(usertype);
 	}
 }

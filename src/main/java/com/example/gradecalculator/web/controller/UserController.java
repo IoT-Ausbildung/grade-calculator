@@ -78,7 +78,7 @@ public class UserController {
         }
 
         if(registration.getEmail() == null || !validate(registration.getEmail())){
-            errors.add("Email is not Valid.");
+            errors.add("Email is not valid.");
         }
 
         if(bindingResult.hasErrors()){
