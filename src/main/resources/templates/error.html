@@ -12,13 +12,13 @@
     <title>Error Page</title>
 </head>
 <body>
+    <div id="nav-placeholder"></div><br><br>
     <form class="container d-flex flex-column flex-md-col justify-content-between col-sm-12 col-md-6 col-lg-4">
-        <div id="head-placeholder"></div><br><br>
         <div class="mx-auto" style="height: auto">
             <h3 th:text="${message}"></h3>
         </div>
-        <div class="mx-auto" style="width: 200px;">
-            <h3><a href="login.html">Back to Login</a></h3>
+        <div class="mx-auto" style="width: 280px;">
+            <h3><a href="index.html">Back to Homepage</a></h3>
         </div>
     </form>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -33,7 +33,7 @@
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script>
         $(document).ready(function() {
-            $("#head-placeholder").load("headline.html")
+            $("#nav-placeholder").load("navbar.html")
         })
     </script>
 </body>
