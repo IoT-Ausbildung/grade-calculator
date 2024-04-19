@@ -81,10 +81,8 @@ public class UserController {
     public String loginUser(@RequestParam String email, @RequestParam String password) {
         User user = userRepository.findByEmailAndPassword(email, password);
         if (user != null) {
-            // User found, perform login logic
             return "Login successful";
         } else {
-            // User not found, handle invalid login
             return "Invalid email or password";
         }
     }
