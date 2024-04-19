@@ -22,9 +22,9 @@ function togglePasswordVisibility() {
 }
 
 function toggleInputVisibility(inputElement) {
-    if (inputElement.type === "password") {
+    if (inputElement.type === passwordId) {
         inputElement.type = "text";
     } else {
-        inputElement.type = "password";
+        inputElement.type = passwordId;
     }
 }
