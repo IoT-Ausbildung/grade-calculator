@@ -15,10 +15,9 @@
     <description>grade-calculator</description>
     <properties>
         <java.version>17</java.version>
-        <properties>
-            <spring-security.version>6.2.4</spring-security.version>
-        </properties>
+        <spring-security.version>6.2.4</spring-security.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

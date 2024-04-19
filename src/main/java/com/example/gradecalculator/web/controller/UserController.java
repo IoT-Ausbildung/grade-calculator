@@ -1,5 +1,6 @@
 package com.example.gradecalculator.web.controller;
 
+import com.example.gradecalculator.entities.User;
 import com.example.gradecalculator.mapper.UserMapper;
 import com.example.gradecalculator.service.UserService;
 import com.example.gradecalculator.repository.UserRepository;
@@ -67,7 +68,7 @@ public class UserController {
 
         if(errors.isEmpty()){
             var user = userService.createUser(registration);
-            return "HomePage";
+            return "index";
         }
 
         var userTypes = userTypeRepository.findAll();
@@ -77,19 +78,25 @@ public class UserController {
         return "register";
     }
     @GetMapping("/login")
-    public String showLoginPage(Model model) {
-        model.addAttribute("error", "");
-        return "login";
+    public String loginUser(@RequestParam String email, @RequestParam String password) {
+        User user = userRepository.findByEmailAndPassword(email, password);
+        if (user != null) {
+            // User found, perform login logic
+            return "Login successful";
+        } else {
+            // User not found, handle invalid login
+            return "Invalid email or password";
+        }
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginDTO loginDTO, Model model) {
+    public String login(@ModelAttribute LoginDTO loginDTO, Model model) {
         Authentication authenticationRequest =
                 new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword());
         try {
             Authentication authenticationResponse =
                     this.authenticationManager.authenticate(authenticationRequest);
-            return "redirect:/index.html";
+            return "redirect:index";
         } catch (AuthenticationException e) {
             model.addAttribute("error", "Invalid email or password");
             return "login";
