@@ -1,6 +1,7 @@
 package com.example.gradecalculator.web.controller;
 
 import com.example.gradecalculator.entities.UserType;
+import com.example.gradecalculator.enums.UserNames;
 import com.example.gradecalculator.mapper.UserMapper;
 import com.example.gradecalculator.service.UserService;
 import com.example.gradecalculator.repository.UserRepository;
@@ -38,9 +39,9 @@ public class UserController {
     @GetMapping("/register")
     public String registerGet(Model model){
         List<UserType> userTypes = new ArrayList<>();
-        userTypes.add(userTypeRepository.findByName("Trainee"));
-        userTypes.add(userTypeRepository.findByName("Trainer"));
-        userTypes.add(userTypeRepository.findByName("Student"));
+        userTypes.add(userTypeRepository.findByName(UserNames.TRAINEE));
+        userTypes.add(userTypeRepository.findByName(UserNames.TRAINER));
+        userTypes.add(userTypeRepository.findByName(UserNames.STUDENT));
         model.addAttribute("userTypes", userTypes);
         var form = new UserSignUpTO();
         model.addAttribute("registration", form);

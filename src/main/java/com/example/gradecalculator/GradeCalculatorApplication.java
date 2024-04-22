@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import com.example.gradecalculator.enums.UserNames;
 
 @SpringBootApplication
 public class GradeCalculatorApplication {
@@ -17,25 +18,25 @@ public class GradeCalculatorApplication {
 	@Bean
 	public CommandLineRunner demoData(UserTypeRepository repo) {
 
-		var traineeName = "Trainee";
-		var trainerName = "Trainer";
-		var studentName = "Student";
+		var traineeName = UserNames.TRAINEE;
+		var trainerName = UserNames.TRAINER;
+		var studentName = UserNames.STUDENT;
 
 		return args -> {
-			if (repo.findByName(traineeName) == null) {
-				saveUsertyps(traineeName, repo);
+			if (repo.findByName(UserNames.TRAINEE) == null) {
+				saveUsertypes(UserNames.TRAINEE, repo);
 			}
 			if (repo.findByName(traineeName) == null) {
-				saveUsertyps(trainerName, repo);
+				saveUsertypes(trainerName, repo);
 			}
 			if (repo.findByName(studentName) == null) {
-				saveUsertyps(studentName, repo);
+				saveUsertypes(studentName, repo);
 			}
 		};
 	}
-	public void saveUsertyps(String typs, UserTypeRepository repo) {
+	public void saveUsertypes(UserNames types, UserTypeRepository repo) {
 		UserType usertype  = new UserType();
-		usertype.setName(typs);
+		usertype.setName(types);
 		repo.save(usertype);
 	}
 }

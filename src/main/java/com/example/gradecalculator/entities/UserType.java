@@ -1,5 +1,6 @@
 package com.example.gradecalculator.entities;
 
+import com.example.gradecalculator.enums.UserNames;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class UserType {
     private Long id;
 
     @Column(unique = true)
-    private String name;
+    private UserNames name;
 
     private String description;
 
@@ -36,10 +37,10 @@ public class UserType {
     public void setId(Long id) {
         this.id = id;
     }
-    public String getName() {
+    public UserNames getName() {
         return name;
     }
-    public void setName(String name) {
+    public void setName(UserNames name) {
         this.name = name;
     }
     public List<User> getUsers() {
