@@ -16,15 +16,20 @@ public class GradeCalculatorApplication {
 
 	@Bean
 	public CommandLineRunner demoData(UserTypeRepository repo) {
+
+		var traineeName = "Trainee";
+		var trainerName = "Trainer";
+		var studentName = "Student";
+
 		return args -> {
-			if (repo.findByName("Trainee") == null) {
-				saveUsertyps("Trainee", repo);
+			if (repo.findByName(traineeName) == null) {
+				saveUsertyps(traineeName, repo);
 			}
-			if (repo.findByName("Trainer") == null) {
-				saveUsertyps("Trainer", repo);
+			if (repo.findByName(traineeName) == null) {
+				saveUsertyps(trainerName, repo);
 			}
-			if (repo.findByName("Student") == null) {
-				saveUsertyps("Student", repo);
+			if (repo.findByName(studentName) == null) {
+				saveUsertyps(studentName, repo);
 			}
 		};
 	}
