@@ -17,15 +17,6 @@ public class GradeCalculatorApplication {
 	@Bean
 	public CommandLineRunner demoData(UserTypeRepository repo) {
 		return args -> {
-			if (repo.findByName("Auszubildender") == null) {
-				saveUsertyps("Auszubildender", repo);
-			}
-			if (repo.findByName("Ausbilder") == null) {
-				saveUsertyps("Ausbilder", repo);
-			}
-			if (repo.findByName("Werksstudent") == null) {
-				saveUsertyps("Werksstudent", repo);
-			}
 			if (repo.findByName("Trainee") == null) {
 				saveUsertyps("Trainee", repo);
 			}
