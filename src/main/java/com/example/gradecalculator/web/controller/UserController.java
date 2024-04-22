@@ -1,5 +1,6 @@
 package com.example.gradecalculator.web.controller;
 
+import com.example.gradecalculator.entities.UserType;
 import com.example.gradecalculator.mapper.UserMapper;
 import com.example.gradecalculator.service.UserService;
 import com.example.gradecalculator.repository.UserRepository;
@@ -15,6 +16,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,7 +37,10 @@ public class UserController {
 
     @GetMapping("/register")
     public String registerGet(Model model){
-        var userTypes = userTypeRepository.findAll();
+        List<UserType> userTypes = new ArrayList<>();
+        userTypes.add(userTypeRepository.findByName("Trainee"));
+        userTypes.add(userTypeRepository.findByName("Trainer"));
+        userTypes.add(userTypeRepository.findByName("Student"));
         model.addAttribute("userTypes", userTypes);
         var form = new UserSignUpTO();
         model.addAttribute("registration", form);
