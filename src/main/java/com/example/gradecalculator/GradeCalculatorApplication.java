@@ -18,23 +18,20 @@ public class GradeCalculatorApplication {
 	@Bean
 	public CommandLineRunner demoData(UserTypeRepository repo) {
 
-		var traineeName = UserNames.TRAINEE;
-		var trainerName = UserNames.TRAINER;
-		var studentName = UserNames.STUDENT;
-
 		return args -> {
-			if (repo.findByName(UserNames.TRAINEE) == null) {
-				saveUsertypes(UserNames.TRAINEE, repo);
+			if (repo.findByName(UserNames.TRAINEE.getValue()) == null) {
+				saveUsertypes(UserNames.TRAINEE.getValue(), repo);
 			}
-			if (repo.findByName(traineeName) == null) {
-				saveUsertypes(trainerName, repo);
+			if (repo.findByName(UserNames.TRAINER.getValue()) == null) {
+				saveUsertypes(UserNames.TRAINER.getValue(), repo);
 			}
-			if (repo.findByName(studentName) == null) {
-				saveUsertypes(studentName, repo);
+			if (repo.findByName(UserNames.STUDENT.getValue()) == null) {
+				saveUsertypes(UserNames.STUDENT.getValue(), repo);
 			}
 		};
 	}
-	public void saveUsertypes(UserNames types, UserTypeRepository repo) {
+
+	public void saveUsertypes(String types, UserTypeRepository repo) {
 		UserType usertype  = new UserType();
 		usertype.setName(types);
 		repo.save(usertype);

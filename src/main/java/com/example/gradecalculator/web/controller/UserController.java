@@ -38,10 +38,7 @@ public class UserController {
 
     @GetMapping("/register")
     public String registerGet(Model model){
-        List<UserType> userTypes = new ArrayList<>();
-        userTypes.add(userTypeRepository.findByName(UserNames.TRAINEE));
-        userTypes.add(userTypeRepository.findByName(UserNames.TRAINER));
-        userTypes.add(userTypeRepository.findByName(UserNames.STUDENT));
+        var userTypes = userTypeRepository.findAll();
         model.addAttribute("userTypes", userTypes);
         var form = new UserSignUpTO();
         model.addAttribute("registration", form);

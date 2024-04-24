@@ -13,7 +13,7 @@ public class UserType {
     private Long id;
 
     @Column(unique = true)
-    private UserNames name;
+    private String name;
 
     private String description;
 
@@ -25,24 +25,28 @@ public class UserType {
     public UserType(Long id) {
         this.id = id;
     }
+
     public String getDescription() {
         return description;
     }
     public void setDescription(String description) {
         this.description = description;
     }
+
     public Long getId() {
         return id;
     }
     public void setId(Long id) {
         this.id = id;
     }
-    public UserNames getName() {
+
+    public String getName() {
         return name;
     }
-    public void setName(UserNames name) {
+    public void setName(String name) {
         this.name = name;
     }
+
     public List<User> getUsers() {
         return users;
     }
