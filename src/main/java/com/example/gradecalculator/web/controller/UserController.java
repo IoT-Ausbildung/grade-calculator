@@ -44,6 +44,7 @@ public class UserController {
         model.addAttribute("registration", form);
         return "register";
     }
+
     @GetMapping("/user")
     public String userGet(Model model){
         var userTest = userRepository.findAll();
