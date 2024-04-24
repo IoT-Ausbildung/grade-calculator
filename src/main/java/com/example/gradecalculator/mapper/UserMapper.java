@@ -2,6 +2,7 @@ package com.example.gradecalculator.mapper;
 
 import com.example.gradecalculator.entities.User;
 import com.example.gradecalculator.entities.UserType;
+import com.example.gradecalculator.enums.UserNames;
 import com.example.gradecalculator.web.model.UserTO;
 import org.mapstruct.Mapper;
 
