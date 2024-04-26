@@ -45,6 +45,14 @@ public class UserController {
         return "register";
     }
 
+    @GetMapping("/myProfile/{id}")
+    public String myProfileGet(@PathVariable("id") int porfileId, Model model){
+        var myProfileTest = userRepository.findById(porfileId);
+        var myProfile = userMapper.dataToTO(myProfileTest);
+        model.addAttribute("myProfile", myProfile);
+        return "myProfile";
+    }
+
     @GetMapping("/user")
     public String userGet(Model model){
         var userTest = userRepository.findAll();

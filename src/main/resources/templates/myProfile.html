@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <style>
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-    </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
@@ -15,34 +9,41 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
-    <title>Users</title>
+    <title>My Profile</title>
 </head>
 <body>
     <div id="nav-placeholder"></div><br><br>
-    <form action="#" th:action="@{/user}" th:object="${users}" class="container d-flex flex-column flex-md-col justify-content-between col-sm-12 col-md-6 col-lg-4">
-        <div class="mx-auto" style="height: auto">
-            <table style="width:30%">
-                <tr>
-                    <th>ID</th>
-                    <th>Firstname</th>
-                    <th>Lastname</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Usertype</th>
-                </tr>
-                <tr th:each="item : ${users}">
-                    <td><p th:text="${item.getId()}"></p></td>
-                    <td><p th:text="${item.getFirstName()}"></p></td>
-                    <td><p th:text="${item.getLastName()}"></p></td>
-                    <td><p th:text="${item.getUserName()}"></p></td>
-                    <td><p th:text="${item.getEmail()}"></p></td>
-                    <td><p th:text="${item.getUserType()}"></p></td>
-                </tr>
-            </table>
+    <form action="#" th:action="@{/myProfile}" th:object="${myProfile}"  method="post"
+          class="container d-flex flex-column flex-md-col justify-content-between col-sm-12 col-md-6 col-lg-4">
+
+        <div class="mx-auto" style="height: auto ; width: 280px">
+            <h3>My Profile</h3>
+            <div th:each="item : ${myProfile}">
+                <span>User Name:</span>
+                <span style="color:blue" th:text="${item.getUserName()}"></span><br><br>
+                <span>Email:</span>
+                <span style="color:blue" th:text="${item.getEmail()}"></span><br><br>
+                <div class=form-group">
+                    <input type="text" id="password" class="form-control" placeholder="Edit Your Password">
+                </div>
+                <span>First Name:</span>
+                <span style="color:blue" th:text="${item.getFirstName()}"></span><br><br>
+                <div class="form-group">
+                    <input type="text" id="firstName" class="form-control" placeholder="Edit Your First Name" th:field="*{firstName}">
+                </div>
+                <span>Last Name:</span>
+                <span style="color:blue" th:text="${item.getLastName()}"></span><br><br>
+                <div class="form-group">
+                    <input type="text" id="lastname" class="form-control" placeholder="Edit Your Last Name" th:field="*{lastName}">
+                </div>
+                <span>User Type:</span>
+                <span style="color:blue" th:text="${item.getUserType()}"></span>
+            </div>
         </div>
         <div class="mx-auto" style="width: 280px;">
             <h3><a href="/">Back to Homepage</a></h3>
         </div>
+
     </form>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
