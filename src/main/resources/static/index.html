@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,14 +22,20 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $("#nav-placeholder").load("navbar.html")
         })
     </script>
 </head>
 
 <body>
+<<<<<<< HEAD
 <div id="nav-placeholder"></div>
+=======
+<form th:action="@{/index.html}">
+    <div id="nav-placeholder"></div>
+</form>
+>>>>>>> 81da3f9470e8a80e212e9e5b9246019cf0c1679e
 
 </body>
 </html>
