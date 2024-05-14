@@ -1,10 +1,9 @@
 package com.example.gradecalculator.web.controller;
 
-import com.example.gradecalculator.entities.User;
 import com.example.gradecalculator.mapper.UserMapper;
-import com.example.gradecalculator.service.UserService;
 import com.example.gradecalculator.repository.UserRepository;
 import com.example.gradecalculator.repository.UserTypeRepository;
+import com.example.gradecalculator.service.UserService;
 import com.example.gradecalculator.web.model.LoginDTO;
 import com.example.gradecalculator.web.model.UserSignUpTO;
 import jakarta.validation.Valid;
@@ -18,7 +17,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -78,13 +79,10 @@ public class UserController {
         return "register";
     }
     @GetMapping("/login")
-    public String loginUser(@RequestParam String email, @RequestParam String password) {
-        User user = userRepository.findByEmailAndPassword(email, password);
-        if (user != null) {
-            return "Login successful";
-        } else {
-            return "Invalid email or password";
-        }
+    public String loginUser(Model model) {
+        LoginDTO loginDTO = new LoginDTO();
+        model.addAttribute("loginDTO", loginDTO);
+        return "login";
     }
 
     @PostMapping("/login")
