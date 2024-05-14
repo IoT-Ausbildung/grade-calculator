@@ -1,5 +1,7 @@
 package com.example.gradecalculator.web.controller;
 
+import com.example.gradecalculator.entities.UserType;
+import com.example.gradecalculator.enums.UserNames;
 import com.example.gradecalculator.mapper.UserMapper;
 import com.example.gradecalculator.repository.UserRepository;
 import com.example.gradecalculator.repository.UserTypeRepository;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -54,6 +57,7 @@ public class UserController {
         model.addAttribute("registration", form);
         return "register";
     }
+
     @GetMapping("/user")
     public String userGet(Model model){
         var userTest = userRepository.findAll();
@@ -103,15 +107,15 @@ public class UserController {
         var errors = new ArrayList<String>();
 
         if(userRepository.existsByEmail(registration.getEmail())) {
-            errors.add("Email wird schon verwendet.");
+            errors.add("Email is already in use.");
         }
 
         if(userRepository.existsByUserName(registration.getUserName())){
-            errors.add("Benutzername wird schon verwendet.");
+            errors.add("Username is already in use.");
         }
 
         if(registration.getEmail() == null || !validate(registration.getEmail())){
-            errors.add("Email ist nicht valide.");
+            errors.add("Email is not valid.");
         }
 
         if(bindingResult.hasErrors()){

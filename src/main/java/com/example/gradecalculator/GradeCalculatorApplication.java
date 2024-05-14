@@ -4,14 +4,11 @@ import com.example.gradecalculator.entities.UserType;
 import com.example.gradecalculator.repository.UserTypeRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import com.example.gradecalculator.enums.UserNames;
 
 @SpringBootApplication
-@Configuration
 public class GradeCalculatorApplication {
 
 	public static void main(String[] args) {
@@ -20,24 +17,23 @@ public class GradeCalculatorApplication {
 
 	@Bean
 	public CommandLineRunner demoData(UserTypeRepository repo) {
+
 		return args -> {
-			if (repo.findByName("Auszubildender") == null) {
-				UserType auszubildender = new UserType();
-				auszubildender.setName("Auszubildender");
-				repo.save(auszubildender);
+			if (repo.findByName(UserNames.TRAINEE.getValue()) == null) {
+				saveUsertypes(UserNames.TRAINEE.getValue(), repo);
 			}
-
-			if (repo.findByName("Ausbilder") == null) {
-				UserType ausbilder = new UserType();
-				ausbilder.setName("Ausbilder");
-				repo.save(ausbilder);
+			if (repo.findByName(UserNames.TRAINER.getValue()) == null) {
+				saveUsertypes(UserNames.TRAINER.getValue(), repo);
 			}
-
-			if (repo.findByName("Werkstudent") == null) {
-				UserType werkstudent = new UserType();
-				werkstudent.setName("Werkstudent");
-				repo.save(werkstudent);
+			if (repo.findByName(UserNames.STUDENT.getValue()) == null) {
+				saveUsertypes(UserNames.STUDENT.getValue(), repo);
 			}
 		};
+	}
+
+	public void saveUsertypes(String types, UserTypeRepository repo) {
+		UserType usertype  = new UserType();
+		usertype.setName(types);
+		repo.save(usertype);
 	}
 }
