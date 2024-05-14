@@ -12,15 +12,11 @@
     <title>SignUp</title>
 </head>
 <body>
+
+    <div id="head-placeholder"></div>
+
     <form action="#" th:action="@{/register}" th:object="${registration}" method="post"
           class="container d-flex flex-column flex-md-col justify-content-between col-sm-12 col-md-6 col-lg-4">
-
-        <div id="head-placeholder"></div>
-
-        <div class="headlineForLogin container d-flex flex-column flex-md-row justify-content-between">
-            <div class="login col-sm-12 col-md-6"><h4><a href="/html/login.html">Login</a></h4></div>
-            <div class="signup col-sm-12 col-md-6"><h4><a href="/register">Join</a></h4></div>
-        </div>
 
         <div class="firstName form-group">
             <input type="text" id="firstName" class="form-control" placeholder="Enter First Name" th:field="*{firstName}">
@@ -84,7 +80,7 @@
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script>
         $(document).ready(function() {
-            $("#head-placeholder").load("/html/headline.html")
+            $("#head-placeholder").load("/navbar")
         })
     </script>
 </body>

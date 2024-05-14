@@ -1,7 +1,5 @@
 package com.example.gradecalculator.web.controller;
 
-import com.example.gradecalculator.entities.UserType;
-import com.example.gradecalculator.enums.UserNames;
 import com.example.gradecalculator.mapper.UserMapper;
 import com.example.gradecalculator.repository.UserRepository;
 import com.example.gradecalculator.repository.UserTypeRepository;
@@ -24,7 +22,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -80,7 +77,7 @@ public class UserController {
         model.addAttribute("userTypes", userTypes);
         model.addAttribute("registration", registration);
         model.addAttribute("itemErrors", errors);
-        return "register";
+        return "/register";
     }
     @GetMapping("/login")
     public String loginUser(Model model) {
@@ -96,7 +93,7 @@ public class UserController {
         try {
             Authentication authenticationResponse =
                     this.authenticationManager.authenticate(authenticationRequest);
-            return "redirect:index";
+            return "index";
         } catch (AuthenticationException e) {
             model.addAttribute("error", "Invalid email or password");
             return "login";
