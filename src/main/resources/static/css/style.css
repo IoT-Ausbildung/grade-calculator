@@ -65,5 +65,7 @@ h1 {
     margin-top: 50px ;
 }
 a {
-    text-decoration: none;
+    text-decoration-color: white;
+    font-size: 10px;
+    text-transform: uppercase;
 }

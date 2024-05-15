@@ -25,18 +25,26 @@ public class WebSecurityConfig {
     public UserDetailsService userDetailsService() {
         return new UserDetailsServiceImpl();
     }
-
     public WebSecurityConfig(
             AuthenticationConfiguration authConfiguration,
             PasswordConfig passwordConfig) {
         this.authConfiguration = authConfiguration;
         this.passwordConfig = passwordConfig;
     }
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((requests) -> requests.anyRequest().permitAll())
-                .httpBasic(Customizer.withDefaults());
+        http
+                .authorizeRequests((requests) -> requests.anyRequest().permitAll())
+                .httpBasic(Customizer.withDefaults())
+                .formLogin((form) -> form
+                        .loginPage("/login")
+                        .permitAll()
+                )
+                .logout((logout) -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/index")
+                        .permitAll()
+                );
         return http.build();
     }
     @Bean

@@ -9,14 +9,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
-    <title>SignUp</title>
+    <title>Sign Up</title>
 </head>
 <body>
 
     <div id="head-placeholder"></div>
-
-    <form action="#" th:action="@{/register}" th:object="${registration}" method="post"
-          class="container d-flex flex-column flex-md-col justify-content-between col-sm-12 col-md-6 col-lg-4">
+    <form style="margin-top: 90px; font-size: 18px; width: 600px;" action="#" th:action="@{/register}" th:object="${registration}" method="post"
+          class="container d-flex flex-column flex-md-col col-sm-12 col-md-6 col-lg-4">
 
         <div class="firstName form-group">
             <input type="text" id="firstName" class="form-control" placeholder="Enter First Name" th:field="*{firstName}">
@@ -28,11 +27,9 @@
         <div class="userName form-group">
             <input type="text" id="userName" class="form-control" placeholder="Enter User Name (required)" th:field="*{userName}" required="">
         </div>
-
         <div class="email form-group">
             <input type="email" id="email" class="form-control" placeholder="Enter Email (required)" th:field="*{email}" required="">
         </div>
-
         <div class="password_match" data-msg="Password doesn't match.">
             <div class="password form-group">
                 <input type="password" id="password" class="form-control" placeholder="Enter Password (required)"  th:field="*{password}"
@@ -67,6 +64,7 @@
         </ul>
         <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
     </form>
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
