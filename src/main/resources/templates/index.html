@@ -32,7 +32,6 @@
 <div>
     <div id="nav-placeholder"></div>
 </div>
-<h1 th:inline="text" style="text-align: center; margin-top: 90px">Hello <span th:remove="tag" sec:authentication="name"></span>!</h1>
-
+<h1 th:if="${#authorization.expression('isAuthenticated()')}" th:inline="text" style="text-align: center; margin-top: 90px">Hello <span th:remove="tag" sec:authentication="name"></span>!</h1>
 </body>
 </html>

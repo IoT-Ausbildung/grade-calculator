@@ -79,26 +79,6 @@ public class UserController {
         model.addAttribute("itemErrors", errors);
         return "/register";
     }
-/*    @GetMapping("/login")
-    public String loginUser(Model model) {
-        LoginDTO loginDTO = new LoginDTO();
-        model.addAttribute("loginDTO", loginDTO);
-        return "login";
-    }*/
-
-/*    @PostMapping("/login")
-    public String login(@ModelAttribute LoginDTO loginDTO, Model model) {
-        Authentication authenticationRequest =
-                new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword());
-        try {
-            Authentication authenticationResponse =
-                    this.authenticationManager.authenticate(authenticationRequest);
-            return "index";
-        } catch (AuthenticationException e) {
-            model.addAttribute("error", "Invalid email or password");
-            return "login";
-        }
-    }*/
     SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
     @PostMapping("/logout")
     public String performLogout(Authentication authentication, HttpServletRequest request, HttpServletResponse response) {
