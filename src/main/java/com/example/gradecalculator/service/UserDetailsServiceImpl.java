@@ -1,7 +1,7 @@
 package com.example.gradecalculator.service;
 
 import com.example.gradecalculator.entities.User;
-import com.example.gradecalculator.model.MyUserDetails;
+import com.example.gradecalculator.model.UserDetailsImpl;
 import com.example.gradecalculator.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("Could not find user");
         }
 
-        return new MyUserDetails(user);
+        return new UserDetailsImpl(user);
     }
 
 }
