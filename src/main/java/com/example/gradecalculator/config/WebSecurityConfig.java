@@ -20,17 +20,20 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
 
     private final PasswordConfig passwordConfig;
+    private final AuthenticationConfiguration authConfiguration;
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new UserDetailsServiceImpl();
-    }
     public WebSecurityConfig(
             AuthenticationConfiguration authConfiguration,
             PasswordConfig passwordConfig) {
         this.authConfiguration = authConfiguration;
         this.passwordConfig = passwordConfig;
     }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new UserDetailsServiceImpl();
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -47,16 +50,17 @@ public class WebSecurityConfig {
                 );
         return http.build();
     }
+
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() throws Exception {
         return (web) -> web.ignoring().requestMatchers("/resources/**");
     }
-    private final AuthenticationConfiguration authConfiguration;
 
     @Bean
     public AuthenticationManager authenticationManager() throws Exception {
         return authConfiguration.getAuthenticationManager();
     }
+
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();

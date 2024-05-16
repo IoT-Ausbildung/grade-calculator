@@ -14,9 +14,9 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     @Query("SELECT CASE WHEN COUNT(u) > 0 THEN true ELSE false END FROM User u WHERE u.userName = :userName")
     boolean existsByUserName(@Param("userName") String userName);
-    @Query("SELECT u FROM User u WHERE u.email = :email AND u.encodedPassword = :password")
-    User findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
+
     User findById(long id);
+
     User findByUserName(String userName);
 
     User findByEmail(String email);

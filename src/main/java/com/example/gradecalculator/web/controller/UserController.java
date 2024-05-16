@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -30,7 +29,6 @@ public class UserController {
 
     private final UserRepository userRepository;
     private final UserTypeRepository userTypeRepository;
-    private final AuthenticationManager authenticationManager;
     private UserMapper userMapper = Mappers.getMapper(UserMapper.class);
 
     @Autowired
@@ -38,16 +36,14 @@ public class UserController {
 
 
     @Autowired
-    public UserController(UserRepository userRepository, UserTypeRepository userTypeRepository, AuthenticationManager authenticationManager) {
+    public UserController(UserRepository userRepository, UserTypeRepository userTypeRepository) {
         this.userRepository = userRepository;
         this.userTypeRepository = userTypeRepository;
-        this.authenticationManager = authenticationManager;
     }
 
 
-
     @GetMapping("/register")
-    public String registerGet(Model model){
+    public String registerGet(Model model) {
         var userTypes = userTypeRepository.findAll();
         model.addAttribute("userTypes", userTypes);
         var form = new UserSignUpTO();
@@ -56,7 +52,7 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    public String userGet(Model model){
+    public String userGet(Model model) {
         var userTest = userRepository.findAll();
         var users = userMapper.dataToTO(userTest);
         model.addAttribute("users", users);
@@ -68,7 +64,7 @@ public class UserController {
 
         var errors = validateUserSignUpTO(registration, bindingResult);
 
-        if(errors.isEmpty()){
+        if (errors.isEmpty()) {
             var user = userService.createUser(registration);
             return "index";
         }
@@ -79,7 +75,9 @@ public class UserController {
         model.addAttribute("itemErrors", errors);
         return "/register";
     }
+
     SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+
     @PostMapping("/logout")
     public String performLogout(Authentication authentication, HttpServletRequest request, HttpServletResponse response) {
         this.logoutHandler.logout(request, response, authentication);
@@ -89,25 +87,26 @@ public class UserController {
     private ArrayList<String> validateUserSignUpTO(UserSignUpTO registration, BindingResult bindingResult) {
         var errors = new ArrayList<String>();
 
-        if(userRepository.existsByEmail(registration.getEmail())) {
+        if (userRepository.existsByEmail(registration.getEmail())) {
             errors.add("Email is already in use.");
         }
 
-        if(userRepository.existsByUserName(registration.getUserName())){
+        if (userRepository.existsByUserName(registration.getUserName())) {
             errors.add("Username is already in use.");
         }
 
-        if(registration.getEmail() == null || !validate(registration.getEmail())){
+        if (registration.getEmail() == null || !validate(registration.getEmail())) {
             errors.add("Email is not valid.");
         }
 
-        if(bindingResult.hasErrors()){
-           errors.addAll(bindingResult.getAllErrors().stream().map(ObjectError::toString).toList());
+        if (bindingResult.hasErrors()) {
+            errors.addAll(bindingResult.getAllErrors().stream().map(ObjectError::toString).toList());
         }
         return errors;
     }
 
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
     public static boolean validate(String emailStr) {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
         return matcher.matches();
