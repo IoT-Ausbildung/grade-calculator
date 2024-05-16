@@ -111,6 +111,4 @@ public class UserController {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
         return matcher.matches();
     }
-
-
 }
