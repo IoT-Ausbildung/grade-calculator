@@ -134,3 +134,16 @@ li {
     font-size: 18px;
     padding: 10px;
 }
+.logout-form {
+    background-color: transparent;
+}
+
+.logout-button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    text-transform: uppercase;
+}
+div.active a {
+  color: #6ed2f0;
+}

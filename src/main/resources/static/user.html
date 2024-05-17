@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Users</title>
+</head>
+<body>
+    <form action="#" th:action="@{/user}" th:object="${users}" method="post">
+        <p>SignUp <a href="/register">here</a></p>
+        <table style="width:30%">
+            <tr>
+                <th>ID</th>
+                <th>Vorname</th>
+                <th>Nachname</th>
+                <th>Nutzername</th>
+                <th>Email</th>
+                <th>Usertype</th>
+            </tr>
+            <tr th:each="item : ${users}">
+                <td><p th:text="${item.getId()}"></p></td>
+                <td><p th:text="${item.getFirstName()}"></p></td>
+                <td><p th:text="${item.getLastName()}"></p></td>
+                <td><p th:text="${item.getUserName()}"></p></td>
+                <td><p th:text="${item.getEmail()}"></p></td>
+                <td><p th:text="${item.getUserType()}"></p></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
