@@ -1,19 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <style>
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-    </style>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Users</title>
+    <link rel="stylesheet" href="../css/general.css">
 </head>
 <body>
     <form action="#" th:action="@{/user}" th:object="${users}" method="post">
-        <p>SignUp <a href="/register">here</a></p>
-        <table style="width:30%">
+        <p>Signup<a href="/signup">here</a></p>
+        <table>
             <tr>
                 <th>ID</th>
                 <th>Firstname</th>
