@@ -48,8 +48,8 @@ public class UserController {
     @GetMapping("/myProfile/{id}")
     public String myProfileGet(@PathVariable("id") int porfileId, Model model){
         var myProfileTest = userRepository.findById(porfileId);
-        var myProfile = userMapper.dataToTO(myProfileTest);
-        model.addAttribute("myProfile", myProfile);
+//        var myProfile = userMapper.dataToTO(myProfileTest);  out commited so that there is no error "forgot to convert java.lang.String into int"
+        model.addAttribute("myProfile", myProfileTest);
         return "myProfile";
     }
 
