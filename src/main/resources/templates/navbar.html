@@ -1,0 +1,25 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<nav class="site-header sticky-top py-1">
+    <div class="col-sm-12 col-md-6 col-lg- 1"><a href="/"><h1><span style="color: #ff008c">You</span><span style="color: #6ed2f0">rGr</span><span style="color: #3cfa50">ade</span></h1></a></div>
+    <div class="container d-flex flex-column flex-md-row justify-content-between">
+        <div class="col-sm-12 col-md-6 col-lg-2"><a href="/">home</a></div>
+        <div class="col-sm-12 col-md-6 col-lg-2"><a href="/grades">grades</a></div>
+        <div class="col-sm-12 col-md-6 col-lg-2"><a href="/chat">chat</a></div>
+        <div class="col-sm-12 col-md-6 col-lg-2"><a href="/help">help</a></div>
+        <div class="col-sm-12 col-md-6 col-lg-2"><a href="/settings">settings</a></div>
+    <div class="col-sm-12 col-md-6 col-lg-2" sec:authorize="!isAuthenticated()">
+            <a href="/login">log in</a>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-2" sec:authorize="!isAuthenticated()">
+            <a href="/register">Sign up</a>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-2" sec:authorize="isAuthenticated()">
+            <form th:action="@{/logout}" method="post" style="background-color: transparent;">
+                <input type="submit" value="Log out" style="background-color: transparent; border: none; color: white;text-transform: uppercase;"/>
+            </form>
+        </div>
+    </div>
+</nav>
+</html>
+

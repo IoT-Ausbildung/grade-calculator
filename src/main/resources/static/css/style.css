@@ -40,24 +40,97 @@ body {
 h1 {
     margin-top: 20px;
 }
+
 .email {
 
 }
 
-.reset{
+.reset {
     text-align: center;
     margin-top: 20px;
 }
+
 .appName {
-    border-color: #1e194b;
-    border: 10px;
+    border: 10px #1e194b;
     text-align: center;
     font-size: 50px;
 }
+
 .headlineForLogin {
     margin-top: 40px;
     text-align: center;
 }
+
 .login {
     --bs-btn-hover-bg: 0.3s;
+}
+
+a {
+    text-decoration-color: white;
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 90px;
+}
+
+.login-form {
+    width: 600px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+label {
+    font-size: 18px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.btn-login {
+    width: 100%;
+    text-transform: uppercase;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.error-message {
+    font-size: 18px;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.welcome-heading {
+    text-align: center;
+    margin-top: 90px;
+}
+
+.register-form {
+    margin-top: 60px;
+}
+
+li {
+    color: #0000ff;
+}
+
+.form-group {
+    font-size: 18px;
+    padding: 10px;
 }
