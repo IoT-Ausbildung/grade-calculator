@@ -4,19 +4,22 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Users</title>
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 </head>
 <body>
     <form action="#" th:action="@{/user}" th:object="${users}" method="post">
-        <p>Signup<a href="/signup">here</a></p>
-        <table>
+        <p>Signup<a href="/signup"> here</a></p>
+        <table class="table table-bordered">
+            <thead>
             <tr>
-                <th>ID</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Usertype</th>
+                <th scope="col">ID</th>
+                <th scope="col">Firstname</th>
+                <th scope="col">Lastname</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Usertype</th>
             </tr>
+            </thead>
             <tr th:each="item : ${users}">
                 <td><p th:text="${item.getId()}"></p></td>
                 <td><p th:text="${item.getFirstName()}"></p></td>
