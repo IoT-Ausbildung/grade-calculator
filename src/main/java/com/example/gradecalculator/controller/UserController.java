@@ -1,10 +1,11 @@
-package com.example.gradecalculator.web.controller;
+package com.example.gradecalculator.controller;
 
 import com.example.gradecalculator.mapper.UserMapper;
+import com.example.gradecalculator.model.UserDetailsImpl;
 import com.example.gradecalculator.repository.UserRepository;
 import com.example.gradecalculator.repository.UserTypeRepository;
 import com.example.gradecalculator.service.UserService;
-import com.example.gradecalculator.web.model.UserSignUpTO;
+import com.example.gradecalculator.model.UserSignUpTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -51,11 +52,14 @@ public class UserController {
         return "register";
     }
 
-    @GetMapping("/myProfile/{id}")
-    public String myProfileGet(@PathVariable("id") int porfileId, Model model){
-        var myProfileTest = userRepository.findById(porfileId);
-//        var myProfile = userMapper.dataToTO(myProfileTest);  out commited so that there is no error "forgot to convert java.lang.String into int"
-        model.addAttribute("myProfile", myProfileTest);
+    @GetMapping("/myProfile")
+    public String myProfileGet(Model model, Authentication authentication){
+        var userTypes = userTypeRepository.findAll();
+        model.addAttribute("userTypes", userTypes);
+        var userService = (UserDetailsImpl)authentication.getPrincipal();
+        var user = userRepository.findById(userService.getId());
+        var myProfile = userMapper.dataToTO(user.get());
+        model.addAttribute("myProfile", myProfile);
         return "myProfile";
     }
 
@@ -71,12 +75,10 @@ public class UserController {
     private String registerPost(Model model, @Valid @ModelAttribute UserSignUpTO registration, BindingResult bindingResult) {
 
         var errors = validateUserSignUpTO(registration, bindingResult);
-
         if (errors.isEmpty()) {
             var user = userService.createUser(registration);
             return "index";
         }
-
         var userTypes = userTypeRepository.findAll();
         model.addAttribute("userTypes", userTypes);
         model.addAttribute("registration", registration);
@@ -94,19 +96,15 @@ public class UserController {
 
     private ArrayList<String> validateUserSignUpTO(UserSignUpTO registration, BindingResult bindingResult) {
         var errors = new ArrayList<String>();
-
         if (userRepository.existsByEmail(registration.getEmail())) {
             errors.add("Email is already in use.");
         }
-
         if (userRepository.existsByUserName(registration.getUserName())) {
             errors.add("Username is already in use.");
         }
-
         if (registration.getEmail() == null || !validate(registration.getEmail())) {
             errors.add("Email is not valid.");
         }
-
         if (bindingResult.hasErrors()) {
             errors.addAll(bindingResult.getAllErrors().stream().map(ObjectError::toString).toList());
         }

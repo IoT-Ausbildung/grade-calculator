@@ -1,4 +1,4 @@
-package com.example.gradecalculator.web.model;
+package com.example.gradecalculator.model;
 
 public class UserTO {
     private Long id;
@@ -40,19 +40,15 @@ public class UserTO {
     public void setName(String name) {
         this.name = name;
     }
-
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
-
     public String getUserType() {
         return userType;
     }
-
     public void setUserType(String userType) {
         this.userType = userType;
     }

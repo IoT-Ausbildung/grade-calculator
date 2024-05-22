@@ -16,31 +16,33 @@
     <form action="#" th:action="@{/myProfile}" th:object="${myProfile}"  method="post"
           class="container d-flex flex-column flex-md-col justify-content-between col-sm-12 col-md-6 col-lg-4">
 
-        <div class="mx-auto" style="height: auto ; width: 280px">
-            <h3>My Profile</h3>
-            <div th:each="item : ${myProfile}">
+        <div class="mx-auto" style="height: auto ; width: auto">
+            <h3>My Profile</h3><br>
+            <div th:object="${myProfile}">
                 <span>User Name:</span>
-                <span style="color:blue" th:text="${item.getUserName()}"></span><br><br>
+                <span style="color:blue" th:text="*{userName}"></span>
+                <input type="text" id="username" class="form-control" placeholder="Edit your username"><br>
                 <span>Email:</span>
-                <span style="color:blue" th:text="${item.getEmail()}"></span><br><br>
-                <div class=form-group">
-                    <input type="text" id="password" class="form-control" placeholder="Edit Your Password">
-                </div>
+                <span style="color:blue" th:text="*{email}"></span>
+                <input type="text" id="email" class="form-control" placeholder="Edit your e-mail"><br>
+<!--                <button class="btn btn-primary" >Edit your password </button><br><br>-->
                 <span>First Name:</span>
-                <span style="color:blue" th:text="${item.getFirstName()}"></span><br><br>
-                <div class="form-group">
-                    <input type="text" id="firstName" class="form-control" placeholder="Edit Your First Name" th:field="*{firstName}">
-                </div>
+                <span style="color:blue" th:text="*{firstName}"></span>
+                <input type="text" id="firstName" class="form-control" th:field="*{firstName}"><br>
                 <span>Last Name:</span>
-                <span style="color:blue" th:text="${item.getLastName()}"></span><br><br>
-                <div class="form-group">
-                    <input type="text" id="lastname" class="form-control" placeholder="Edit Your Last Name" th:field="*{lastName}">
-                </div>
+                <span style="color:blue" th:text="*{lastName}"></span>
+                <input type="text" id="lastname" class="form-control" th:field="*{lastName}"><br>
                 <span>User Type:</span>
-                <span style="color:blue" th:text="${item.getUserType()}"></span>
+                <span style="color:blue" th:text="*{userType}"></span>
+                <div th:each="item : ${userTypes}">
+                    <input type="radio" id="usertype" name="usertype" th:field="*{userType}" th:value="${item.getId()}"
+                           required="">
+                    <span th:text="${item.getName()}"></span>
+                    <label for="usertype"></label>
+                </div>
             </div>
         </div>
-        <div class="mx-auto" style="width: 280px;">
+        <div class="mx-auto" style="width: auto">
             <h3><a href="/">Back to Homepage</a></h3>
         </div>
 
@@ -57,7 +59,7 @@
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script>
         $(document).ready(function() {
-            $("#nav-placeholder").load("/html/navbar.html")
+            $("#nav-placeholder").load("/navbar")
         })
     </script>
 </body>
