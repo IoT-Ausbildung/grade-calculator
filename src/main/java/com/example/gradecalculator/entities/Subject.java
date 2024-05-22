@@ -21,14 +21,14 @@ public class Subject {
     @JoinColumn(name = "school_year")
     private SchoolYear schoolYear;
 
+    public Subject() {
+    }
+
     public Subject(String name, String description) {
         this.name = name;
         this.description = description;
     }
 
-    public Subject() {
-
-    }
 
     public String getDescription() {
         return description;
