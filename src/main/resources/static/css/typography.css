@@ -1,3 +1,13 @@
+.poppins-semibold {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+}
+
 a {
     text-decoration-color: white;
     font-size: 10px;
@@ -35,17 +45,6 @@ li {
 
 div.active a {
     color: #6ed2f0;
-}
-
-.poppins-semibold {
-    font-family: "Poppins", sans-serif;
-    font-weight: 600;
-    font-style: normal;
-}
-
-body {
-    background-color: whitesmoke;
-    font-family: "Poppins", sans-serif;
 }
 
 .welcome-heading {
