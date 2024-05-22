@@ -7,15 +7,12 @@
 
 .form-group {
     margin-bottom: 10px;
+    font-size: 18px;
+    padding: 10px;
 }
 
 .signup-form {
     margin-top: 60px;
-}
-
-.form-group {
-    font-size: 18px;
-    padding: 10px;
 }
 
 .logout-form {

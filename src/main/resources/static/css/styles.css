@@ -3,19 +3,3 @@
 @import "typography.css";
 @import "button.css";
 
-body {
-    background-color: whitesmoke;
-    font-family: "Poppins", sans-serif;
-}
-
-.poppins-semibold {
-    font-family: "Poppins", sans-serif;
-    font-weight: 600;
-    font-style: normal;
-}
-
-.welcome-heading {
-    text-align: center;
-    margin-top: 90px;
-}
-
