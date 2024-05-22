@@ -10,10 +10,10 @@ public class UserSubjects {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    private String UserType_ID;
-    private String UserName;
-    private String email;
-    private String password;
+    private Integer UserSubject_ID;
+    private Integer User_ID;
+    private Integer SchoolYear;
+    private Integer Subject_ID;
 
     public Long getId() {
         return id;
@@ -23,37 +23,35 @@ public class UserSubjects {
         this.id = id;
     }
 
-    public String getUserType_ID() {
-        return UserType_ID;
+    public Integer getUserSubject_ID() {
+        return UserSubject_ID;
     }
 
-    public void setUserType_ID(String userType_ID) {
-        UserType_ID = userType_ID;
+    public void setUserSubject_ID(Integer userSubject_ID) {
+        UserSubject_ID = userSubject_ID;
     }
 
-    public String getUserName() {
-        return UserName;
+    public Integer getUser_ID() {
+        return User_ID;
     }
 
-    public void setUserName(String userName) {
-        UserName = userName;
+    public void setUser_ID(Integer user_ID) {
+        User_ID = user_ID;
     }
 
-    public String getEmail() {
-        return email;
+    public Integer getSchoolYear() {
+        return SchoolYear;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setSchoolYear(Integer schoolYear) {
+        SchoolYear = schoolYear;
     }
 
-    public String getPassword() {
-        return password;
+    public Integer getSubject_ID() {
+        return Subject_ID;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSubject_ID(Integer subject_ID) {
+        Subject_ID = subject_ID;
     }
-
-
 }
