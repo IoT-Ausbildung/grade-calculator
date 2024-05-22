@@ -20,26 +20,17 @@
             <h3>My Profile</h3><br>
             <div th:object="${myProfile}">
                 <span>User Name:</span>
-                <span style="color:blue" th:text="*{userName}"></span>
-                <input type="text" id="username" class="form-control" placeholder="Edit your username"><br>
+                <span class="text-blue" th:text="*{userName}"></span>
                 <span>Email:</span>
-                <span style="color:blue" th:text="*{email}"></span>
-                <input type="text" id="email" class="form-control" placeholder="Edit your e-mail"><br>
-<!--                <button class="btn btn-primary" >Edit your password </button><br><br>-->
+                <span class="text-blue" th:text="*{email}"></span>
+<!--<button class="btn btn-primary" >Edit your Profile </button><br><br> this should be a button wich opens a new page,
+ where you could change your password (maybe is implimented Later but iam not sure yet if iam able to do it) -->
                 <span>First Name:</span>
-                <span style="color:blue" th:text="*{firstName}"></span>
-                <input type="text" id="firstName" class="form-control" th:field="*{firstName}"><br>
+                <span class="text-blue" th:text="*{firstName}"></span>
                 <span>Last Name:</span>
-                <span style="color:blue" th:text="*{lastName}"></span>
-                <input type="text" id="lastname" class="form-control" th:field="*{lastName}"><br>
+                <span class="text-blue" th:text="*{lastName}"></span>
                 <span>User Type:</span>
-                <span style="color:blue" th:text="*{userType}"></span>
-                <div th:each="item : ${userTypes}">
-                    <input type="radio" id="usertype" name="usertype" th:field="*{userType}" th:value="${item.getId()}"
-                           required="">
-                    <span th:text="${item.getName()}"></span>
-                    <label for="usertype"></label>
-                </div>
+                <span class="text-blue" th:text="*{userType}"></span>
             </div>
         </div>
         <div class="mx-auto" style="width: auto">

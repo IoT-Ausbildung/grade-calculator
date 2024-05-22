@@ -9,9 +9,11 @@ import org.mapstruct.Mapper;
 public abstract class UserRegistrationMapper {
     public abstract UserSignUpTO entityToTO(User user);
     public abstract User TOToEntity(UserSignUpTO registration);
+
     public UserType map(Long value){
         return new UserType(value);
     }
+
     public Long map(UserType value){
         return value.getId();
     }
