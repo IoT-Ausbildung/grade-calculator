@@ -52,6 +52,8 @@ public class UserDetailsImpl implements UserDetails {
         return true;
     }
 
-    public Long getId() { return user.getId(); }
+    public Long getId() { 
+        return user.getId();
+    }
 
 }
