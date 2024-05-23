@@ -1,0 +1,53 @@
+.poppins-semibold {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+}
+
+a {
+    text-decoration-color: white;
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+.site-header a {
+    color: white;
+    transition: ease-in-out color .15s;
+    font-size: 20px;
+}
+
+.site-header a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+h1 {
+    margin-top: 20px;
+}
+
+label {
+    font-size: 18px;
+}
+
+.error-message {
+    font-size: 18px;
+    margin-top: 30px;
+    text-align: center;
+}
+
+li {
+    color: #0000ff;
+}
+
+div.active a {
+    color: #6ed2f0;
+}
+
+.welcome-heading {
+    text-align: center;
+    margin-top: 90px;
+}

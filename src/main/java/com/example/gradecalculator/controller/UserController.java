@@ -43,15 +43,15 @@ public class UserController {
     }
 
 
-    @GetMapping("/register")
-    public String registerGet(Model model) {
+    @GetMapping("/signup")
+    public String signupGet(Model model) {
         var userTypes = userTypeRepository.findAll();
         model.addAttribute("userTypes", userTypes);
 
         var form = new UserSignUpTO();
         model.addAttribute("registration", form);
 
-        return "register";
+        return "signup";
     }
 
     @GetMapping("/myProfile")
@@ -76,9 +76,11 @@ public class UserController {
         return "user";
     }
 
-    @PostMapping("/register")
-    private String registerPost(Model model, @Valid @ModelAttribute UserSignUpTO registration, BindingResult bindingResult) {
+    @PostMapping("/signup")
+    private String signupPost(Model model, @Valid @ModelAttribute UserSignUpTO registration, BindingResult bindingResult) {
+
         var errors = validateUserSignUpTO(registration, bindingResult);
+
         if (errors.isEmpty()) {
             var user = userService.createUser(registration);
             return "index";
@@ -88,8 +90,7 @@ public class UserController {
         model.addAttribute("userTypes", userTypes);
         model.addAttribute("registration", registration);
         model.addAttribute("itemErrors", errors);
-
-        return "/register";
+        return "signup";
     }
 
     SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
@@ -102,7 +103,7 @@ public class UserController {
 
     private ArrayList<String> validateUserSignUpTO(UserSignUpTO registration, BindingResult bindingResult) {
         var errors = new ArrayList<String>();
-        
+
         if (userRepository.existsByEmail(registration.getEmail())) {
             errors.add("Email is already in use.");
         }

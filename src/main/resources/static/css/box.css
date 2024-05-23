@@ -1,0 +1,11 @@
+.site-header {
+    background-color: #1e194b;
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 90px;
+}
