@@ -38,7 +38,6 @@ public class UserController {
 
     @Autowired
     public UserController(UserRepository userRepository, UserTypeRepository userTypeRepository) {
-
         this.userRepository = userRepository;
         this.userTypeRepository = userTypeRepository;
     }
@@ -46,7 +45,6 @@ public class UserController {
 
     @GetMapping("/register")
     public String registerGet(Model model) {
-
         var userTypes = userTypeRepository.findAll();
         model.addAttribute("userTypes", userTypes);
 
@@ -58,7 +56,6 @@ public class UserController {
 
     @GetMapping("/myProfile")
     public String myProfileGet(Model model, Authentication authentication){
-
         var userTypes = userTypeRepository.findAll();
         model.addAttribute("userTypes", userTypes);
 
@@ -72,7 +69,6 @@ public class UserController {
 
     @GetMapping("/user")
     public String userGet(Model model) {
-
         var userTest = userRepository.findAll();
         var users = userMapper.dataToTO(userTest);
         model.addAttribute("users", users);
@@ -82,11 +78,9 @@ public class UserController {
 
     @PostMapping("/register")
     private String registerPost(Model model, @Valid @ModelAttribute UserSignUpTO registration, BindingResult bindingResult) {
-
         var errors = validateUserSignUpTO(registration, bindingResult);
         if (errors.isEmpty()) {
             var user = userService.createUser(registration);
-
             return "index";
         }
 
@@ -102,14 +96,13 @@ public class UserController {
 
     @PostMapping("/logout")
     public String performLogout(Authentication authentication, HttpServletRequest request, HttpServletResponse response) {
-
         this.logoutHandler.logout(request, response, authentication);
-
         return "index";
     }
 
     private ArrayList<String> validateUserSignUpTO(UserSignUpTO registration, BindingResult bindingResult) {
         var errors = new ArrayList<String>();
+        
         if (userRepository.existsByEmail(registration.getEmail())) {
             errors.add("Email is already in use.");
         }
@@ -132,7 +125,6 @@ public class UserController {
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     public static boolean validate(String emailStr) {
-
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
         return matcher.matches();
     }
