@@ -42,13 +42,13 @@ public class UserController {
     }
 
 
-    @GetMapping("/register")
-    public String registerGet(Model model) {
+    @GetMapping("/signup")
+    public String signupGet(Model model) {
         var userTypes = userTypeRepository.findAll();
         model.addAttribute("userTypes", userTypes);
         var form = new UserSignUpTO();
         model.addAttribute("registration", form);
-        return "register";
+        return "signup";
     }
 
     @GetMapping("/user")
@@ -59,8 +59,8 @@ public class UserController {
         return "user";
     }
 
-    @PostMapping("/register")
-    private String registerPost(Model model, @Valid @ModelAttribute UserSignUpTO registration, BindingResult bindingResult) {
+    @PostMapping("/signup")
+    private String signupPost(Model model, @Valid @ModelAttribute UserSignUpTO registration, BindingResult bindingResult) {
 
         var errors = validateUserSignUpTO(registration, bindingResult);
 
@@ -73,7 +73,7 @@ public class UserController {
         model.addAttribute("userTypes", userTypes);
         model.addAttribute("registration", registration);
         model.addAttribute("itemErrors", errors);
-        return "/register";
+        return "signup";
     }
 
     SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
