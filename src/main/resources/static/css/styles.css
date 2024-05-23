@@ -6,3 +6,8 @@
 body {
     background-color: whitesmoke;
 }
+
+.mx-auto {
+    height: auto;
+    width: auto;
+}
