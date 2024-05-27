@@ -2,6 +2,7 @@ package com.example.gradecalculator.controller;
 
 import com.example.gradecalculator.mapper.UserMapper;
 import com.example.gradecalculator.model.UserDetailsImpl;
+import com.example.gradecalculator.model.UserEditTO;
 import com.example.gradecalculator.repository.UserRepository;
 import com.example.gradecalculator.repository.UserTypeRepository;
 import com.example.gradecalculator.service.UserService;
@@ -67,6 +68,19 @@ public class UserController {
         return "myProfile";
     }
 
+    @GetMapping("/editProfile")
+    public String editProfileGet(Model model, Authentication authentication){
+        var userTypes = userTypeRepository.findAll();
+        model.addAttribute("userTypes", userTypes);
+
+        var userService = (UserDetailsImpl)authentication.getPrincipal();
+        var user = userRepository.findById(userService.getId());
+        var editProfile = userMapper.dataToTO(user.get());
+        model.addAttribute("editProfile", editProfile);
+
+        return "editProfile";
+    }
+
     @GetMapping("/user")
     public String userGet(Model model) {
         var userTest = userRepository.findAll();
@@ -74,6 +88,22 @@ public class UserController {
         model.addAttribute("users", users);
 
         return "user";
+    }
+
+    @PostMapping("/editProfile")
+    private String editProfilePost(@Valid @ModelAttribute UserEditTO editProfile, Authentication authentication){
+
+        var userService = (UserDetailsImpl)authentication.getPrincipal();
+        var userResult = userRepository.findById(userService.getId());
+        if(userResult.isEmpty()){
+            throw new IllegalArgumentException("User not found");
+        }
+        var user = userResult.get();
+        user.setFirstName(editProfile.getFirstName());
+        user.setLastName(editProfile.getLastName());
+        userRepository.save(user);
+
+        return "index";
     }
 
     @PostMapping("/signup")

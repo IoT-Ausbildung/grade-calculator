@@ -20,7 +20,8 @@ public class UserService {
     private final UserRegistrationMapper userRegistrationMapper;
 
     @Autowired
-    public UserService(UserRepository userRepository, UserTypeRepository userTypeRepository, PasswordEncoder passwordEncoder, UserRegistrationMapper userRegistrationMapper) {
+    public UserService(UserRepository userRepository, UserTypeRepository userTypeRepository
+            , PasswordEncoder passwordEncoder, UserRegistrationMapper userRegistrationMapper) {
         this.userRepository = userRepository;
         this.userTypeRepository = userTypeRepository;
         this.passwordEncoder = passwordEncoder;
@@ -33,7 +34,8 @@ public class UserService {
         User user = userRegistrationMapper.TOToEntity(registration);
         user.setEncodedPassword(encodedPassword);
 
-        UserType userType = userTypeRepository.findById(registration.getUserType()).orElseThrow(() -> new IllegalArgumentException("Invalid user type ID: " + registration.getUserType()));
+        UserType userType = userTypeRepository.findById(registration.getUserType()).orElseThrow(()
+                -> new IllegalArgumentException("Invalid user type ID: " + registration.getUserType()));
         user.setUserType(userType);
         userRepository.save(user);
         return user;

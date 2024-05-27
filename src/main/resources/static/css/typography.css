@@ -55,3 +55,7 @@ div.active a {
 .text-blue {
     color: #0000ff;
 }
+
+.link-size {
+    font-size: large;
+}

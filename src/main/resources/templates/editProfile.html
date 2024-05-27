@@ -9,29 +9,24 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
-    <title>My Profile</title>
+    <title>Edit Profile</title>
 </head>
 <body>
     <div id="nav-placeholder"></div><br><br>
-    <form action="#" th:action="@{/myProfile}" th:object="${myProfile}"  method="post"
-          class="container d-flex flex-column flex-md-col justify-content-between col-sm-12 col-md-6 col-lg-4">
-
-        <div class="mx-auto h-auto w-auto">
-            <h3>My Profile</h3><br>
-            <div th:object="${myProfile}">
-                <span>User Name:</span>
-                <span class="text-blue" th:text="*{userName}"></span><br><br>
-                <span>Email:</span>
-                <span class="text-blue" th:text="*{email}"></span><br><br>
-                <span>First Name:</span>
-                <span class="text-blue" th:text="*{firstName}"></span><br><br>
-                <span>Last Name:</span>
-                <span class="text-blue" th:text="*{lastName}"></span><br><br>
-                <span>User Type:</span>
-                <span class="text-blue" th:text="*{userType}"></span><br><br><br>
-                <a href="/editProfile" class="link-size">Edit your Profile</a>
-            </div>
+    <form action="#" th:action="@{/editProfile}" th:object="${editProfile}" method="post"
+          class="container d-flex flex-column flex-md-col col-sm-12 col-md-6 col-lg-4">
+        <h3>Edit Your Profile</h3><br>
+        <div class="firstName form-group">
+            <span>First Name:</span><br>
+            <input class="text-blue" type="text" id="firstName" th:class="form-control"
+                   placeholder="Enter New First Name" th:field="*{firstName}">
         </div>
+        <div class="lastName form-group">
+            <span>Last Name:</span><br>
+            <input class="text-blue" type="text" id="lastName" th:class="form-control"
+                   placeholder="Enter New Last Name" th:field="*{lastName}"><br>
+        </div>
+        <button type="submit" class="btn btn-primary" value="Submit">Edit</button>
     </form>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -43,6 +38,7 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="/js/PasswordValidation.js" type="text/javascript"></script>
     <script>
         $(document).ready(function() {
             $("#nav-placeholder").load("/navbar")
