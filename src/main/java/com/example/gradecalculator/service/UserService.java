@@ -6,7 +6,7 @@ import com.example.gradecalculator.mapper.UserRegistrationMapper;
 import com.example.gradecalculator.repository.UserRepository;
 import com.example.gradecalculator.repository.UserTypeRepository;
 
-import com.example.gradecalculator.web.model.UserSignUpTO;
+import com.example.gradecalculator.model.UserSignUpTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

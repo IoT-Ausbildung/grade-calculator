@@ -1,10 +1,11 @@
-package com.example.gradecalculator.web.controller;
+package com.example.gradecalculator.controller;
 
 import com.example.gradecalculator.mapper.UserMapper;
+import com.example.gradecalculator.model.UserDetailsImpl;
 import com.example.gradecalculator.repository.UserRepository;
 import com.example.gradecalculator.repository.UserTypeRepository;
 import com.example.gradecalculator.service.UserService;
-import com.example.gradecalculator.web.model.UserSignUpTO;
+import com.example.gradecalculator.model.UserSignUpTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -46,9 +47,24 @@ public class UserController {
     public String signupGet(Model model) {
         var userTypes = userTypeRepository.findAll();
         model.addAttribute("userTypes", userTypes);
+
         var form = new UserSignUpTO();
         model.addAttribute("registration", form);
+
         return "signup";
+    }
+
+    @GetMapping("/myProfile")
+    public String myProfileGet(Model model, Authentication authentication){
+        var userTypes = userTypeRepository.findAll();
+        model.addAttribute("userTypes", userTypes);
+
+        var userService = (UserDetailsImpl)authentication.getPrincipal();
+        var user = userRepository.findById(userService.getId());
+        var myProfile = userMapper.dataToTO(user.get());
+        model.addAttribute("myProfile", myProfile);
+
+        return "myProfile";
     }
 
     @GetMapping("/user")
@@ -56,6 +72,7 @@ public class UserController {
         var userTest = userRepository.findAll();
         var users = userMapper.dataToTO(userTest);
         model.addAttribute("users", users);
+
         return "user";
     }
 
@@ -102,6 +119,7 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             errors.addAll(bindingResult.getAllErrors().stream().map(ObjectError::toString).toList());
         }
+
         return errors;
     }
 
