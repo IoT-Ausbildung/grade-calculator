@@ -20,7 +20,7 @@ public class SchoolYear {
 
     private LocalDate endDate;
     @ManyToOne
-    @JoinColumn(name = "grade_system_id")
+    @JoinColumn(name = "grade_system")
     private GradeSystem gradeSystem;
 
     @OneToMany(mappedBy = "schoolYear")

@@ -5,4 +5,5 @@ import com.example.gradecalculator.entities.Subject;
 
 public interface SubjectRepository extends CrudRepository<Subject, Long> {
     Subject findById(long id);
+    Subject findByName(String name);
 }
