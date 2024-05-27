@@ -1,8 +1,8 @@
 package com.example.gradecalculator.entities;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,10 +37,6 @@ public class GradeSystemTest {
 
         gradeSystem.setGradeTypes(gradeTypes);
 
-        schoolYears = new ArrayList<>();
-        schoolYears.add(new SchoolYear(1L, "2021-2022", gradeSystem));
-        schoolYears.add(new SchoolYear(2L, "2022-2023", gradeSystem));
-        gradeSystem.setSchoolYears(schoolYears);
     }
 
     @Test
@@ -63,10 +59,6 @@ public class GradeSystemTest {
         assertEquals(gradeTypes, gradeSystem.getGradeTypes());
     }
 
-    @Test
-    public void testGetSchoolYears() {
-        assertEquals(schoolYears, gradeSystem.getSchoolYears());
-    }
 
     @Test
     public void testSetId() {
@@ -94,11 +86,4 @@ public class GradeSystemTest {
         assertEquals(newGradeTypes, gradeSystem.getGradeTypes());
     }
 
-    @Test
-    public void testSetSchoolYears() {
-        List<SchoolYear> newSchoolYears = new ArrayList<>();
-        newSchoolYears.add(new SchoolYear(3L, "2023-2024", gradeSystem));
-        gradeSystem.setSchoolYears(newSchoolYears);
-        assertEquals(newSchoolYears, gradeSystem.getSchoolYears());
-    }
 }

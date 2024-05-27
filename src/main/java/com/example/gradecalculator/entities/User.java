@@ -2,6 +2,8 @@ package com.example.gradecalculator.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 
 @Entity
 @Table(name = "application_user")
@@ -18,6 +20,9 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "user_type_id")
     private UserType userType;
+
+    @OneToMany(mappedBy = "user")
+    private Set<UserSubject> userSubjects;
 
     public User() {
     }

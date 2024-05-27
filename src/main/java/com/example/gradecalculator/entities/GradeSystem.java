@@ -20,9 +20,6 @@ public class GradeSystem {
     @OneToMany(mappedBy = "gradeSystem")
     private List<GradeType> gradeTypes;
 
-    @OneToMany(mappedBy = "gradeSystem")
-    private List<SchoolYear> schoolYears;
-
     public GradeSystem(Long id, String name) {
         this.id = id;
         this.name = name;
@@ -64,11 +61,4 @@ public class GradeSystem {
         this.gradeTypes = gradeTypes;
     }
 
-    public List<SchoolYear> getSchoolYears() {
-        return schoolYears;
-    }
-
-    public void setSchoolYears(List<SchoolYear> schoolYears) {
-        this.schoolYears = schoolYears;
-    }
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "school_year")
@@ -19,28 +20,22 @@ public class SchoolYear {
     private LocalDate startDate;
 
     private LocalDate endDate;
-    @ManyToOne
-    @JoinColumn(name = "grade_system")
-    private GradeSystem gradeSystem;
 
     @OneToMany(mappedBy = "schoolYear")
-    private List<Subject> subjects;
+    private Set<UserSubject> userSubjects;
 
-    public SchoolYear(String name, LocalDate startDate, LocalDate endDate, GradeSystem gradeSystem) {
+    public SchoolYear(String name, LocalDate startDate, LocalDate endDate) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.gradeSystem = gradeSystem;
     }
 
-    public SchoolYear(long id, String name, GradeSystem gradeSystem) {
+    public SchoolYear(long id, String name) {
         this.id = id;
         this.name = name;
-        this.gradeSystem = gradeSystem;
     }
 
     public SchoolYear() {
-
     }
 
     public Long getId() {
@@ -75,19 +70,6 @@ public class SchoolYear {
         this.endDate = endDate;
     }
 
-    public GradeSystem getGradeSystem() {
-        return gradeSystem;
-    }
-
-    public void setGradeSystem(GradeSystem gradeSystem) {
-        this.gradeSystem = gradeSystem;
-    }
-
-    public List<Subject> getSubjects() {
-        return subjects;
-    }
-
     public void setSubjects(List<Subject> subjects) {
-        this.subjects = subjects;
     }
 }

@@ -2,6 +2,8 @@ package com.example.gradecalculator.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "subject")
 public class Subject {
@@ -16,10 +18,8 @@ public class Subject {
     private String description;
 
     private int creditValue;
-
-    @ManyToOne
-    @JoinColumn(name = "school_year")
-    private SchoolYear schoolYear;
+    @OneToMany(mappedBy = "subject")
+    private Set<UserSubject> userSubjects;
 
     public Subject() {
     }
@@ -35,14 +35,6 @@ public class Subject {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public SchoolYear getSchoolYear() {
-        return schoolYear;
-    }
-
-    public void setSchoolYear(SchoolYear schoolYear) {
-        this.schoolYear = schoolYear;
     }
 
     public Long getId() {
