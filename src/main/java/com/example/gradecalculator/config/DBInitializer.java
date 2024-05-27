@@ -47,7 +47,6 @@ public class DBInitializer {
             }
         }
     }
-}
 
     private void seedUserTypes() {
 
