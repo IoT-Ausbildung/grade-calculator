@@ -56,6 +56,6 @@ div.active a {
     color: #0000ff;
 }
 
-.link-large {
+a.link-large {
     font-size: large;
 }
