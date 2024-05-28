@@ -1,6 +1,6 @@
 package com.example.gradecalculator.entities;
 
-import com.example.gradecalculator.enums.UserNames;
+
 import jakarta.persistence.*;
 import java.util.List;
 

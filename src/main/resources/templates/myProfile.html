@@ -29,7 +29,7 @@
                 <span class="text-blue" th:text="*{lastName}"></span><br><br>
                 <span>User Type:</span>
                 <span class="text-blue" th:text="*{userType}"></span><br><br><br>
-                <a href="/editProfile" class="link-size">Edit your Profile</a>
+                <a href="/editProfile" class="link-large">Edit your Profile</a>
             </div>
         </div>
     </form>
@@ -45,8 +45,8 @@
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script>
         $(document).ready(function() {
-            $("#nav-placeholder").load("/navbar")
-        })
+            $("#nav-placeholder").load("/navbar");
+        });
     </script>
 </body>
 </html>

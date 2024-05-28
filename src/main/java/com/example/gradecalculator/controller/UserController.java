@@ -21,7 +21,6 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -93,16 +92,8 @@ public class UserController {
     @PostMapping("/editProfile")
     private String editProfilePost(@Valid @ModelAttribute UserEditTO editProfile, Authentication authentication){
 
-        var userService = (UserDetailsImpl)authentication.getPrincipal();
-        var userResult = userRepository.findById(userService.getId());
-        if(userResult.isEmpty()){
-            throw new IllegalArgumentException("User not found");
-        }
-        var user = userResult.get();
-        user.setFirstName(editProfile.getFirstName());
-        user.setLastName(editProfile.getLastName());
-        userRepository.save(user);
-
+        var userID = getAuthenticatedUserId(authentication);
+        var user = userService.editProfile(userID, editProfile);
         return "index";
     }
 
@@ -158,5 +149,11 @@ public class UserController {
     public static boolean validate(String emailStr) {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
         return matcher.matches();
+    }
+
+    public Long getAuthenticatedUserId(Authentication authentication) {
+
+        var userService = (UserDetailsImpl)authentication.getPrincipal();
+        return userService.getId();
     }
 }

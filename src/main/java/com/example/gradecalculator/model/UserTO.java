@@ -11,7 +11,7 @@ public class UserTO {
 
     public UserTO(){}
     
-    public String getFirstName()     {
+    public String getFirstName() {
         return firstName;
     }
     
