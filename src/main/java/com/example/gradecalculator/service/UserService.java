@@ -11,6 +11,12 @@ import com.example.gradecalculator.model.UserSignUpTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+
+import java.util.ArrayList;
+
+import static com.example.gradecalculator.controller.UserController.validate;
 
 @Service
 public class UserService {
@@ -57,5 +63,27 @@ public class UserService {
         userRepository.save(user);
 
         return user;
+    }
+
+    public ArrayList<String> validateUserSignUpTO(UserSignUpTO registration, BindingResult bindingResult) {
+        var errors = new ArrayList<String>();
+
+        if (userRepository.existsByEmail(registration.getEmail())) {
+            errors.add("Email is already in use.");
+        }
+
+        if (userRepository.existsByUserName(registration.getUserName())) {
+            errors.add("Username is already in use.");
+        }
+
+        if (registration.getEmail() == null || !validate(registration.getEmail())) {
+            errors.add("Email is not valid.");
+        }
+
+        if (bindingResult.hasErrors()) {
+            errors.addAll(bindingResult.getAllErrors().stream().map(ObjectError::toString).toList());
+        }
+
+        return errors;
     }
 }
