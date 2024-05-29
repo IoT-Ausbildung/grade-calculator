@@ -55,8 +55,8 @@ public class UserController {
         var userTypes = userTypeRepository.findAll();
         model.addAttribute("userTypes", userTypes);
 
-        var userService = (UserDetailsImpl)authentication.getPrincipal();
-        var user = userRepository.findById(userService.getId());
+        var userId = userService.getAuthenticatedUserId(authentication);
+        var user = userRepository.findById(userId);
         var myProfile = userMapper.dataToTO(user.get());
         model.addAttribute("myProfile", myProfile);
 
