@@ -3,24 +3,25 @@ package com.example.gradecalculator.service;
 import com.example.gradecalculator.entities.User;
 import com.example.gradecalculator.entities.UserType;
 import com.example.gradecalculator.mapper.UserRegistrationMapper;
+import com.example.gradecalculator.model.UserDetailsImpl;
 import com.example.gradecalculator.model.UserEditTO;
 import com.example.gradecalculator.repository.UserRepository;
 import com.example.gradecalculator.repository.UserTypeRepository;
-
 import com.example.gradecalculator.model.UserSignUpTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import static com.example.gradecalculator.controller.UserController.validate;
 
 @Service
 public class UserService {
-
     private final UserRepository userRepository;
     private final UserTypeRepository userTypeRepository;
     private final PasswordEncoder passwordEncoder;
@@ -31,7 +32,6 @@ public class UserService {
                        UserTypeRepository userTypeRepository,
                        PasswordEncoder passwordEncoder,
                        UserRegistrationMapper userRegistrationMapper) {
-
         this.userRepository = userRepository;
         this.userTypeRepository = userTypeRepository;
         this.passwordEncoder = passwordEncoder;
@@ -85,5 +85,18 @@ public class UserService {
         }
 
         return errors;
+    }
+
+    public static boolean validate(String emailStr) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
+        return matcher.matches();
+    }
+
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
+            Pattern.CASE_INSENSITIVE);
+
+    public Long getAuthenticatedUserId(Authentication authentication) {
+        var userService = (UserDetailsImpl)authentication.getPrincipal();
+        return userService.getId();
     }
 }

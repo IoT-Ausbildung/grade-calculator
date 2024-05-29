@@ -17,17 +17,13 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 @Controller
 public class UserController {
-
     private final UserRepository userRepository;
     private final UserTypeRepository userTypeRepository;
     private UserMapper userMapper = Mappers.getMapper(UserMapper.class);
@@ -42,7 +38,6 @@ public class UserController {
         this.userTypeRepository = userTypeRepository;
     }
 
-    SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 
     @GetMapping("/signup")
     public String signupGet(Model model) {
@@ -55,9 +50,34 @@ public class UserController {
         return "signup";
     }
 
+    @GetMapping("/myProfile")
+    public String myProfileGet(Model model, Authentication authentication){
+        var userTypes = userTypeRepository.findAll();
+        model.addAttribute("userTypes", userTypes);
+
+        var userService = (UserDetailsImpl)authentication.getPrincipal();
+        var user = userRepository.findById(userService.getId());
+        var myProfile = userMapper.dataToTO(user.get());
+        model.addAttribute("myProfile", myProfile);
+
+        return "myProfile";
+    }
+
+    @GetMapping("/editProfile")
+    public String editProfileGet(Model model, Authentication authentication){
+        var userTypes = userTypeRepository.findAll();
+        model.addAttribute("userTypes", userTypes);
+
+        var userID = userService.getAuthenticatedUserId(authentication);
+        var user = userRepository.findById(userID);
+        var userData = userMapper.dataToTO(user.get());
+        model.addAttribute("editProfile", userData);
+
+        return "editProfile";
+    }
+
     @GetMapping("/user")
     public String userGet(Model model) {
-
         var userTest = userRepository.findAll();
         var users = userMapper.dataToTO(userTest);
         model.addAttribute("users", users);
@@ -65,38 +85,19 @@ public class UserController {
         return "user";
     }
 
-    @GetMapping("/myProfile")
-    public String myProfileGet(Model model, Authentication authentication){
-
-        var userTypes = userTypeRepository.findAll();
-        model.addAttribute("userTypes", userTypes);
-
-        var user = getAuthenticatedUserId(authentication);
-        model.addAttribute("myProfile", user);
-
-        return "myProfile";
-    }
-
-    @GetMapping("/editProfile")
-    public String editProfileGet(Model model, Authentication authentication){
-
-        var userTypes = userTypeRepository.findAll();
-        model.addAttribute("userTypes", userTypes);
-
-        var user = getAuthenticatedUserId(authentication);
-        model.addAttribute("editProfile", user);
-
-        return "editProfile";
+    @PostMapping("/editProfile")
+    private String editProfilePost(@Valid @ModelAttribute UserEditTO editProfile, Authentication authentication){
+        var userID = userService.getAuthenticatedUserId(authentication);
+        var user = userService.editProfile(userID, editProfile);
+        return "index";
     }
 
     @PostMapping("/signup")
     private String signupPost(Model model, @Valid @ModelAttribute UserSignUpTO registration, BindingResult bindingResult) {
-
         var errors = userService.validateUserSignUpTO(registration, bindingResult);
 
         if (errors.isEmpty()) {
             var user = userService.createUser(registration);
-
             return "index";
         }
 
@@ -104,39 +105,14 @@ public class UserController {
         model.addAttribute("userTypes", userTypes);
         model.addAttribute("registration", registration);
         model.addAttribute("itemErrors", errors);
-
         return "signup";
-    }
-
-    @PostMapping("/editProfile")
-    private String editProfilePost(@Valid @ModelAttribute UserEditTO editProfile, Authentication authentication){
-
-        var userID = getAuthenticatedUserId(authentication);
-        var user = userService.editProfile(userID, editProfile);
-
-        return "index";
     }
 
     @PostMapping("/logout")
     public String performLogout(Authentication authentication, HttpServletRequest request, HttpServletResponse response) {
-
         this.logoutHandler.logout(request, response, authentication);
-
         return "index";
     }
 
-    public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
-                                                            Pattern.CASE_INSENSITIVE);
-
-    public static boolean validate(String emailStr) {
-
-        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
-        return matcher.matches();
-    }
-
-    public Long getAuthenticatedUserId(Authentication authentication) {
-
-        var userService = (UserDetailsImpl)authentication.getPrincipal();
-        return userService.getId();
-    }
+    SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 }
