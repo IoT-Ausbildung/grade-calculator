@@ -16,21 +16,20 @@
     <form action="#" th:action="@{/myProfile}" th:object="${myProfile}"  method="post"
           class="container d-flex flex-column flex-md-col justify-content-between col-sm-12 col-md-6 col-lg-4">
 
-        <div class="mx-auto h-auto w-auto" >
+        <div class="mx-auto h-auto w-auto">
             <h3>My Profile</h3><br>
             <div th:object="${myProfile}">
                 <span>User Name:</span>
                 <span class="text-blue" th:text="*{userName}"></span><br><br>
                 <span>Email:</span>
                 <span class="text-blue" th:text="*{email}"></span><br><br>
-<!--<button class="btn btn-primary" >Edit your Profile </button><br><br> we want this button for a new story called
-"#31-Profile bearbeiten" -->
                 <span>First Name:</span>
                 <span class="text-blue" th:text="*{firstName}"></span><br><br>
                 <span>Last Name:</span>
                 <span class="text-blue" th:text="*{lastName}"></span><br><br>
                 <span>User Type:</span>
-                <span class="text-blue" th:text="*{userType}"></span><br><br>
+                <span class="text-blue" th:text="*{userType}"></span><br><br><br>
+                <a href="/editProfile" class="link-large">Edit your Profile</a>
             </div>
         </div>
     </form>
@@ -46,8 +45,8 @@
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script>
         $(document).ready(function() {
-            $("#nav-placeholder").load("/navbar")
-        })
+            $("#nav-placeholder").load("/navbar");
+        });
     </script>
 </body>
 </html>
