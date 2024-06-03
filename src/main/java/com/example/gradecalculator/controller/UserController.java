@@ -28,9 +28,9 @@ public class UserController {
     private final UserTypeRepository userTypeRepository;
     private UserMapper userMapper = Mappers.getMapper(UserMapper.class);
 
+
     @Autowired
     private UserService userService;
-
 
     @Autowired
     public UserController(UserRepository userRepository, UserTypeRepository userTypeRepository) {
@@ -65,15 +65,20 @@ public class UserController {
 
     @GetMapping("/editProfile")
     public String editProfileGet(Model model, Authentication authentication){
-        var userTypes = userTypeRepository.findAll();
-        model.addAttribute("userTypes", userTypes);
-
-        var userID = userService.getAuthenticatedUserId(authentication);
-        var user = userRepository.findById(userID);
-        var userData = userMapper.dataToTO(user.get());
+        var userAuthenticated = userService.getAuthenticatedUserId(authentication);
+        var userID = userRepository.findById(userAuthenticated);
+        var userData = userMapper.dataToTO(userID.get());
         model.addAttribute("editProfile", userData);
 
         return "editProfile";
+    }
+
+    @GetMapping("/editPassword")
+    public String editPasswordGet(Model model, Authentication authentication){
+        var userAuthenticated = userService.getAuthenticatedUserId(authentication);
+        var userID = userRepository.findById(userAuthenticated);
+        var userData = userMapper.dataToTO(userID.get());
+        return "editPassword";
     }
 
     @GetMapping("/user")

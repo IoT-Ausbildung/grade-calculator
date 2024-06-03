@@ -11,7 +11,6 @@ import com.example.gradecalculator.model.UserSignUpTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -37,6 +36,19 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
         this.userRegistrationMapper = userRegistrationMapper;
     }
+
+/*    public void edit (String newPassword) {
+        // 1. load user from db by id
+        // 2. get encoded PW
+        // 3. get raw new password
+        // 4. check with encoder if input matches password
+        // yes: override password
+        // no: error
+
+        var oldPassword = "XYZ";
+        if (passwordEncoder.matches(newPassword, oldPassword)) {
+        }
+    }*/
 
     public User createUser(UserSignUpTO registration) {
         String encodedPassword = passwordEncoder.encode(registration.getPassword());
