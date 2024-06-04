@@ -13,6 +13,7 @@ import jakarta.validation.Valid;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -28,6 +30,8 @@ public class UserController {
     private final UserTypeRepository userTypeRepository;
     private UserMapper userMapper = Mappers.getMapper(UserMapper.class);
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserService userService;
@@ -37,7 +41,6 @@ public class UserController {
         this.userRepository = userRepository;
         this.userTypeRepository = userTypeRepository;
     }
-
 
     @GetMapping("/signup")
     public String signupGet(Model model) {
@@ -88,6 +91,27 @@ public class UserController {
         model.addAttribute("users", users);
 
         return "user";
+    }
+
+    @PostMapping("/editPassword")
+    public String editPasswordPost(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword, Authentication authentication, Model model){
+
+        var userAuthenticated = userService.getAuthenticatedUserId(authentication);
+        var userId = userRepository.findById(userAuthenticated);
+        var userData = userId.get();
+        var encodedPassword = userData.getEncodedPassword();
+
+        String encodedPasswordHash = encodedPassword;
+        var errors = userService.validateEditPassword(oldPassword, newPassword, encodedPasswordHash);
+
+        if(passwordEncoder.matches(oldPassword, encodedPassword)){
+            userData.setEncodedPassword(passwordEncoder.encode(newPassword));
+            userRepository.save(userData);
+            return "login";
+        }
+
+        model.addAttribute("errors", errors); //in html die error messages anzeigen (schau dir das vom singup an wie des da gemacht wurde)
+        return "editPassword";
     }
 
     @PostMapping("/editProfile")
