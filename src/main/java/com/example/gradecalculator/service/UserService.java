@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,19 +37,6 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
         this.userRegistrationMapper = userRegistrationMapper;
     }
-
-/*    public void edit (String newPassword) {
-        // 1. load user from db by id
-        // 2. get encoded PW
-        // 3. get raw new password
-        // 4. check with encoder if input matches password
-        // yes: override password
-        // no: error
-
-        var oldPassword = "XYZ";
-        if (passwordEncoder.matches(newPassword, oldPassword)) {
-        }
-    }*/
 
     public User createUser(UserSignUpTO registration) {
         String encodedPassword = passwordEncoder.encode(registration.getPassword());
@@ -77,6 +65,26 @@ public class UserService {
         return user;
     }
 
+    public List<String> editPasswordService(String oldPassword, String newPassword, User userData) {
+        var encodedPassword = userData.getEncodedPassword();
+        var errors = new ArrayList<String>();
+
+        if(passwordEncoder.matches(oldPassword, encodedPassword)) {
+            if(!newPassword.equals(oldPassword)) {
+                userData.setEncodedPassword(passwordEncoder.encode(newPassword));
+                userRepository.save(userData);
+            }
+            else {
+                errors.add("You are currently using this password.");
+            }
+        }
+        else {
+            errors.add("Passwords do not match.");
+        }
+
+        return errors;
+    }
+
     public ArrayList<String> validateUserSignUpTO(UserSignUpTO registration, BindingResult bindingResult) {
         var errors = new ArrayList<String>();
 
@@ -99,28 +107,39 @@ public class UserService {
         return errors;
     }
 
-    public ArrayList<String> validateEditPassword(String oldPassword, String newPassword, String encodedPassword){
-        var errors = new ArrayList<String>();
-
-        if(encodedPassword != oldPassword){
-            errors.add("Passwords do not match.");
-        }
-        if(newPassword == oldPassword){
-            errors.add("You are currently using this password.");
-        }
-        return errors;
-    }
+//    public ArrayList<String> validateEditPassword(String oldPassword, String newPassword, String encodedPassword){
+//        var errors = new ArrayList<String>();
+//
+//        if(!passwordEncoder.matches(oldPassword, encodedPassword)){
+//            errors.add("Passwords do not match.");
+//        }
+//        if(newPassword.equals(oldPassword)){
+//            errors.add("You are currently using this password.");
+//        }
+//        return errors;
+//    }
 
     public static boolean validate(String emailStr) {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
         return matcher.matches();
     }
 
-    public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
             Pattern.CASE_INSENSITIVE);
 
     public Long getAuthenticatedUserId(Authentication authentication) {
         var userService = (UserDetailsImpl)authentication.getPrincipal();
         return userService.getId();
+    }
+
+    public User getAuthenticatedUser(Authentication authentication) {
+        var userAuthenticated = getAuthenticatedUserId(authentication);
+        var userOptional = userRepository.findById(userAuthenticated);
+        if (userOptional.isPresent()) {
+            return userOptional.get();
+        } else {
+            throw new IllegalArgumentException("User not found");
+        }
     }
 }

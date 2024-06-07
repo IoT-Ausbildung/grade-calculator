@@ -68,19 +68,15 @@ public class UserController {
 
     @GetMapping("/editProfile")
     public String editProfileGet(Model model, Authentication authentication){
-        var userAuthenticated = userService.getAuthenticatedUserId(authentication);
-        var userID = userRepository.findById(userAuthenticated);
-        var userData = userMapper.dataToTO(userID.get());
+        var userData = userService.getAuthenticatedUser(authentication);
         model.addAttribute("editProfile", userData);
 
         return "editProfile";
     }
 
     @GetMapping("/editPassword")
-    public String editPasswordGet(Model model, Authentication authentication){
-        var userAuthenticated = userService.getAuthenticatedUserId(authentication);
-        var userID = userRepository.findById(userAuthenticated);
-        var userData = userMapper.dataToTO(userID.get());
+    public String editPasswordGet(){
+
         return "editPassword";
     }
 
@@ -94,23 +90,18 @@ public class UserController {
     }
 
     @PostMapping("/editPassword")
-    public String editPasswordPost(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword, Authentication authentication, Model model){
+    public String editPasswordPost(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword")
+    String newPassword, Authentication authentication, Model model){
 
-        var userAuthenticated = userService.getAuthenticatedUserId(authentication);
-        var userId = userRepository.findById(userAuthenticated);
-        var userData = userId.get();
-        var encodedPassword = userData.getEncodedPassword();
+        var userData = userService.getAuthenticatedUser(authentication);
 
-        String encodedPasswordHash = encodedPassword;
-        var errors = userService.validateEditPassword(oldPassword, newPassword, encodedPasswordHash);
+        var errors = userService.editPasswordService(oldPassword, newPassword, userData);
 
-        if(passwordEncoder.matches(oldPassword, encodedPassword)){
-            userData.setEncodedPassword(passwordEncoder.encode(newPassword));
-            userRepository.save(userData);
+        if(errors.isEmpty()){
             return "login";
         }
 
-        model.addAttribute("errors", errors); //in html die error messages anzeigen (schau dir das vom singup an wie des da gemacht wurde)
+        model.addAttribute("errors", errors);
         return "editPassword";
     }
 

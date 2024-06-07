@@ -37,7 +37,7 @@
                 <input type="password" id="password" class="form-control" placeholder="Enter Password (required)"
                        th:field="*{password}"
                        required="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                       title="8 Characts: 1 Upper, 1 Lower, 1 Digit, 1 Special Characts. Must Contain!!!">
+                       title="8 Characters: 1 Upper, 1 Lower, 1 Digit, 1 Special Characts. Must Contain!!!">
             </div>
             <div class="passwordConfirm form-group">
                 <input type="password" id="passwordConfirm" class="form-control"
@@ -48,8 +48,8 @@
             <div>
                 <label>
                     <input type="checkbox" onclick="togglePasswordVisibility()">
-                    <label class="form-check-lable">
-                        Show Password
+                    <label class="form-check-label">
+                        Show Passwords
                     </label>
                 </label>
             </div>
