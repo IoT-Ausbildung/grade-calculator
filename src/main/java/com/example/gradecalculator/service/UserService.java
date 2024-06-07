@@ -107,18 +107,6 @@ public class UserService {
         return errors;
     }
 
-//    public ArrayList<String> validateEditPassword(String oldPassword, String newPassword, String encodedPassword){
-//        var errors = new ArrayList<String>();
-//
-//        if(!passwordEncoder.matches(oldPassword, encodedPassword)){
-//            errors.add("Passwords do not match.");
-//        }
-//        if(newPassword.equals(oldPassword)){
-//            errors.add("You are currently using this password.");
-//        }
-//        return errors;
-//    }
-
     public static boolean validate(String emailStr) {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
         return matcher.matches();
