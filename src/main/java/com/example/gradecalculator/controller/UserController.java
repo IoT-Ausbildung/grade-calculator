@@ -13,6 +13,7 @@ import jakarta.validation.Valid;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -29,15 +31,16 @@ public class UserController {
     private UserMapper userMapper = Mappers.getMapper(UserMapper.class);
 
     @Autowired
-    private UserService userService;
+    private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private UserService userService;
 
     @Autowired
     public UserController(UserRepository userRepository, UserTypeRepository userTypeRepository) {
         this.userRepository = userRepository;
         this.userTypeRepository = userTypeRepository;
     }
-
 
     @GetMapping("/signup")
     public String signupGet(Model model) {
@@ -65,15 +68,16 @@ public class UserController {
 
     @GetMapping("/editProfile")
     public String editProfileGet(Model model, Authentication authentication){
-        var userTypes = userTypeRepository.findAll();
-        model.addAttribute("userTypes", userTypes);
-
-        var userID = userService.getAuthenticatedUserId(authentication);
-        var user = userRepository.findById(userID);
-        var userData = userMapper.dataToTO(user.get());
+        var userData = userService.getAuthenticatedUser(authentication);
         model.addAttribute("editProfile", userData);
 
         return "editProfile";
+    }
+
+    @GetMapping("/editPassword")
+    public String editPasswordGet(){
+
+        return "editPassword";
     }
 
     @GetMapping("/user")
@@ -83,6 +87,22 @@ public class UserController {
         model.addAttribute("users", users);
 
         return "user";
+    }
+
+    @PostMapping("/editPassword")
+    public String editPasswordPost(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword")
+    String newPassword, Authentication authentication, Model model){
+
+        var userData = userService.getAuthenticatedUser(authentication);
+
+        var errors = userService.editPasswordService(oldPassword, newPassword, userData);
+
+        if(errors.isEmpty()){
+            return "login";
+        }
+
+        model.addAttribute("errors", errors);
+        return "editPassword";
     }
 
     @PostMapping("/editProfile")

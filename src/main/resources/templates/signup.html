@@ -37,7 +37,7 @@
                 <input type="password" id="password" class="form-control" placeholder="Enter Password (required)"
                        th:field="*{password}"
                        required="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                       title="8 Characts: 1 Upper, 1 Lower, 1 Digit, 1 Special Characts. Must Contain!!!">
+                       title="Password must be 8 characters long and contain: 2 digit, 1 uppercase, 1 lowercase & 1 special character">
             </div>
             <div class="passwordConfirm form-group">
                 <input type="password" id="passwordConfirm" class="form-control"
@@ -48,8 +48,8 @@
             <div>
                 <label>
                     <input type="checkbox" onclick="togglePasswordVisibility()">
-                    <label class="form-check-lable">
-                        Show Password
+                    <label class="form-check-label">
+                        Show Passwords
                     </label>
                 </label>
             </div>
@@ -69,8 +69,6 @@
         <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
     </form>
 </div>
-
-
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

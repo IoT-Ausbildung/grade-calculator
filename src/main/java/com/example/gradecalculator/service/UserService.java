@@ -11,11 +11,11 @@ import com.example.gradecalculator.model.UserSignUpTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -65,6 +65,26 @@ public class UserService {
         return user;
     }
 
+    public List<String> editPasswordService(String oldPassword, String newPassword, User userData) {
+        var encodedPassword = userData.getEncodedPassword();
+        var errors = new ArrayList<String>();
+
+        if(passwordEncoder.matches(oldPassword, encodedPassword)) {
+            if(!newPassword.equals(oldPassword)) {
+                userData.setEncodedPassword(passwordEncoder.encode(newPassword));
+                userRepository.save(userData);
+            }
+            else {
+                errors.add("You are currently using this password.");
+            }
+        }
+        else {
+            errors.add("Passwords do not match.");
+        }
+
+        return errors;
+    }
+
     public ArrayList<String> validateUserSignUpTO(UserSignUpTO registration, BindingResult bindingResult) {
         var errors = new ArrayList<String>();
 
@@ -92,11 +112,22 @@ public class UserService {
         return matcher.matches();
     }
 
-    public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
             Pattern.CASE_INSENSITIVE);
 
     public Long getAuthenticatedUserId(Authentication authentication) {
         var userService = (UserDetailsImpl)authentication.getPrincipal();
         return userService.getId();
+    }
+
+    public User getAuthenticatedUser(Authentication authentication) {
+        var userAuthenticated = getAuthenticatedUserId(authentication);
+        var userOptional = userRepository.findById(userAuthenticated);
+        if (userOptional.isPresent()) {
+            return userOptional.get();
+        } else {
+            throw new IllegalArgumentException("User not found");
+        }
     }
 }

@@ -12,27 +12,34 @@
     <title>My Profile</title>
 </head>
 <body>
-    <div id="nav-placeholder"></div><br><br>
-    <form action="#" th:action="@{/myProfile}" th:object="${myProfile}"  method="post"
-          class="container d-flex flex-column flex-md-col justify-content-between col-sm-12 col-md-6 col-lg-4">
+    <div id="nav-placeholder"></div>
+    <div class="login-container">
+        <form action="#" th:action="@{/myProfile}" th:object="${myProfile}"  method="post"
+              class="container d-flex flex-column flex-md-col justify-content-between col-sm-12 col-md-6 col-lg-4">
 
-        <div class="mx-auto h-auto w-auto">
-            <h3>My Profile</h3><br>
-            <div th:object="${myProfile}">
-                <span>User Name:</span>
-                <span class="text-blue" th:text="*{userName}"></span><br><br>
-                <span>Email:</span>
-                <span class="text-blue" th:text="*{email}"></span><br><br>
-                <span>First Name:</span>
-                <span class="text-blue" th:text="*{firstName}"></span><br><br>
-                <span>Last Name:</span>
-                <span class="text-blue" th:text="*{lastName}"></span><br><br>
-                <span>User Type:</span>
-                <span class="text-blue" th:text="*{userType}"></span><br><br><br>
-                <a href="/editProfile" class="link-large">Edit your Profile</a>
+            <div class="mx-auto h-auto w-auto">
+                <h3>My Profile</h3><br>
+                <div th:object="${myProfile}">
+                    <span>User Name:</span>
+                    <span class="text-blue" th:text="*{userName}"></span><br><br>
+                    <span>Email:</span>
+                    <span class="text-blue" th:text="*{email}"></span><br><br>
+                    <span>First Name:</span>
+                    <span class="text-blue" th:text="*{firstName}"></span><br><br>
+                    <span>Last Name:</span>
+                    <span class="text-blue" th:text="*{lastName}"></span><br><br>
+                    <span>User Type:</span>
+                    <span class="text-blue" th:text="*{userType}"></span><br><br><br>
+                    <div class="form-group">
+                        <a href="/editProfile" class="btn-login">edit your Profile</a>
+                    </div>
+                    <div class="form-group">
+                        <a href="/editPassword" class="btn-login">change your Password</a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
