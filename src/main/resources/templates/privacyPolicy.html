@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
-    <title>Settings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Privacy Policy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -27,11 +29,22 @@
     </script>
     <script>
         $(document).ready(function() {
-            $("#nav-placeholder").load("/footer");
+            $("#footer-placeholder").load("/footer");
         });
     </script>
 </head>
 <body>
+<div>
     <div id="nav-placeholder"></div>
+</div>
+<div>
+    <div id="footer-placeholder"></div>
+</div>
+<p>
+    The protection of your personal data is very important to us.
+    We treat your personal data confidentially
+    and in accordance with statutory data protection regulations
+    and this data protection declaration.
+</p>
 </body>
 </html>
