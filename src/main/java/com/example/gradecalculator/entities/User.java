@@ -21,6 +21,10 @@ public class User {
     @JoinColumn(name = "user_type_id")
     private UserType userType;
 
+    @ManyToOne
+    @JoinColumn(name ="school_year_id")
+    private SchoolYear schoolYear;
+
     @OneToMany(mappedBy = "user")
     private Set<UserSubject> userSubjects;
 
@@ -92,5 +96,9 @@ public class User {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    public User orElse(Object o) {
+        return null;
     }
 }

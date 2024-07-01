@@ -27,4 +27,6 @@ public class UserSubject {
     @Column(name = "id")
     private Long id;
 
+    public UserSubject(User selectedUser, Subject selectedSubject, SchoolYear selectedYear) {
+    }
 }

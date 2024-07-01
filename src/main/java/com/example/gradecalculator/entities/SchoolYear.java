@@ -1,8 +1,10 @@
 package com.example.gradecalculator.entities;
 
+
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.Year;
 import java.util.List;
 import java.util.Set;
 
@@ -23,6 +25,10 @@ public class SchoolYear {
 
     @OneToMany(mappedBy = "schoolYear")
     private Set<UserSubject> userSubjects;
+    @OneToMany(mappedBy = "schoolYear")
+    private Set<User> user;
+
+
 
     public SchoolYear(String name, LocalDate startDate, LocalDate endDate) {
         this.name = name;
@@ -71,5 +77,9 @@ public class SchoolYear {
     }
 
     public void setSubjects(List<Subject> subjects) {
+    }
+
+    public Year orElse(Object o) {
+        return null;
     }
 }

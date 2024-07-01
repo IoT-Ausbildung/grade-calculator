@@ -60,4 +60,8 @@ public class Subject {
     public void setCreditValue(int creditValue) {
         this.creditValue = creditValue;
     }
+
+    public Subject orElse(Object o) {
+        return null;
+    }
 }
