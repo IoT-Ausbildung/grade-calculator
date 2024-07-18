@@ -12,7 +12,8 @@
     <title>Error Page</title>
 </head>
 <body>
-    <div id="nav-placeholder"></div><br><br>
+<div id="nav-placeholder"></div>
+<div id="footer-placeholder"></div>
     <form class="container d-flex flex-column flex-md-col justify-content-between col-sm-12 col-md-6 col-lg-4">
         <div class="mx-auto" style="height: auto">
             <h3 th:text="${message}"></h3>
@@ -38,7 +39,7 @@
     </script>
     <script>
         $(document).ready(function() {
-            $("#nav-placeholder").load("/footer");
+            $("#footer-placeholder").load("/footer");
         });
     </script>
 </body>

@@ -12,7 +12,8 @@
     <title>Sign up</title>
 </head>
 <body>
-<div id="head-placeholder"></div>
+<div id="nav-placeholder"></div>
+<div id="footer-placeholder"></div>
 <div class="signup-form">
     <form th:action="@{/signup}" th:object="${registration}" method="post"
           class="container d-flex flex-column flex-md-col col-sm-12 col-md-6 col-lg-4">
@@ -82,12 +83,12 @@
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script>
     $(document).ready(function () {
-        $("#head-placeholder").load("/navbar");
+        $("#nav-placeholder").load("/navbar");
     });
 </script>
 <script>
     $(document).ready(function() {
-        $("#nav-placeholder").load("/footer");
+        $("#footer-placeholder").load("/footer");
     });
 </script>
 </body>

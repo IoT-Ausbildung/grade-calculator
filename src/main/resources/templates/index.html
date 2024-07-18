@@ -34,12 +34,8 @@
     </script>
 </head>
 <body>
-<div>
-    <div id="nav-placeholder"></div>
-</div>
-<div>
-    <div id="footer-placeholder"></div>
-</div>
+<div id="nav-placeholder"></div>
+<div id="footer-placeholder"></div>
 <h1 th:if="${#authorization.expression('isAuthenticated()')}" th:inline="text" class="welcome-heading">Hello <span
         th:remove="tag" sec:authentication="name"></span>!</h1>
 </body>

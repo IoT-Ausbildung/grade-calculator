@@ -16,7 +16,7 @@
         <div class="col-sm-12 col-md-6 col-lg-2" sec:authorize="!isAuthenticated()"><a href="/signup">Sign up</a></div>
         <div class="col-sm-12 col-md-6 col-lg-2" sec:authorize="isAuthenticated()">
             <form th:action="@{/logout}" method="post" class="logout-form bg-transparent">
-                <input type="submit" value="Log out" class="logout-button"> //mit David oder Dianna anschauen warum des styling nicht richtig ist
+                <input type="submit" value="Log out" class="logout-button">
             </form>
         </div>
         <script>

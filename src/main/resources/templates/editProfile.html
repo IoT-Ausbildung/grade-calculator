@@ -12,7 +12,8 @@
     <title>Edit Profile</title>
 </head>
 <body>
-    <div id="nav-placeholder"></div><br><br>
+<div id="nav-placeholder"></div>
+<div id="footer-placeholder"></div>
     <form action="#" th:action="@{/editProfile}" th:object="${editProfile}" method="post"
           class="container d-flex flex-column flex-md-col col-sm-12 col-md-6 col-lg-4">
         <h3>Edit Your Profile</h3><br>
@@ -46,7 +47,7 @@
     </script>
     <script>
         $(document).ready(function() {
-            $("#nav-placeholder").load("/footer");
+            $("#footer-placeholder").load("/footer");
         });
     </script>
 </body>
