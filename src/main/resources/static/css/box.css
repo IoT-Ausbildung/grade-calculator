@@ -10,12 +10,8 @@
     margin-top: 90px;
 }
 
-.footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
+.site-footer {
     background-color: #1e194b;
-    color: white;
-    text-align: center;
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
 }
