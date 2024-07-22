@@ -1,4 +1,4 @@
-.site-header {
+.site-header, .site-footer {
     background-color: #1e194b;
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     backdrop-filter: saturate(180%) blur(20px);
@@ -8,10 +8,4 @@
     display: flex;
     justify-content: center;
     margin-top: 90px;
-}
-
-.site-footer {
-    background-color: #1e194b;
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    backdrop-filter: saturate(180%) blur(20px);
 }
