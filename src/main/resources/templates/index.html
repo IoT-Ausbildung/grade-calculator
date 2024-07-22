@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -27,12 +26,17 @@
             $("#nav-placeholder").load("/navbar");
         });
     </script>
+    <script>
+        $(document).ready(function() {
+            $("#footer-placeholder").load("/footer");
+        });
+    </script>
+    <title>Home</title>
 </head>
 <body>
-<div>
-    <div id="nav-placeholder"></div>
-</div>
+<div id="nav-placeholder"></div>
 <h1 th:if="${#authorization.expression('isAuthenticated()')}" th:inline="text" class="welcome-heading">Hello <span
         th:remove="tag" sec:authentication="name"></span>!</h1>
+<div id="footer-placeholder"></div>
 </body>
 </html>

@@ -18,3 +18,13 @@
 .logout-form {
     background-color: transparent;
 }
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #1e194b;
+    color: white;
+    text-align: center;
+}
