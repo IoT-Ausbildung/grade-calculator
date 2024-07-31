@@ -57,7 +57,7 @@ public class SubjectController {
             @RequestParam("user") long userId
     ) {
         SchoolYear selectedYear = schoolYearRepository.findById(yearId);
-        Subject selectedSubject = subjectRepository.findById(subjectId).orElse(null);
+        Subject selectedSubject = subjectRepository.findById(subjectId);
         User selectedUser = userRepository.findById(userId).orElse(null);
 
         if (selectedYear != null && selectedSubject != null && selectedUser != null) {
@@ -73,23 +73,18 @@ public class SubjectController {
         return "redirect:/grades";
     }
 
-
-// Gehen in repository//
     @GetMapping("/userSubject/selected")
     public String showSelectedSubjects(@RequestParam("year") int year, Model model) {
+        SubjectSelectionService subjectSelectionService = new SubjectSelectionService() {
+            @Override
+            public Set<String> getSelectedSubjectsForYear(int year, Long userId) {
+                return null;
+            }
+        };
         Set<String> selectedSubjects = subjectSelectionService.getSelectedSubjectsForYear(year);
         model.addAttribute("selectedSubjects", selectedSubjects);
         model.addAttribute("year", year);
         return "selectedSubjects";
-    }
-    // Gehen in repository//
-    @PostMapping("/userSubject/remove")
-    public String removeUserSubject(
-            @RequestParam("year") int year,
-            @RequestParam("subject") String subject
-    ) {
-        subjectSelectionService.removeSubjectForYear(year, subject);
-        return "redirect:/index";
     }
 }
 

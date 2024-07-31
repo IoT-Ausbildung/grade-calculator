@@ -90,4 +90,3 @@ public class DBInitializer {
         subjectRepository.save(subject);
     }
 }
-

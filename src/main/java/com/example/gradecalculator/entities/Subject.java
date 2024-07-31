@@ -12,12 +12,15 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long userID;
     @Column(unique = true)
     private String name;
 
     private String description;
 
     private int creditValue;
+
+
     @OneToMany(mappedBy = "subject")
     private Set<UserSubject> userSubjects;
 
@@ -28,6 +31,7 @@ public class Subject {
         this.name = name;
         this.description = description;
     }
+
 
     public String getDescription() {
         return description;
@@ -61,7 +65,5 @@ public class Subject {
         this.creditValue = creditValue;
     }
 
-    public Subject orElse(Object o) {
-        return null;
-    }
+
 }

@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Service
-public class SubjectSelectionService {
+public abstract class SubjectSelectionService {
 
 /*  in repositories schreiben
     ein jahr hat mehereren Fächern
@@ -65,5 +65,7 @@ SubjectTO:
             }
         }
     }
+
+    public abstract Set<String> getSelectedSubjectsForYear(int year, Long userId);
 }
 

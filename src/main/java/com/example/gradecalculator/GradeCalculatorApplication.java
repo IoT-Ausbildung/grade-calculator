@@ -18,5 +18,4 @@ public class GradeCalculatorApplication {
             initializer.seedData();
         };
     }
-
 }
