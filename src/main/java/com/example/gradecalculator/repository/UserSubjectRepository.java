@@ -16,5 +16,8 @@ public interface UserSubjectRepository extends JpaRepository<UserSubject, Long> 
 
     @Query("SELECT CASE WHEN COUNT(us) > 0 THEN true ELSE false END FROM UserSubject us WHERE us.subject.name = :subjectName")
     boolean existsBySubjectName(@Param("subjectName") String subjectName);
+
+    @Query("SELECT us FROM UserSubject us WHERE us.schoolYear.name = :schoolYearName AND us.user.id = :userId")
+    Set<UserSubject> findBySchoolYearNameAndUserId(@Param("schoolYearName") String schoolYearName, @Param("userId") Long userId);
 }
 

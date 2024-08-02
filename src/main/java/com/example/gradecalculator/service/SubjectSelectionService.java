@@ -1,39 +1,15 @@
 package com.example.gradecalculator.service;
 
+import com.example.gradecalculator.enums.Subjects;
+import com.example.gradecalculator.web.model.SubjectTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public abstract class SubjectSelectionService {
-
-/*  in repositories schreiben
-    ein jahr hat mehereren Fächern
-    eine Liste für jedes Jahr; postModel:
-    {
-      Long yearID;
-       List<Long> subjectIDs
-    }
-    ODER
-    {
-   Long yearID;
-   List<SubjectTO> subjects
-}
-
-SubjectTO:
-{
-   Long subjectID;
-   boolean isSelected;
-}
-    liste konfig kann unter settings sein
-
-    TO ERSTELLEN:
-    subjectTOs
-    .filter(x -> x.isSelected)
-    .select(x -> x.subjectID)*/
 
     private Map<Integer, Set<String>> selectedSubjectsByYear;
 
@@ -67,5 +43,20 @@ SubjectTO:
     }
 
     public abstract Set<String> getSelectedSubjectsForYear(int year, Long userId);
+    @Autowired
+    private List<SubjectTO> subjectTOs;
+
+    public List<Subjects> getSelectedSubjects() {
+        return subjectTOs.stream()
+                .filter(SubjectTO::isSelected)
+                .map(SubjectTO::getSubject)
+                .collect(Collectors.toList()).reversed();
+    }
+
+    public void updateSelectedSubjects(List<Subjects> selectedSubjects) {
+        for (SubjectTO subjectTO : subjectTOs) {
+            subjectTO.setSelected(selectedSubjects.contains(subjectTO.getSubject()));
+        }
+    }
 }
 

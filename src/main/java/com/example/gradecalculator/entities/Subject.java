@@ -65,5 +65,4 @@ public class Subject {
         this.creditValue = creditValue;
     }
 
-
 }
