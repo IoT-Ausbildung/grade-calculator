@@ -76,10 +76,6 @@ public class SubjectController {
     @GetMapping("/userSubject/selected")
     public String showSelectedSubjects(@RequestParam("year") int year, Model model) {
         SubjectSelectionService subjectSelectionService = new SubjectSelectionService() {
-            @Override
-            public Set<String> getSelectedSubjectsForYear(int year, Long userId) {
-                return null;
-            }
         };
         Set<String> selectedSubjects = subjectSelectionService.getSelectedSubjectsForYear(year);
         model.addAttribute("selectedSubjects", selectedSubjects);
