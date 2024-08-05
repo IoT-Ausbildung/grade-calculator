@@ -1,4 +1,4 @@
-package com.example.gradecalculator.service;
+package com.example.gradecalculator.mapper;
 
 import com.example.gradecalculator.entities.User;
 import com.example.gradecalculator.model.UserDetailsImpl;

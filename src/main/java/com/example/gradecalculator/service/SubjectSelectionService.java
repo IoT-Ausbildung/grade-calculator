@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public abstract class SubjectSelectionService {
@@ -46,11 +45,17 @@ public abstract class SubjectSelectionService {
     @Autowired
     private List<SubjectTO> subjectTOs;
 
+
     public List<Subjects> getSelectedSubjects() {
-        return subjectTOs.stream()
-                .filter(SubjectTO::isSelected)
-                .map(SubjectTO::getSubject)
-                .collect(Collectors.toList()).reversed();
+        List<Subjects> selectedSubjects = new ArrayList<>();
+        for (SubjectTO subjectTO : subjectTOs) {
+            if (subjectTO.isSelected()) {
+                Object subject = subjectTO.getSubject();
+                selectedSubjects.add((Subjects) subject);
+            }
+        }
+        Collections.reverse(selectedSubjects);
+        return selectedSubjects;
     }
 
     public void updateSelectedSubjects(List<Subjects> selectedSubjects) {

@@ -1,6 +1,7 @@
 
 package com.example.gradecalculator.config;
 
+import com.example.gradecalculator.mapper.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
