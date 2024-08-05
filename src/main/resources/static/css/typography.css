@@ -14,13 +14,13 @@ a {
     text-transform: uppercase;
 }
 
-.site-header a {
+.site-header a, .site-footer a{
     color: white;
     transition: ease-in-out color .15s;
     font-size: 20px;
 }
 
-.site-header a:hover {
+.site-header a:hover, .site-footer a:hover {
     color: #fff;
     text-decoration: none;
 }
@@ -50,4 +50,12 @@ div.active a {
 .welcome-heading {
     text-align: center;
     margin-top: 90px;
+}
+
+.text-blue {
+    color: #0000ff;
+}
+
+a.link-large {
+    font-size: large;
 }

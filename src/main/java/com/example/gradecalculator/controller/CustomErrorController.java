@@ -1,4 +1,4 @@
-package com.example.gradecalculator.web.controller;
+package com.example.gradecalculator.controller;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
