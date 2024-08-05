@@ -34,12 +34,13 @@
 </head>
 <body>
     <div id="nav-placeholder"></div>
-    <form class="container d-flex flex-column flex-md-col justify-content-between col-sm-12 col-md-6 col-lg-4">
+    <form th:action="@{/userSubject/form}" th:object="${subjects}" method="post"
+          class="container d-flex flex-column flex-md-col justify-content-between col-sm-12 col-md-6 col-lg-4">
         <div class="mx-auto" style="height: auto">
             <div class="usertype form-group">
                 <p>Subject:</p>
-                <div th:each="item : ${...}">
-                    <select id="select">
+                <div th:each="item : ${subjects}">
+                    <select id="select" th:field="*{subjects}" th:value="${item.getId()}">
                         <option th:text="${item.getName()}"></option>
                     </select>
                     <button id="button" type="button">Add</button>
