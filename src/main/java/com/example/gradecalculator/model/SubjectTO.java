@@ -1,4 +1,4 @@
-package com.example.gradecalculator.web.model;
+package com.example.gradecalculator.model;
 
 import com.example.gradecalculator.enums.Subjects;
 

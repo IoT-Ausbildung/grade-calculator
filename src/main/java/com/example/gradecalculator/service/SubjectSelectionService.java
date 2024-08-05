@@ -1,7 +1,7 @@
 package com.example.gradecalculator.service;
 
 import com.example.gradecalculator.enums.Subjects;
-import com.example.gradecalculator.web.model.SubjectTO;
+import com.example.gradecalculator.model.SubjectTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
