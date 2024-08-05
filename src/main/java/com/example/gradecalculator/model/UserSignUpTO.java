@@ -1,15 +1,20 @@
-package com.example.gradecalculator.web.model;
+package com.example.gradecalculator.model;
 
-public class UserTO {
-    private Long id;
+import jakarta.validation.constraints.NotNull;
+
+public class UserSignUpTO {
     private String firstName;
     private String lastName;
+    @NotNull
     private String userName;
+    @NotNull
     private String email;
-    private String name;
-    private String userType;
+    @NotNull
+    private String password;
+    @NotNull
+    private Long userType;
 
-    public UserTO(){}
+    public UserSignUpTO(){}
     public String getFirstName() {
         return firstName;
     }
@@ -34,26 +39,16 @@ public class UserTO {
     public void setEmail(String email) {
         this.email = email;
     }
-    public String getName() {
-        return name;
+    public String getPassword() {
+        return password;
     }
-    public void setName(String name) {
-        this.name = name;
+    public void setPassword(String password) {
+        this.password = password;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUserType() {
+    public Long getUserType() {
         return userType;
     }
-
-    public void setUserType(String userType) {
+    public void setUserType(Long userType) {
         this.userType = userType;
     }
 }
