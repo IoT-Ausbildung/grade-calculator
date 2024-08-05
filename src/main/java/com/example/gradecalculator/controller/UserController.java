@@ -1,7 +1,6 @@
 package com.example.gradecalculator.controller;
 
 import com.example.gradecalculator.mapper.UserMapper;
-import com.example.gradecalculator.model.UserDetailsImpl;
 import com.example.gradecalculator.model.UserEditTO;
 import com.example.gradecalculator.repository.UserRepository;
 import com.example.gradecalculator.repository.UserTypeRepository;

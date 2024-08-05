@@ -1,11 +1,11 @@
 package com.example.gradecalculator.service;
 
-import com.example.gradecalculator.enums.Subjects;
-import com.example.gradecalculator.model.SubjectTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 public abstract class SubjectSelectionService {
@@ -38,29 +38,6 @@ public abstract class SubjectSelectionService {
             if (selectedSubjects.isEmpty()) {
                 selectedSubjectsByYear.remove(year);
             }
-        }
-    }
-
-    public abstract Set<String> getSelectedSubjectsForYear(int year, Long userId);
-    @Autowired
-    private List<SubjectTO> subjectTOs;
-
-
-    public List<Subjects> getSelectedSubjects() {
-        List<Subjects> selectedSubjects = new ArrayList<>();
-        for (SubjectTO subjectTO : subjectTOs) {
-            if (subjectTO.isSelected()) {
-                Object subject = subjectTO.getSubject();
-                selectedSubjects.add((Subjects) subject);
-            }
-        }
-        Collections.reverse(selectedSubjects);
-        return selectedSubjects;
-    }
-
-    public void updateSelectedSubjects(List<Subjects> selectedSubjects) {
-        for (SubjectTO subjectTO : subjectTOs) {
-            subjectTO.setSelected(selectedSubjects.contains(subjectTO.getSubject()));
         }
     }
 }

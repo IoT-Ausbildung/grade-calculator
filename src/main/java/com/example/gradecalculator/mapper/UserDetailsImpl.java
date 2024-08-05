@@ -1,4 +1,4 @@
-package com.example.gradecalculator.model;
+package com.example.gradecalculator.mapper;
 
 import com.example.gradecalculator.entities.User;
 import org.springframework.security.core.GrantedAuthority;
