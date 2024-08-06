@@ -1,6 +1,8 @@
 package com.example.gradecalculator.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Set;
 
@@ -8,15 +10,29 @@ import java.util.Set;
 @Entity
 @Table(name = "application_user")
 public class User {
+    @Setter
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Setter
+    @Getter
     private String firstName;
+    @Setter
+    @Getter
     private String lastName;
+    @Setter
+    @Getter
     private String userName;
+    @Setter
+    @Getter
     private String email;
+    @Setter
+    @Getter
     private String encodedPassword;
 
+    @Setter
+    @Getter
     @ManyToOne
     @JoinColumn(name = "user_type_id")
     private UserType userType;
@@ -40,62 +56,6 @@ public class User {
 
     public User(String encodedPassword) {
         this.encodedPassword = encodedPassword;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getEncodedPassword() {
-        return encodedPassword;
-    }
-
-    public void setEncodedPassword(String encodedPassword) {
-        this.encodedPassword = encodedPassword;
-    }
-
-    public UserType getUserType() {
-        return userType;
-    }
-
-    public void setUserType(UserType userType) {
-        this.userType = userType;
     }
 
     public User orElse(Object o) {

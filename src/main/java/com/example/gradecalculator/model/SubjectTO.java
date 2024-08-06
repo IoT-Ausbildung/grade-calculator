@@ -1,8 +1,26 @@
 package com.example.gradecalculator.model;
 
 import com.example.gradecalculator.enums.Subjects;
+import lombok.Getter;
+import lombok.Setter;
 
 public class SubjectTO {
+
+    @Getter
+    @Setter
+    private int id;
+
+    @Getter
+    @Setter
+    private String name;
+
+    @Getter
+    @Setter
+    private String description;
+    @Getter
+    @Setter
+    private int creditValue;
+
     private Subjects subject;
     private boolean selected;
 

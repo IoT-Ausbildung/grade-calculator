@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 @Setter
 public class UserSubject {
 
+    @Setter
+    @Getter
     private String email;
 
     @Id
@@ -23,29 +25,15 @@ public class UserSubject {
     @JoinColumn(name = "school_year_id", nullable = false)
     private SchoolYear schoolYear;
 
+    @Setter
+    @Getter
     @ManyToOne
     @JoinColumn(name = "subject_id", nullable = false)
     private Subject subject;
 
     @ManyToOne
-    @JoinColumn(name = "application_user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
-    public Subject getSubject() {
-        return subject;
-    }
-
-    public void setSubject(Subject subject) {
-        this.subject = subject;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public UserSubject(User selectedUser, Subject selectedSubject, SchoolYear selectedYear) {
         this.user = selectedUser;

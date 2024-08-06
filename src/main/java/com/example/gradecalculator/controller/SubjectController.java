@@ -1,4 +1,4 @@
-package com.example.gradecalculator.web.controller;
+package com.example.gradecalculator.controller;
 
 import com.example.gradecalculator.entities.SchoolYear;
 import com.example.gradecalculator.entities.Subject;
@@ -75,13 +75,22 @@ public class SubjectController {
 
     @GetMapping("/userSubject/selected")
     public String showSelectedSubjects(@RequestParam("year") int year, Model model) {
-        SubjectSelectionService subjectSelectionService = new SubjectSelectionService() {
+        SubjectSelectionService subjectSelectionService = new SubjectSelectionService(userSubjectRepository) {
+            @Override
+            public void saveUserSubjects(String schoolYearName, Long userId, List<String> subjects) {
+
+            }
+            @Override
+            public void getSelectedSubjectsForSchoolYear(String schoolYearName, Long userId) {
+
+            }
         };
         Set<String> selectedSubjects = subjectSelectionService.getSelectedSubjectsForYear(year);
         model.addAttribute("selectedSubjects", selectedSubjects);
         model.addAttribute("year", year);
         return "selectedSubjects";
     }
+
 }
 
 
