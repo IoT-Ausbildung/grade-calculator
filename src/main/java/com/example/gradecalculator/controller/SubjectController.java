@@ -47,7 +47,7 @@ public class SubjectController {
         List<Subject> subjects = (List<Subject>) subjectRepository.findAll();
         model.addAttribute("years", years);
         model.addAttribute("subjects", subjects);
-        return "userSubjectForm";
+        return "subjectSelection";
     }
 
     @PostMapping("/userSubject/save")
