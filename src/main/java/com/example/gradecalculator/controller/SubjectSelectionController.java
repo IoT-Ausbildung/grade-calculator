@@ -1,4 +1,4 @@
-package com.example.gradecalculator.web.controller;
+package com.example.gradecalculator.controller;
 
 import com.example.gradecalculator.entities.SchoolYear;
 import com.example.gradecalculator.entities.Subject;

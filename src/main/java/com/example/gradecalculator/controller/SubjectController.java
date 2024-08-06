@@ -1,4 +1,4 @@
-package com.example.gradecalculator.web.controller;
+package com.example.gradecalculator.controller;
 
 import com.example.gradecalculator.entities.SchoolYear;
 import com.example.gradecalculator.entities.Subject;
@@ -47,7 +47,7 @@ public class SubjectController {
         List<Subject> subjects = (List<Subject>) subjectRepository.findAll();
         model.addAttribute("years", years);
         model.addAttribute("subjects", subjects);
-        return "userSubjectForm";
+        return "subjectSelection";
     }
 
     @PostMapping("/userSubject/save")
