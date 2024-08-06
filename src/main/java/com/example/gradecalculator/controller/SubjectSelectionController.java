@@ -1,9 +1,10 @@
-package com.example.gradecalculator.web.controller;
+package com.example.gradecalculator.controller;
 
 import com.example.gradecalculator.entities.SchoolYear;
 import com.example.gradecalculator.entities.Subject;
 import com.example.gradecalculator.entities.User;
 import com.example.gradecalculator.entities.UserSubject;
+import com.example.gradecalculator.enums.Subjects;
 import com.example.gradecalculator.repository.SchoolYearRepository;
 import com.example.gradecalculator.repository.SubjectRepository;
 import com.example.gradecalculator.repository.UserRepository;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -34,6 +37,13 @@ public class SubjectSelectionController {
 
     @Autowired
     private UserSubjectRepository userSubjectRepository;
+
+    @GetMapping
+    public List<String> getAllSubjects() {
+        return Arrays.stream(Subjects.values())
+                .map(Subjects::name)
+                .collect(Collectors.toList());
+    }
 
     @PostMapping("/save")
     public String saveSelectedSubjects(@RequestParam("schoolYear") String schoolYearName,
