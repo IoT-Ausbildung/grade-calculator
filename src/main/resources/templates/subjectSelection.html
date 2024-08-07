@@ -34,6 +34,12 @@
 <div class="container d-flex flex-column flex-md-col justify-content-between col-sm-12 col-md-6 col-lg-4">
     <form id="subjectForm" th:action="@{/subjectSelection/save}" method="post">
         <div class="mx-auto" style="height: auto">
+            <div class="form-group">
+                <p>School Year:</p>
+                <select id="schoolYear" name="schoolYear">
+                    <option th:each="year : ${schoolYears}" th:value="${year}" th:text="${year}">2020</option>
+                </select>
+            </div>
             <div class="usertype form-group">
                 <p>Subject:</p>
                 <select id="subjects" name="subjects">
