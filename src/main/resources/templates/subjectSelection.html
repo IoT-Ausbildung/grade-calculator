@@ -31,21 +31,29 @@
 </head>
 <body>
 <div id="nav-placeholder"></div>
-<form th:action="@{/userSubject}" method="post"
-      class="container d-flex flex-column flex-md-col justify-content-between col-sm-12 col-md-6 col-lg-4">
-    <div class="mx-auto" style="height: auto">
-        <div class="usertype form-group">
-            <p>Subject:</p>
-            <select id="select" th:field="*{name}">
-                <option th:each="item : ${subjects}" th:text="${item.name}" th:value="${item.id}"></option>
-            </select>
-            <button id="button" type="button">Add</button>
+<div class="container d-flex flex-column flex-md-col justify-content-between col-sm-12 col-md-6 col-lg-4">
+    <form th:action="@{/subjectSelection/save}" method="post">
+        <div class="mx-auto" style="height: auto">
+            <div class="usertype form-group">
+                <p>Subject:</p>
+                <div th:each="item : ${subjects}">
+                    <input type="checkbox" name="subjects" th:value="${item}" />
+                    <span th:text="${item}">Subject Name</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="hidden" name="schoolYear" th:value="${schoolYear}" />
+                <input type="hidden" name="userId" th:value="${userId}" />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
         </div>
-    </div>
+    </form>
     <div class="mx-auto" style="width: 280px;">
         <h3><a href="/">Back to Homepage</a></h3>
     </div>
-</form>
+</div>
 <div id="footer-placeholder"></div>
 </body>
 </html>
