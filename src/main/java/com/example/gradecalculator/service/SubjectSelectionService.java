@@ -10,14 +10,13 @@ import java.util.*;
 public abstract class SubjectSelectionService {
 
 
-
     private final UserSubjectRepository userSubjectRepository;
 
     public Set<UserSubject> getUserSubjectsByYearAndUserId(int year, Long userId) {
         return userSubjectRepository.findBySchoolYearAndUserId(year, userId);
     }
 
-    private Map<Integer, Set<String>> selectedSubjectsByYear;
+    private final Map<Integer, Set<String>> selectedSubjectsByYear;
 
     public SubjectSelectionService(UserSubjectRepository userSubjectRepository) {
         this.userSubjectRepository = userSubjectRepository;
@@ -30,30 +29,29 @@ public abstract class SubjectSelectionService {
         selectedSubjectsByYear.put(year, selectedSubjects);
     }
 
-    public boolean checkIfSubjectExists(String subjectName) {
-        return userSubjectRepository.existsBySubjectName(subjectName);
-    }
-
-    public boolean isSubjectSelectedForYear(int year, String subject) {
-        Set<String> selectedSubjects = selectedSubjectsByYear.get(year);
-        return selectedSubjects != null && selectedSubjects.contains(subject);
-    }
-
     public Set<String> getSelectedSubjectsForYear(int year) {
         return selectedSubjectsByYear.getOrDefault(year, new HashSet<>());
     }
 
     public void removeSubjectForYear(int year, String subject) {
-            Set<String> selectedSubjects = selectedSubjectsByYear.get(year);
-            if (selectedSubjects != null) {
-                selectedSubjects.remove(subject);
-                if (selectedSubjects.isEmpty()) {
-                    selectedSubjectsByYear.remove(year);
-                }
+        Set<String> selectedSubjects = selectedSubjectsByYear.get(year);
+        if (selectedSubjects != null) {
+            selectedSubjects.remove(subject);
+            if (selectedSubjects.isEmpty()) {
+                selectedSubjectsByYear.remove(year);
             }
         }
+    }
+
+    public void saveUserSubjects() {
+        saveUserSubjects(null, null, null);
+    }
 
     public abstract void saveUserSubjects(String schoolYearName, Long userId, List<String> subjects);
+
+    public void getSelectedSubjectsForSchoolYear() {
+        getSelectedSubjectsForSchoolYear(null, null);
+    }
 
     public abstract void getSelectedSubjectsForSchoolYear(String schoolYearName, Long userId);
 }

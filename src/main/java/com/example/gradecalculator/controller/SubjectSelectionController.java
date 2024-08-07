@@ -5,10 +5,13 @@ import com.example.gradecalculator.entities.Subject;
 import com.example.gradecalculator.entities.User;
 import com.example.gradecalculator.entities.UserSubject;
 import com.example.gradecalculator.enums.Subjects;
+import com.example.gradecalculator.mapper.SubjectSelectionImp;
 import com.example.gradecalculator.repository.SchoolYearRepository;
 import com.example.gradecalculator.repository.SubjectRepository;
 import com.example.gradecalculator.repository.UserRepository;
 import com.example.gradecalculator.repository.UserSubjectRepository;
+import com.example.gradecalculator.service.SubjectSelectionService;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,8 +23,33 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping(value="/subjectSelection", method = RequestMethod.GET)
+@RequestMapping("/subjectSelection")
 public class SubjectSelectionController {
+
+    @Getter
+    private final SubjectSelectionService subjectSelectionService;
+    private final UserRepository userRepository;
+    private final SubjectRepository subjectRepository;
+    private final SchoolYearRepository schoolYearRepository;
+    private final UserSubjectRepository userSubjectRepository;
+    @Getter
+    private final SubjectSelectionImp subjectSelectionImp;
+
+    @Autowired
+    public SubjectSelectionController(SubjectSelectionService subjectSelectionService,
+                                      SubjectSelectionImp subjectSelectionImp,
+                                      UserRepository userRepository,
+                                      SubjectRepository subjectRepository,
+                                      SchoolYearRepository schoolYearRepository,
+                                      UserSubjectRepository userSubjectRepository) {
+        this.subjectSelectionService = subjectSelectionService;
+        this.userRepository = userRepository;
+        this.subjectRepository = subjectRepository;
+        this.schoolYearRepository = schoolYearRepository;
+        this.userSubjectRepository = userSubjectRepository;
+        this.subjectSelectionImp = subjectSelectionImp;
+    }
+
     @GetMapping
     public String getSubjects(Model model) {
         List<String> subjects = Arrays.stream(Subjects.values())
@@ -30,19 +58,6 @@ public class SubjectSelectionController {
         model.addAttribute("subjects", subjects);
         return "subjectSelection";
     }
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private SubjectRepository subjectRepository;
-
-    @Autowired
-    private SchoolYearRepository schoolYearRepository;
-
-    @Autowired
-    private UserSubjectRepository userSubjectRepository;
-
-
 
     @PostMapping("/save")
     public String saveSelectedSubjects(@RequestParam("schoolYear") String schoolYearName,
@@ -50,7 +65,6 @@ public class SubjectSelectionController {
                                        @RequestParam("subjects") String[] subjects,
                                        Model model) {
         try {
-
             User user = userRepository.findById(userId)
                     .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
 
@@ -69,7 +83,7 @@ public class SubjectSelectionController {
             }
 
             model.addAttribute("message", "Subjects successfully saved!");
-            return "success"; //
+            return "success";
 
         } catch (RuntimeException e) {
             model.addAttribute("error", e.getMessage());
@@ -78,7 +92,9 @@ public class SubjectSelectionController {
     }
 
     @GetMapping("/selected")
-    public String showSelectedSubjects(@RequestParam("year") String schoolYearName, @RequestParam("userId") Long userId, Model model) {
+    public String showSelectedSubjects(@RequestParam("year") String schoolYearName,
+                                       @RequestParam("userId") Long userId,
+                                       Model model) {
         try {
             SchoolYear schoolYear = schoolYearRepository.findByName(schoolYearName)
                     .orElseThrow(() -> new RuntimeException("School year not found with name: " + schoolYearName));
@@ -98,8 +114,5 @@ public class SubjectSelectionController {
             return "error";
         }
     }
+
 }
-
-
-
-
