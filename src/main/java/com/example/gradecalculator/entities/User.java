@@ -36,6 +36,12 @@ public class User {
     @JoinColumn(name = "user_type_id")
     private UserType userType;
 
+    @Setter
+    @Getter
+    @ManyToOne
+    @JoinColumn(name = "subject_id")
+    private Subject subject;
+
     @ManyToOne
     @JoinColumn(name ="school_year_id")
     private SchoolYear schoolYear;
