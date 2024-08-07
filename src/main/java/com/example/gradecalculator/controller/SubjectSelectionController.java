@@ -12,10 +12,7 @@ import com.example.gradecalculator.repository.UserSubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,9 +20,16 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/subjectselection")
+@RequestMapping(value="/subjectSelection", method = RequestMethod.GET)
 public class SubjectSelectionController {
-
+    @GetMapping
+    public String getSubjects(Model model) {
+        List<String> subjects = Arrays.stream(Subjects.values())
+                .map(Subjects::name)
+                .collect(Collectors.toList());
+        model.addAttribute("subjects", subjects);
+        return "subjectSelection";
+    }
     @Autowired
     private UserRepository userRepository;
 
@@ -38,12 +42,7 @@ public class SubjectSelectionController {
     @Autowired
     private UserSubjectRepository userSubjectRepository;
 
-    @GetMapping
-    public List<String> getAllSubjects() {
-        return Arrays.stream(Subjects.values())
-                .map(Subjects::name)
-                .collect(Collectors.toList());
-    }
+
 
     @PostMapping("/save")
     public String saveSelectedSubjects(@RequestParam("schoolYear") String schoolYearName,

@@ -9,6 +9,8 @@ import java.util.*;
 @Service
 public abstract class SubjectSelectionService {
 
+
+
     private final UserSubjectRepository userSubjectRepository;
 
     public Set<UserSubject> getUserSubjectsByYearAndUserId(int year, Long userId) {
