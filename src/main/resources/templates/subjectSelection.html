@@ -32,27 +32,33 @@
 <body>
 <div id="nav-placeholder"></div>
 <div class="container d-flex flex-column flex-md-col justify-content-between col-sm-12 col-md-6 col-lg-4">
-    <form th:action="@{/subjectSelection/save}" method="post">
+    <form id="subjectForm" th:action="@{/subjectSelection/save}" method="post">
         <div class="mx-auto" style="height: auto">
+<!--            <div class="form-group">-->
+<!--                <p>School Year:</p>-->
+<!--                <select id="schoolYear" name="schoolYear">-->
+<!--                    <option th:each="year : ${schoolYears}" th:value="${year}" th:text="${year}">2020</option>-->
+<!--                </select>-->
+<!--            </div>-->
             <div class="usertype form-group">
                 <p>Subject:</p>
-                <div th:each="item : ${subjects}">
-                    <input type="checkbox" name="subjects" th:value="${item}" />
-                    <span th:text="${item}">Subject Name</span>
-                </div>
+                <select id="subjects" name="subjects">
+                    <option th:each="item : ${subjects}" th:value="${item.getId()}" th:text="${item.getName()}">Subject Name</option>
+                </select>
+                <button type="button" id="addSubjectBtn" class="btn btn-secondary">+</button>
             </div>
+            <div id="selectedSubjectsContainer"></div>
             <div class="form-group">
-                <input type="hidden" name="schoolYear" th:value="${schoolYear}" />
-                <input type="hidden" name="userId" th:value="${userId}" />
+                <input type="hidden" name="userId" th:value="${userId}"/>
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>
+        <div class="mx-auto" style="width: 280px;">
+            <h3><a href="/">Back to Homepage</a></h3>
+        </div>
     </form>
-    <div class="mx-auto" style="width: 280px;">
-        <h3><a href="/">Back to Homepage</a></h3>
-    </div>
 </div>
 <div id="footer-placeholder"></div>
 </body>

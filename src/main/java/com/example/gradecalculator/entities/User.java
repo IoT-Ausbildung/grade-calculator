@@ -3,7 +3,6 @@ package com.example.gradecalculator.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.Set;
 
 
@@ -36,6 +35,12 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "user_type_id")
     private UserType userType;
+
+    @Setter
+    @Getter
+    @ManyToOne
+    @JoinColumn(name = "subject_id")
+    private Subject subject;
 
     @ManyToOne
     @JoinColumn(name ="school_year_id")
