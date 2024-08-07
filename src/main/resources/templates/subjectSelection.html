@@ -24,6 +24,19 @@
         $(document).ready(function () {
             $("#nav-placeholder").load("/navbar");
             $("#footer-placeholder").load("/footer");
+
+            $("#addBtn").click(function() {
+                var yearText = $("#schoolYear option:selected").text();
+                var subjectText = $("#subjects option:selected").text();
+                var yearValue = $("#schoolYear").val();
+                var subjectValue = $("#subjects").val();
+
+                if(yearValue !== "" && subjectValue !== "") {
+                    var newItem = $('<div class="item-row">' + yearText + ' - ' + subjectText + '</div>');
+                    $("#selectedSubjectsContainer").append(newItem);
+                }
+            });
+
         });
     </script>
     <title>Subject Selection</title>
@@ -31,25 +44,23 @@
 <body>
 <div id="nav-placeholder"></div>
 <div class="container d-flex flex-column flex-md-col justify-content-between col-sm-12 col-md-6 col-lg-4">
-    <form id="subjectForm" th:action="@{/subjectSelection/save}" method="post">
+    <form id="subjectForm" th:action="@{/subjectSelection/save}" th:object="${registration}" method="post">
         <div class="mx-auto" style="height: auto">
             <div class="form-group">
-                <p>School Year:</p>
+                <a>School Year:</a>
                 <select id="schoolYear" name="schoolYear">
-                    <option th:each="year : ${schoolYears}" th:value="${year}" th:text="${year}">2020</option>
+                    <option th:each="item : ${years}" th:value="${item.getId()}" th:text="${item.getName()}">2020</option>
                 </select>
-            </div>
-            <div class="usertype form-group">
-                <p>Subject:</p>
+                <a>Subject:</a>
                 <select id="subjects" name="subjects">
                     <option th:each="item : ${subjects}" th:value="${item.getId()}" th:text="${item.getName()}">Subject Name</option>
                 </select>
-                <button type="button" id="addSubjectBtn" class="btn btn-secondary">+</button>
+                <button type="button" id="addBtn" class="btn btn-secondary">+</button>
             </div>
             <div id="selectedSubjectsContainer"></div>
-            <div class="form-group">
+<!--            <div class="form-group">
                 <input type="hidden" name="userId" th:value="${userId}"/>
-            </div>
+            </div>-->
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
