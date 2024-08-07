@@ -1,26 +1,25 @@
 package com.example.gradecalculator.service;
 
+import com.example.gradecalculator.entities.Subject;
 import com.example.gradecalculator.entities.UserSubject;
+import com.example.gradecalculator.model.SubjectTO;
 import com.example.gradecalculator.repository.UserSubjectRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
-public abstract class SubjectSelectionService {
-
-
+public abstract class SubjectService {
     private final UserSubjectRepository userSubjectRepository;
+    private final Map<Integer, Set<String>> selectedSubjectsByYear;
+    public abstract SubjectTO dataTO(Subject subject);
+    public SubjectService(UserSubjectRepository userSubjectRepository) {
+        this.userSubjectRepository = userSubjectRepository;
+        selectedSubjectsByYear = new HashMap<>();
+    }
 
     public Set<UserSubject> getUserSubjectsByYearAndUserId(int year, Long userId) {
         return userSubjectRepository.findBySchoolYearAndUserId(year, userId);
-    }
-
-    private final Map<Integer, Set<String>> selectedSubjectsByYear;
-
-    public SubjectSelectionService(UserSubjectRepository userSubjectRepository) {
-        this.userSubjectRepository = userSubjectRepository;
-        selectedSubjectsByYear = new HashMap<>();
     }
 
     public void selectSubjectForYear(int year, String subject) {
@@ -40,6 +39,21 @@ public abstract class SubjectSelectionService {
             if (selectedSubjects.isEmpty()) {
                 selectedSubjectsByYear.remove(year);
             }
+        }
+    }
+
+    public void deleteUserSubjectWithoutGrade() {
+        deleteUserSubjectWithoutGrade(null);
+    }
+
+    public void deleteUserSubjectWithoutGrade(Long userSubjectId) {
+        UserSubject userSubject = userSubjectRepository.findById(userSubjectId)
+                .orElseThrow(() -> new RuntimeException("UserSubject not found with id: " + userSubjectId));
+
+        if (userSubject.getGrade() == null) {
+            userSubjectRepository.delete(userSubject);
+        } else {
+            throw new RuntimeException("Cannot delete a subject with a grade assigned.");
         }
     }
 

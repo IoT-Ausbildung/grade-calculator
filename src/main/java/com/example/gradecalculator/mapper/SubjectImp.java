@@ -1,8 +1,10 @@
 package com.example.gradecalculator.mapper;
 
+import com.example.gradecalculator.entities.Subject;
 import com.example.gradecalculator.entities.UserSubject;
+import com.example.gradecalculator.model.SubjectTO;
 import com.example.gradecalculator.repository.UserSubjectRepository;
-import com.example.gradecalculator.service.SubjectSelectionService;
+import com.example.gradecalculator.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +12,18 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class SubjectSelectionImp extends SubjectSelectionService {
+public class SubjectImp extends SubjectService {
+
+    @Override
+    public SubjectTO dataTO(Subject subject) {
+        if ( subject == null ) {
+            return null;
+        }
+
+        SubjectTO subjectTO = new SubjectTO();
+
+        return subjectTO;
+    }
 
     @Autowired
     private UserSubjectRepository userSubjectRepository;
@@ -20,13 +33,18 @@ public class SubjectSelectionImp extends SubjectSelectionService {
         return super.getUserSubjectsByYearAndUserId(year, userId);
     }
 
-    public SubjectSelectionImp(UserSubjectRepository userSubjectRepository) {
+    public SubjectImp(UserSubjectRepository userSubjectRepository) {
         super(userSubjectRepository);
     }
 
     @Override
     public void removeSubjectForYear(int year, String subject) {
         super.removeSubjectForYear(year, subject);
+    }
+
+    @Override
+    public void deleteUserSubjectWithoutGrade() {
+        super.deleteUserSubjectWithoutGrade();
     }
 
     @Override

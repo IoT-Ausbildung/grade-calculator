@@ -2,15 +2,17 @@ package com.example.gradecalculator.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.io.Serializable;
 
 @Entity
 @Table(name = "user_subject")
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserSubject {
+public class UserSubject implements Serializable {
 
     @Setter
     @Getter
@@ -34,6 +36,8 @@ public class UserSubject {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+    @OneToOne(mappedBy = "userSubject")
+    private GradeType grade;
 
     public UserSubject(User selectedUser, Subject selectedSubject, SchoolYear selectedYear) {
         this.user = selectedUser;
