@@ -69,7 +69,7 @@ public class SubjectSelectionController {
             }
 
             model.addAttribute("message", "Subjects successfully saved!");
-            return "success"; //
+            return "success";
 
         } catch (RuntimeException e) {
             model.addAttribute("error", e.getMessage());
