@@ -34,7 +34,7 @@ public class DBInitializer {
 
         if (schoolYearRepository.count() == 0) {
             String[]  schoolYearData= {
-                    "2023-2024", "2024.2025", "2025-2026", "2026-2027", "2027-2028"
+                    "2023-2024", "2024-2025", "2025-2026", "2026-2027", "2027-2028"
             };
             LocalDate startDate = LocalDate.of(2023, 9,1);
             LocalDate endDate = startDate.plusYears(1).minusDays(1);
