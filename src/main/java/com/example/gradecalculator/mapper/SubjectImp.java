@@ -42,10 +42,6 @@ public class SubjectImp extends SubjectService {
         super.removeSubjectForYear(year, subject);
     }
 
-    @Override
-    public void deleteUserSubjectWithoutGrade() {
-        super.deleteUserSubjectWithoutGrade();
-    }
 
     @Override
     public void saveUserSubjects() {

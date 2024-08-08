@@ -2,7 +2,6 @@ package com.example.gradecalculator.entities;
 
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 @Entity

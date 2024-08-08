@@ -36,13 +36,12 @@ public class UserSubject implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-    @OneToOne(mappedBy = "userSubject")
-    private GradeType grade;
 
     public UserSubject(User selectedUser, Subject selectedSubject, SchoolYear selectedYear) {
         this.user = selectedUser;
         this.subject = selectedSubject;
         this.schoolYear = selectedYear;
     }
+
 }
 

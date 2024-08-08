@@ -42,21 +42,6 @@ public abstract class SubjectService {
         }
     }
 
-    public void deleteUserSubjectWithoutGrade() {
-        deleteUserSubjectWithoutGrade(null);
-    }
-
-    public void deleteUserSubjectWithoutGrade(Long userSubjectId) {
-        UserSubject userSubject = userSubjectRepository.findById(userSubjectId)
-                .orElseThrow(() -> new RuntimeException("UserSubject not found with id: " + userSubjectId));
-
-        if (userSubject.getGrade() == null) {
-            userSubjectRepository.delete(userSubject);
-        } else {
-            throw new RuntimeException("Cannot delete a subject with a grade assigned.");
-        }
-    }
-
     public void saveUserSubjects() {
         saveUserSubjects(null, null, null);
     }

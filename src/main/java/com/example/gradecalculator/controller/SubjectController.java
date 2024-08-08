@@ -164,17 +164,6 @@ public class SubjectController {
             return "error";
         }
     }
-    @PostMapping("/delete")
-    public String deleteUserSubjectWithoutGrade(@RequestParam("userSubjectId") Long userSubjectId, Model model) {
-        try {
-            subjectService.deleteUserSubjectWithoutGrade(userSubjectId);
-            model.addAttribute("message", "Subject successfully deleted!");
-            return "success";
-        } catch (RuntimeException e) {
-            model.addAttribute("error", e.getMessage());
-            return "error";
-        }
-    }
 
 }
 
