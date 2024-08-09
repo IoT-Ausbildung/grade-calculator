@@ -3,7 +3,6 @@ package com.example.gradecalculator.config;
 import com.example.gradecalculator.entities.SchoolYear;
 import com.example.gradecalculator.entities.Subject;
 import com.example.gradecalculator.entities.UserType;
-import com.example.gradecalculator.enums.Subjects;
 import com.example.gradecalculator.enums.UserNames;
 import com.example.gradecalculator.repository.SchoolYearRepository;
 import com.example.gradecalculator.repository.SubjectRepository;
@@ -11,6 +10,7 @@ import com.example.gradecalculator.repository.UserTypeRepository;
 import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Configuration
 public class DBInitializer {
@@ -68,25 +68,15 @@ public class DBInitializer {
     }
 
     private void seedSubjects() {
+        List<String> subjectNames = List.of(
+                "ITT1", "ITT2", "ITS", "AP", "BGP", "Englisch", "Deutsch", "Sport", "PuG"
+        );
 
-            Subjects[] subjectsToCheck = {Subjects.ITT1, Subjects.ITT2, Subjects.ITS, Subjects.AP, Subjects.BGP, Subjects.Englisch, Subjects.Deutsch, Subjects.Sport, Subjects.PuG};
-
-            for (Subjects subject : subjectsToCheck) {
-                switch (subject) {
-                    case ITT1, ITT2, ITS, AP, BGP, Englisch, Deutsch, Sport, PuG:
-                        if (subjectRepository.findByName(subject.getValue()) == null) {
-                            saveUserSubjects(subject.getValue());
-                        }
-                        break;
-                    default:
-                        break;
-                }
+        for (String subjectName : subjectNames) {
+            if (subjectRepository.findByName(subjectName) == null) {
+                Subject subject = new Subject();
+                subject.setName(subjectName);
+                subject.setDescription(subjectName + " Description");
+                subjectRepository.save(subject);
             }
-        }
-
-    private void saveUserSubjects(String subjects) {
-        Subject subject = new Subject();
-        subject.setName(subjects);
-        subjectRepository.save(subject);
-    }
-}
+        }}}

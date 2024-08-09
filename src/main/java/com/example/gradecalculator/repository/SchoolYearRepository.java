@@ -6,6 +6,6 @@ import org.springframework.data.repository.ListCrudRepository;
 import java.util.Optional;
 
 public interface SchoolYearRepository extends ListCrudRepository<SchoolYear, Long> {
-    SchoolYear findById(long id);
+    Optional<SchoolYear> findById(Long id);
     Optional<SchoolYear> findByName(String name);
 }

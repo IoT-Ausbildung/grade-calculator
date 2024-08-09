@@ -1,8 +1,10 @@
 package com.example.gradecalculator.model;
 
-import com.example.gradecalculator.enums.Subjects;
+import com.example.gradecalculator.entities.Subject;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 public class SubjectTO {
 
@@ -17,18 +19,22 @@ public class SubjectTO {
     @Getter
     @Setter
     private String description;
-    @Getter
-    @Setter
-    private int creditValue;
-
-    private Subjects subject;
+    private Subject subject;
     private boolean selected;
+    private List<SubjectTO> subjects;
 
-    public Subjects getSubject() {
+    public SubjectTO(List<SubjectTO> subjects) {
+        this.subjects = subjects;
+    }
+
+    public SubjectTO(Long id, String name, String description) {
+    }
+
+    public Subject getSubject() {
         return subject;
     }
 
-    public void setSubject(Subjects subject) {
+    public void setSubject(Subject subject) {
         this.subject = subject;
     }
 

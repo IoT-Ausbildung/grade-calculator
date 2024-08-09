@@ -82,4 +82,8 @@ public class SchoolYear {
     public Year orElse(Object o) {
         return null;
     }
+
+    public SchoolYear orElseThrow(Object yearNotFound) {
+        return null;
+    }
 }

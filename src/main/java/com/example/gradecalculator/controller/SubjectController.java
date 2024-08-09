@@ -4,7 +4,6 @@ import com.example.gradecalculator.entities.SchoolYear;
 import com.example.gradecalculator.entities.Subject;
 import com.example.gradecalculator.entities.User;
 import com.example.gradecalculator.entities.UserSubject;
-import com.example.gradecalculator.enums.Subjects;
 import com.example.gradecalculator.model.SubjectTO;
 import com.example.gradecalculator.repository.SchoolYearRepository;
 import com.example.gradecalculator.repository.SubjectRepository;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -26,13 +24,13 @@ import java.util.stream.Collectors;
 @Controller
 public class SubjectController {
 
-    @Autowired
     private final UserSubjectRepository userSubjectRepository;
     private final SchoolYearRepository schoolYearRepository;
     private final UserRepository userRepository;
     private final SubjectRepository subjectRepository;
     private final SubjectService subjectService;
 
+    @Autowired
     public SubjectController(UserSubjectRepository userSubjectRepository,
                              SchoolYearRepository schoolYearRepository,
                              UserRepository userRepository,
@@ -47,7 +45,7 @@ public class SubjectController {
 
     @GetMapping("/userSubject/form")
     public String showUserSubjectForm(Model model) {
-        List<SchoolYear> years = (List<SchoolYear>) schoolYearRepository.findAll();
+        List<SchoolYear> years = schoolYearRepository.findAll();
         List<Subject> subjects = (List<Subject>) subjectRepository.findAll();
         model.addAttribute("years", years);
         model.addAttribute("subjects", subjects);
@@ -55,16 +53,15 @@ public class SubjectController {
     }
 
     @PostMapping("/userSubject/save")
-    public String saveUserSubject(
-            @RequestParam("year") long yearId,
-            @RequestParam("subject") long subjectId,
-            @RequestParam("user") long userId
-    ) {
-        SchoolYear selectedYear = schoolYearRepository.findById(yearId);
-        Subject selectedSubject = subjectRepository.findById(subjectId);
-        User selectedUser = userRepository.findById(userId).orElse(null);
+    public String saveUserSubject(@RequestParam("year") long yearId,
+                                  @RequestParam("subject") long subjectId,
+                                  @RequestParam("user") long userId,
+                                  Model model) {
+        try {
+            SchoolYear selectedYear = schoolYearRepository.findById(yearId).orElseThrow(() -> new IllegalArgumentException("Year not found"));
+            Subject selectedSubject = subjectRepository.findById(subjectId).orElseThrow(() -> new IllegalArgumentException("Subject not found"));
+            User selectedUser = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        if (selectedYear != null && selectedSubject != null && selectedUser != null) {
             String subjectName = selectedSubject.getName();
             int year = selectedYear.getStartDate().getYear();
 
@@ -72,39 +69,26 @@ public class SubjectController {
 
             UserSubject userSubject = new UserSubject(selectedUser, selectedSubject, selectedYear);
             userSubjectRepository.save(userSubject);
-        }
 
-        return "redirect:/grades";
+            return "redirect:/grades";
+
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
     }
 
     @GetMapping("/userSubject/selected")
     public String showSelectedSubjects(@RequestParam("year") int year, Model model) {
-        SubjectService subjectService = new SubjectService(userSubjectRepository) {
-            @Override
-            public SubjectTO dataTO(Subject subject) {
-                return null;
-            }
-
-            @Override
-            public void saveUserSubjects(String schoolYearName, Long userId, List<String> subjects) {
-
-            }
-            @Override
-            public void getSelectedSubjectsForSchoolYear(String schoolYearName, Long userId) {
-
-            }
-        };
         Set<String> selectedSubjects = subjectService.getSelectedSubjectsForYear(year);
         model.addAttribute("selectedSubjects", selectedSubjects);
         model.addAttribute("year", year);
         return "selectedSubjects";
     }
 
-    @GetMapping
+    @GetMapping("/subjects")
     public String getSubjects(Model model) {
-        List<String> subjects = Arrays.stream(Subjects.values())
-                .map(Subjects::name)
-                .collect(Collectors.toList());
+        List<SubjectTO> subjects = subjectService.getAllSubjects();
         model.addAttribute("subjects", subjects);
         return "subjectSelection";
     }
@@ -115,15 +99,11 @@ public class SubjectController {
                                        @RequestParam("subjects") String[] subjects,
                                        Model model) {
         try {
-            User user = userRepository.findById(userId)
-                    .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
-
-            SchoolYear schoolYear = schoolYearRepository.findByName(schoolYearName)
-                    .orElseThrow(() -> new RuntimeException("School year not found with name: " + schoolYearName));
+            User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
+            SchoolYear schoolYear = schoolYearRepository.findByName(schoolYearName).orElseThrow(() -> new IllegalArgumentException("School year not found with name: " + schoolYearName));
 
             for (String subjectName : subjects) {
-                Subject subject = subjectRepository.findByName(subjectName)
-                        .orElseThrow(() -> new RuntimeException("Subject not found with name: " + subjectName));
+                Subject subject = subjectRepository.findByName(subjectName).orElseThrow(() -> new IllegalArgumentException("Subject not found with name: " + subjectName));
 
                 UserSubject userSubject = new UserSubject();
                 userSubject.setUser(user);
@@ -135,7 +115,7 @@ public class SubjectController {
             model.addAttribute("message", "Subjects successfully saved!");
             return "success";
 
-        } catch (RuntimeException e) {
+        } catch (IllegalArgumentException e) {
             model.addAttribute("error", e.getMessage());
             return "error";
         }
@@ -146,8 +126,7 @@ public class SubjectController {
                                        @RequestParam("userId") Long userId,
                                        Model model) {
         try {
-            SchoolYear schoolYear = schoolYearRepository.findByName(schoolYearName)
-                    .orElseThrow(() -> new RuntimeException("School year not found with name: " + schoolYearName));
+            SchoolYear schoolYear = schoolYearRepository.findByName(schoolYearName).orElseThrow(() -> new IllegalArgumentException("School year not found with name: " + schoolYearName));
 
             Set<UserSubject> userSubjects = userSubjectRepository.findBySchoolYearNameAndUserId(schoolYearName, userId);
             Set<String> selectedSubjects = userSubjects.stream()
@@ -159,12 +138,9 @@ public class SubjectController {
             model.addAttribute("userId", userId);
             return "selectedSubjects";
 
-        } catch (RuntimeException e) {
+        } catch (IllegalArgumentException e) {
             model.addAttribute("error", e.getMessage());
             return "error";
         }
     }
-
 }
-
-
