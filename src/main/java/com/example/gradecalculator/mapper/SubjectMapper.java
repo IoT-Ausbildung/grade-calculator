@@ -6,5 +6,9 @@ import org.mapstruct.Mapper;
 
 @Mapper
 public abstract class SubjectMapper {
+    public SubjectTO dataTO() {
+        return dataTO(null);
+    }
+
     public abstract SubjectTO dataTO(Subject subject);
 }

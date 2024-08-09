@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import java.util.Set;
 
-
 @Entity
 @Table(name = "application_user")
 public class User {
@@ -14,18 +13,23 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Setter
     @Getter
     private String firstName;
+
     @Setter
     @Getter
     private String lastName;
+
     @Setter
     @Getter
     private String userName;
+
     @Setter
     @Getter
     private String email;
+
     @Setter
     @Getter
     private String encodedPassword;
@@ -36,14 +40,8 @@ public class User {
     @JoinColumn(name = "user_type_id")
     private UserType userType;
 
-    @Setter
-    @Getter
     @ManyToOne
-    @JoinColumn(name = "subject_id")
-    private Subject subject;
-
-    @ManyToOne
-    @JoinColumn(name ="school_year_id")
+    @JoinColumn(name = "school_year_id")
     private SchoolYear schoolYear;
 
     @OneToMany(mappedBy = "user")
@@ -64,6 +62,10 @@ public class User {
     }
 
     public User orElse(Object o) {
+        return null;
+    }
+
+    public User orElseThrow(Object userNotFound) {
         return null;
     }
 }

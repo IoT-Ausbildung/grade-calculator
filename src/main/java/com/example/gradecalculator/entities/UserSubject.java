@@ -14,10 +14,6 @@ import java.io.Serializable;
 @Setter
 public class UserSubject implements Serializable {
 
-    @Setter
-    @Getter
-    private String email;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -27,8 +23,6 @@ public class UserSubject implements Serializable {
     @JoinColumn(name = "school_year_id", nullable = false)
     private SchoolYear schoolYear;
 
-    @Setter
-    @Getter
     @ManyToOne
     @JoinColumn(name = "subject_id", nullable = false)
     private Subject subject;
@@ -42,6 +36,4 @@ public class UserSubject implements Serializable {
         this.subject = selectedSubject;
         this.schoolYear = selectedYear;
     }
-
 }
-
