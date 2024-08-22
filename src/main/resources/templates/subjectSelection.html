@@ -30,14 +30,14 @@
     <form id="subjectForm" th:action="@{/subjectSelection/save}" th:object="${subjects}" method="post">
         <div class="mx-auto" style="height: auto">
             <div class="form-group">
-                <a>School Year:</a>
-                <select id="schoolYear" name="schoolYear" class="form-select" aria-label="Default select example">
-                    <option th:each="item : ${years}" th:value="${item.getId()}" th:text="${item.getName()}"></option>
-                </select>
-                <a>Subject:</a>
-                <select class="form-select" aria-label="Default select example" id="subjects" name="subjects">
+                <h3>Select your Subject and School Year:</h3>
+                <select id="subjects" name="subjects" class="form-select dropdown" aria-label="Default select example">
                     <option th:each="item : ${subjects}" th:value="${item.getId()}" th:text="${item.getName()}"></option>
                 </select>
+                <select id="schoolYear" name="schoolYear" class="form-select dropdown" aria-label="Default select example">
+                    <option th:each="item : ${years}" th:value="${item.getId()}" th:text="${item.getName()}"></option>
+                </select>
+
                 <button type="button" id="addBtn" class="btn btn-secondary">+</button>
             </div>
             <div id="selectedSubjectsContainer"></div>
