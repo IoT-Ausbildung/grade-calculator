@@ -5,37 +5,26 @@ import lombok.Getter;
 import lombok.Setter;
 import java.util.Set;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "application_user")
 public class User {
-    @Setter
-    @Getter
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Setter
-    @Getter
     private String firstName;
 
-    @Setter
-    @Getter
     private String lastName;
 
-    @Setter
-    @Getter
     private String userName;
 
-    @Setter
-    @Getter
     private String email;
 
-    @Setter
-    @Getter
     private String encodedPassword;
 
-    @Setter
-    @Getter
     @ManyToOne
     @JoinColumn(name = "user_type_id")
     private UserType userType;
@@ -49,7 +38,7 @@ public class User {
 
     public User() {
     }
-    
+
     public User(String firstName, String lastName, String userName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -67,5 +56,18 @@ public class User {
 
     public User orElseThrow(Object userNotFound) {
         return null;
+    }
+
+    // Add setters and getters or ensure Lombok works
+    public String getEncodedPassword() {
+        return encodedPassword;
+    }
+
+    public void setEncodedPassword(String encodedPassword) {
+        this.encodedPassword = encodedPassword;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 }
