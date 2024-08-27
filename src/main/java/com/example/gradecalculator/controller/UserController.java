@@ -1,11 +1,11 @@
 package com.example.gradecalculator.controller;
 
+import com.example.gradecalculator.mapper.SubjectMapper;
 import com.example.gradecalculator.mapper.UserMapper;
 import com.example.gradecalculator.model.UserEditTO;
-import com.example.gradecalculator.repository.UserRepository;
-import com.example.gradecalculator.repository.UserTypeRepository;
-import com.example.gradecalculator.service.UserService;
 import com.example.gradecalculator.model.UserSignUpTO;
+import com.example.gradecalculator.repository.*;
+import com.example.gradecalculator.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -27,6 +27,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserController {
     private final UserRepository userRepository;
     private final UserTypeRepository userTypeRepository;
+    private final SubjectRepository subjectRepository;
+    private final UserSubjectRepository userSubjectRepository;
+    private final SchoolYearRepository schoolYearRepository;
     private UserMapper userMapper = Mappers.getMapper(UserMapper.class);
 
     @Autowired
@@ -36,9 +39,15 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    public UserController(UserRepository userRepository, UserTypeRepository userTypeRepository) {
+    private SubjectMapper subjectMapper;
+
+    @Autowired
+    public UserController(UserRepository userRepository, UserTypeRepository userTypeRepository, UserSubjectRepository userSubjectRepository, SubjectRepository subjectRepository, SchoolYearRepository schoolYearRepository) {
         this.userRepository = userRepository;
         this.userTypeRepository = userTypeRepository;
+        this.userSubjectRepository = userSubjectRepository;
+        this.subjectRepository = subjectRepository;
+        this.schoolYearRepository = schoolYearRepository;
     }
 
     @GetMapping("/signup")

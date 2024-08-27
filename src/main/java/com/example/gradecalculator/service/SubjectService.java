@@ -18,6 +18,8 @@ public interface SubjectService {
     void saveUserSubjects(String schoolYearName, Long userId, List<String> subjects);
     void getSelectedSubjectsForSchoolYear();
     void getSelectedSubjectsForSchoolYear(String schoolYearName, Long userId);
+
+    Subject findSubjectById(Long id);
 }
 
 

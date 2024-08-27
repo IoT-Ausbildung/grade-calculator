@@ -97,4 +97,9 @@ public class SubjectServiceImpl implements SubjectService {
         //ToDo: Implement retrieving the selected subjects for a school
     }
 
+    @Override
+    public Subject findSubjectById(Long id) {
+        return null;
+    }
+
 }

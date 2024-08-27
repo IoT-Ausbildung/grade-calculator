@@ -53,8 +53,8 @@ public class SubjectController {
     }
 
     @PostMapping("/userSubject/save")
-    public String saveUserSubject(@RequestParam("year") long yearId,
-                                  @RequestParam("subject") long subjectId,
+    public String saveUserSubject(@RequestParam("schoolYear") long yearId,
+                                  @RequestParam("subjects") long subjectId,
                                   @RequestParam("user") long userId,
                                   Model model) {
         try {
@@ -62,15 +62,12 @@ public class SubjectController {
             Subject selectedSubject = subjectRepository.findById(subjectId).orElseThrow(() -> new IllegalArgumentException("Subject not found"));
             User selectedUser = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-            String subjectName = selectedSubject.getName();
-            int year = selectedYear.getStartDate().getYear();
-
-            subjectService.selectSubjectForYear(year, subjectName);
+            subjectService.selectSubjectForYear(selectedYear.getStartDate().getYear(), selectedSubject.getName());
 
             UserSubject userSubject = new UserSubject(selectedUser, selectedSubject, selectedYear);
             userSubjectRepository.save(userSubject);
 
-            return "redirect:/grades";
+            return "redirect:/userSubject/selected?year=" + selectedYear.getName() + "&userId=" + userId;
 
         } catch (IllegalArgumentException e) {
             model.addAttribute("error", e.getMessage());
@@ -83,7 +80,7 @@ public class SubjectController {
         Set<String> selectedSubjects = subjectService.getSelectedSubjectsForYear(year);
         model.addAttribute("selectedSubjects", selectedSubjects);
         model.addAttribute("year", year);
-        return "selectedSubjects";
+        return "userSubjects";
     }
 
     @GetMapping("/subjects")
@@ -135,12 +132,13 @@ public class SubjectController {
 
             model.addAttribute("selectedSubjects", selectedSubjects);
             model.addAttribute("year", schoolYearName);
-            model.addAttribute("userId", userId);
-            return "selectedSubjects";
+            model.addAttribute("user", userId);
+            return "userSubjects";
 
         } catch (IllegalArgumentException e) {
             model.addAttribute("error", e.getMessage());
             return "error";
+
         }
     }
 }

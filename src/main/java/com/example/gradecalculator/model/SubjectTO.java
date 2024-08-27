@@ -19,31 +19,15 @@ public class SubjectTO {
     @Getter
     @Setter
     private String description;
+    @Setter
+    @Getter
     private Subject subject;
+    @Setter
+    @Getter
     private boolean selected;
     private List<SubjectTO> subjects;
-
-    public SubjectTO(List<SubjectTO> subjects) {
-        this.subjects = subjects;
-    }
-
     public SubjectTO(Long id, String name, String description) {
     }
 
-    public Subject getSubject() {
-        return subject;
-    }
-
-    public void setSubject(Subject subject) {
-        this.subject = subject;
-    }
-
-    public boolean isSelected() {
-        return selected;
-    }
-
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-    }
 }
 
