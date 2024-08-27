@@ -1,10 +1,15 @@
 package com.example.gradecalculator.controller;
 
+import com.example.gradecalculator.entities.SchoolYear;
+import com.example.gradecalculator.entities.Subject;
+import com.example.gradecalculator.entities.User;
+import com.example.gradecalculator.entities.UserSubject;
 import com.example.gradecalculator.mapper.SubjectMapper;
 import com.example.gradecalculator.mapper.UserMapper;
 import com.example.gradecalculator.model.UserEditTO;
 import com.example.gradecalculator.model.UserSignUpTO;
 import com.example.gradecalculator.repository.*;
+import com.example.gradecalculator.service.SubjectService;
 import com.example.gradecalculator.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,6 +27,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 
 @Controller
 public class UserController {
@@ -30,6 +39,8 @@ public class UserController {
     private final SubjectRepository subjectRepository;
     private final UserSubjectRepository userSubjectRepository;
     private final SchoolYearRepository schoolYearRepository;
+
+    private final SubjectService subjectService;
     private UserMapper userMapper = Mappers.getMapper(UserMapper.class);
 
     @Autowired
@@ -42,12 +53,13 @@ public class UserController {
     private SubjectMapper subjectMapper;
 
     @Autowired
-    public UserController(UserRepository userRepository, UserTypeRepository userTypeRepository, UserSubjectRepository userSubjectRepository, SubjectRepository subjectRepository, SchoolYearRepository schoolYearRepository) {
+    public UserController(UserRepository userRepository, UserTypeRepository userTypeRepository, UserSubjectRepository userSubjectRepository, SubjectRepository subjectRepository, SchoolYearRepository schoolYearRepository, SubjectService subjectService) {
         this.userRepository = userRepository;
         this.userTypeRepository = userTypeRepository;
         this.userSubjectRepository = userSubjectRepository;
         this.subjectRepository = subjectRepository;
         this.schoolYearRepository = schoolYearRepository;
+        this.subjectService = subjectService;
     }
 
     @GetMapping("/signup")
@@ -143,4 +155,60 @@ public class UserController {
     }
 
     SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+
+
+    @GetMapping("/userSubject/form")
+    public String showUserSubjectForm(Model model) {
+        List<SchoolYear> years = schoolYearRepository.findAll();
+        List<Subject> subjects = (List<Subject>) subjectRepository.findAll();
+        model.addAttribute("years", years);
+        model.addAttribute("subjects", subjects);
+        return "subjectSelection";
+    }
+
+    @PostMapping("/userSubject/save")
+    public String saveUserSubject(@RequestParam("schoolYear") long yearId,
+                                  @RequestParam("subjects") long subjectId,
+                                  Authentication authentication,
+                                  Model model) {
+        try {
+            SchoolYear selectedYear = schoolYearRepository.findById(yearId).orElseThrow(() -> new IllegalArgumentException("Year not found"));
+            Subject selectedSubject = subjectRepository.findById(subjectId).orElseThrow(() -> new IllegalArgumentException("Subject not found"));
+            var userID = userService.getAuthenticatedUserId(authentication);
+            User selectedUser = userRepository.findById(userID).orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+            subjectService.selectSubjectForYear(selectedYear.getStartDate().getYear(), selectedSubject.getName());
+
+            UserSubject userSubject = new UserSubject(selectedUser, selectedSubject, selectedYear);
+            userSubjectRepository.save(userSubject);
+
+            return "redirect:/userSubject/selected?year=" + selectedYear.getName() + "&userId=" + userID;
+
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
+    }
+    @GetMapping("/selected")
+    public String showSelectedSubjects(@RequestParam("year") String schoolYearName,
+                                       @RequestParam("user") Long userId,
+                                       Model model) {
+        try {
+
+            Set<UserSubject> userSubjects = userSubjectRepository.findBySchoolYearNameAndUserId(schoolYearName, userId);
+            Set<String> selectedSubjects = userSubjects.stream()
+                    .map(userSubject -> userSubject.getSubject().getName())
+                    .collect(Collectors.toSet());
+
+            model.addAttribute("selectedSubjects", selectedSubjects);
+            model.addAttribute("year", schoolYearName);
+            model.addAttribute("user", userId);
+
+            return "/userSubjects";
+
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
+    }
 }
