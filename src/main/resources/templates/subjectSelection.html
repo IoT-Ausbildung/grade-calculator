@@ -25,30 +25,53 @@
 </head>
 <body>
 <div id="nav-placeholder"></div>
-<div class="container d-flex flex-column flex-md-col justify-content-between col-sm-12 col-md-6 col-lg-4">
-    <form id="subjectForm" th:action="@{/userSubject/save}" th:object="${subjects}" method="post">
-        <div class="mx-auto" style="height: auto">
-            <div class="form-group">
-                <h3>Select your Subject and School Year:</h3>
-                <select id="subjects" name="subjects" class="form-select dropdown" aria-label="Default select example">
-                    <option th:each="item : ${subjects}" th:value="${item.getId()}" th:text="${item.getName()}"></option>
-                </select>
-                <select id="schoolYear" name="schoolYear" class="form-select dropdown" aria-label="Default select example">
-                    <option th:each="item : ${years}" th:value="${item.getId()}" th:text="${item.getName()}"></option>
-                </select>
 
-                <button type="button" id="addBtn" class="btn btn-secondary">+</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#subjectModal">
+    Open the Form for Selecting Subjects
+</button>
+
+
+<div class="modal fade" id="subjectModal" tabindex="-1" role="dialog" aria-labelledby="subjectModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="subjectModalLabel">Subject Selection</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <div id="selectedSubjectsContainer"></div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="modal-body">
+                <form id="subjectForm" th:action="@{/userSubject/save}" th:object="${subjects}" method="post">
+                    <div class="mx-auto" style="height: auto">
+                        <div class="form-group">
+                            <h3>Select your Subject and School Year:</h3>
+                            <select id="subjects" name="subjects" class="form-select dropdown" aria-label="Default select example">
+                                <option th:each="item : ${subjects}" th:value="${item.getId()}" th:text="${item.getName()}"></option>
+                            </select>
+                            <select id="schoolYear" name="schoolYear" class="form-select dropdown" aria-label="Default select example">
+                                <option th:each="item : ${years}" th:value="${item.getId()}" th:text="${item.getName()}"></option>
+                            </select>
+
+                            <button type="button" id="addBtn" class="btn btn-secondary">+</button>
+                        </div>
+                        <div id="selectedSubjectsContainer"></div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                    <div class="mx-auto" style="width: 280px;">
+                        <h3><a href="/">Back to Homepage</a></h3>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
-        <div class="mx-auto" style="width: 280px;">
-            <h3><a href="/">Back to Homepage</a></h3>
-        </div>
-    </form>
+    </div>
 </div>
+
 <div id="footer-placeholder"></div>
 </body>
 </html>
