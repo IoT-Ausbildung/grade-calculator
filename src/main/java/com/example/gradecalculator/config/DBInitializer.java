@@ -29,7 +29,6 @@ public class DBInitializer {
         seedSubjects();
         seedSchoolYears();
     }
-
     private void seedSchoolYears() {
 
         if (schoolYearRepository.count() == 0) {
@@ -73,10 +72,10 @@ public class DBInitializer {
         );
 
         for (String subjectName : subjectNames) {
-            if (subjectRepository.findByName(subjectName) == null) {
+            if (subjectRepository.findByName(subjectName).isEmpty()) {
                 Subject subject = new Subject();
                 subject.setName(subjectName);
-                subject.setDescription(subjectName + " Description");
+                subject.setDescription(subjectName + "Description");
                 subjectRepository.save(subject);
             }
         }}}

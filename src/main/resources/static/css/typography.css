@@ -14,7 +14,7 @@ a {
     text-transform: uppercase;
 }
 
-.site-header a, .site-footer a{
+.site-header a, .site-footer a {
     color: white;
     transition: ease-in-out color .15s;
     font-size: 20px;
@@ -59,3 +59,8 @@ div.active a {
 a.link-large {
     font-size: large;
 }
+.custom-select-size{
+    font-size: 1.2rem;
+    text-align-last: center;
+}
+

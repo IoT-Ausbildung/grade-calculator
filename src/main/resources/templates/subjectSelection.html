@@ -25,17 +25,19 @@
 </head>
 <body>
 <div id="nav-placeholder"></div>
-
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#subjectModal">
-    Open the Form for Selecting Subjects
-</button>
-
+<div class="center-container">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#subjectModal">
+        Add new subject
+    </button>
+</div>
 
 <div class="modal fade" id="subjectModal" tabindex="-1" role="dialog" aria-labelledby="subjectModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog custom-modal-margin custom-modal-size" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="subjectModalLabel">Subject Selection</h5>
+                <h5 class="modal-title" id="subjectModalLabel">
+                   Select your subjects and school year
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -44,11 +46,10 @@
                 <form id="subjectForm" th:action="@{/userSubject/save}" th:object="${subjects}" method="post">
                     <div class="mx-auto" style="height: auto">
                         <div class="form-group">
-                            <h3>Select your Subject and School Year:</h3>
-                            <select id="subjects" name="subjects" class="form-select dropdown" aria-label="Default select example">
+                            <select id="subjects" name="subjects" class="subjects form-select dropdown custom-select-size" aria-label="Default select example">
                                 <option th:each="item : ${subjects}" th:value="${item.getId()}" th:text="${item.getName()}"></option>
                             </select>
-                            <select id="schoolYear" name="schoolYear" class="form-select dropdown" aria-label="Default select example">
+                            <select id="schoolYear" name="schoolYear" class="years form-select dropdown custom-select-size" aria-label="Default select example">
                                 <option th:each="item : ${years}" th:value="${item.getId()}" th:text="${item.getName()}"></option>
                             </select>
 
@@ -58,15 +59,14 @@
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
-                    </div>
-                    <div class="mx-auto" style="width: 280px;">
-                        <h3><a href="/">Back to Homepage</a></h3>
+
                     </div>
                 </form>
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>
     </div>

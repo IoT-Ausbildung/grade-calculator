@@ -9,3 +9,29 @@
     justify-content: center;
     margin-top: 90px;
 }
+
+.custom-modal-margin{
+    margin-top: 150px;
+    margin-left: 28%;
+}
+.custom-modal-size{
+    max-width: 50%;
+}
+.years{
+    margin-left: 10px;
+}
+.custom-select-size {
+    height: 3rem;
+    width: 200px;
+}
+.plusButton{
+    height: 3rem;
+    font-size: 1.2rem;
+    margin-left: 10px;
+}
+.containerOfSelectedSubjects{
+    margin-top: 20px;
+    margin-left: 7px;
+}
+
+
