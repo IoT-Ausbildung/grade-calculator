@@ -182,14 +182,14 @@ public class UserController {
             UserSubject userSubject = new UserSubject(selectedUser, selectedSubject, selectedYear);
             userSubjectRepository.save(userSubject);
 
-            return "redirect:/userSubject/selected?year=" + selectedYear.getName() + "&userId=" + userID;
+            return "redirect:/userSubject/selected?year=" + selectedYear.getName() + "&user=" + userID;
 
         } catch (IllegalArgumentException e) {
             model.addAttribute("error", e.getMessage());
             return "error";
         }
     }
-    @GetMapping("/selected")
+    @GetMapping("userSubject/selected")
     public String showSelectedSubjects(@RequestParam("year") String schoolYearName,
                                        @RequestParam("user") Long userId,
                                        Model model) {
