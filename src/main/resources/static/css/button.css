@@ -22,3 +22,12 @@
     font-family: "Poppins", sans-serif;
     font-size: 18px;
 }
+.plusButton{
+    height: 3rem;
+    font-size: 1.2rem;
+    margin-left: 10px;
+}
+.center-container{
+    margin-top: 100px;
+}
+
