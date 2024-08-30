@@ -20,8 +20,9 @@
                 <div class="col-sm-12 col-md-6 col-lg-2" sec:authorize="isAuthenticated()"><a href="/settings">settings</a></div>
                 <div class="col-sm-12 col-md-6 col-lg-2" sec:authorize="isAuthenticated()"><a href="/myProfile">profile</a></div>
                 <div class="col-sm-12 col-md-6 col-lg-2" sec:authorize="isAuthenticated()">
-                    <a href="/userSubject">subjects</a>
+                    <a th:href="@{/userSubject/selected(year=${year}, user=${userID})}">subjects</a>
                 </div>
+
                 <div class="col-sm-12 col-md-6 col-lg-2" sec:authorize="!isAuthenticated()"><a href="/login">log in</a></div>
                 <div class="col-sm-12 col-md-6 col-lg-2" sec:authorize="!isAuthenticated()"><a href="/signup">Sign up</a></div>
                 <div class="col-sm-12 col-md-6 col-lg-2" sec:authorize="isAuthenticated()">
