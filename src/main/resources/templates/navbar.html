@@ -1,5 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6" lang="">
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:redirect="http://www.w3.org/1999/xhtml" lang="">
     <link rel="stylesheet" href="../css/styles.css">
     <script>
         $(document).ready(function() {
@@ -18,7 +19,9 @@
                 <div class="col-sm-12 col-md-6 col-lg-2"><a href="/help">help</a></div>
                 <div class="col-sm-12 col-md-6 col-lg-2" sec:authorize="isAuthenticated()"><a href="/settings">settings</a></div>
                 <div class="col-sm-12 col-md-6 col-lg-2" sec:authorize="isAuthenticated()"><a href="/myProfile">profile</a></div>
-                <div class="col-sm-12 col-md-6 col-lg-2" sec:authorize="isAuthenticated()"><a href="/userSubject/form">subjects</a></div>
+                <div class="col-sm-12 col-md-6 col-lg-2" sec:authorize="isAuthenticated()">
+                    <a href="/userSubject/selected">subjects</a>
+                </div>
                 <div class="col-sm-12 col-md-6 col-lg-2" sec:authorize="!isAuthenticated()"><a href="/login">log in</a></div>
                 <div class="col-sm-12 col-md-6 col-lg-2" sec:authorize="!isAuthenticated()"><a href="/signup">Sign up</a></div>
                 <div class="col-sm-12 col-md-6 col-lg-2" sec:authorize="isAuthenticated()">

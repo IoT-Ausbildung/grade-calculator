@@ -8,6 +8,7 @@ import java.util.List;
 
 public class SubjectTO {
 
+
     @Getter
     @Setter
     private int id;
@@ -25,9 +26,14 @@ public class SubjectTO {
     @Setter
     @Getter
     private boolean selected;
+    @Getter
+    @Setter
+    private String userSubject;
+
     private List<SubjectTO> subjects;
+
+
     public SubjectTO(Long id, String name, String description) {
     }
-
 }
 

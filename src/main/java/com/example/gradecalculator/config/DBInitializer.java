@@ -29,17 +29,18 @@ public class DBInitializer {
         seedSubjects();
         seedSchoolYears();
     }
+
     private void seedSchoolYears() {
 
         if (schoolYearRepository.count() == 0) {
-            String[]  schoolYearData= {
+            String[] schoolYearData = {
                     "2023-2024", "2024-2025", "2025-2026", "2026-2027", "2027-2028"
             };
-            LocalDate startDate = LocalDate.of(2023, 9,1);
+            LocalDate startDate = LocalDate.of(2023, 9, 1);
             LocalDate endDate = startDate.plusYears(1).minusDays(1);
 
-            for(String yearData : schoolYearData) {
-                SchoolYear schoolYear = new SchoolYear(yearData,startDate,endDate);
+            for (String yearData : schoolYearData) {
+                SchoolYear schoolYear = new SchoolYear(yearData, startDate, endDate);
                 schoolYearRepository.save(schoolYear);
                 startDate = startDate.plusYears(1);
                 endDate = endDate.plusYears(1);
@@ -49,16 +50,18 @@ public class DBInitializer {
 
     private void seedUserTypes() {
 
-            if (userTypeRepository.findByName(UserNames.TRAINEE.getValue()) == null) {
-                saveUsertypes(UserNames.TRAINEE.getValue());
-            }
-            if (userTypeRepository.findByName(UserNames.TRAINER.getValue()) == null) {
-                saveUsertypes(UserNames.TRAINER.getValue());
-            }
-            if (userTypeRepository.findByName(UserNames.STUDENT.getValue()) == null) {
-                saveUsertypes(UserNames.STUDENT.getValue());
-            }
-        };
+        if (userTypeRepository.findByName(UserNames.TRAINEE.getValue()) == null) {
+            saveUsertypes(UserNames.TRAINEE.getValue());
+        }
+        if (userTypeRepository.findByName(UserNames.TRAINER.getValue()) == null) {
+            saveUsertypes(UserNames.TRAINER.getValue());
+        }
+        if (userTypeRepository.findByName(UserNames.STUDENT.getValue()) == null) {
+            saveUsertypes(UserNames.STUDENT.getValue());
+        }
+    }
+
+    ;
 
     private void saveUsertypes(String types) {
         UserType usertype = new UserType();
@@ -78,4 +81,6 @@ public class DBInitializer {
                 subject.setDescription(subjectName + "Description");
                 subjectRepository.save(subject);
             }
-        }}}
+        }
+    }
+}
