@@ -58,7 +58,6 @@ public class User {
         return null;
     }
 
-    // Add setters and getters or ensure Lombok works
     public String getEncodedPassword() {
         return encodedPassword;
     }

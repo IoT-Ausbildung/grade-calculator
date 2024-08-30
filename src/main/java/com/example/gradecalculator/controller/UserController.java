@@ -196,9 +196,9 @@ public class UserController {
         try {
 
             String schoolYearName = params.get("year");
-            Long userId = Long.parseLong(params.get("user"));
+            Long userID = Long.parseLong(params.get("user"));
 
-            Set<UserSubject> userSubjects = userSubjectRepository.findBySchoolYearNameAndUserId(schoolYearName, userId);
+            Set<UserSubject> userSubjects = userSubjectRepository.findBySchoolYearNameAndUserId(schoolYearName, userID);
 
 
             HashMap<String, Set<String>> subjectsByYear = new HashMap<>();
@@ -211,9 +211,9 @@ public class UserController {
 
             model.addAttribute("subjectsByYear", subjectsByYear);
             model.addAttribute("year", schoolYearName);
-            model.addAttribute("user", userId);
+            model.addAttribute("user", userID);
 
-            System.out.println("Subjects by Year: " + subjectsByYear);
+
 
 
             return "/userSubjects";
