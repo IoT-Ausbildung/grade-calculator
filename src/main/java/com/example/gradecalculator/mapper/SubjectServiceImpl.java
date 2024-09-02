@@ -102,4 +102,10 @@ public class SubjectServiceImpl implements SubjectService {
         return null;
     }
 
+    @Override
+    public List<UserSubject> getUserSubjectsByUserId(Long userId) {
+        return null;
+    }
+
+
 }
