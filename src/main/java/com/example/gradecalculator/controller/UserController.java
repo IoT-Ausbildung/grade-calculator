@@ -133,7 +133,7 @@ public class UserController {
 
         if (errors.isEmpty()) {
             var user = userService.createUser(registration);
-            return "index";
+            return "login";
         }
 
         var userTypes = userTypeRepository.findAll();
