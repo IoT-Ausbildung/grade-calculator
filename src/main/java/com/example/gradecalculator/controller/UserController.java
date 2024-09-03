@@ -22,10 +22,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -192,34 +189,28 @@ public class UserController {
         }
     }
     @GetMapping("userSubject/selected")
-    public String showSelectedSubjects(@RequestParam Map<String, String> params, Model model) {
+    public String showSelectedSubjects(Model model, Authentication authentication) {
         try {
+            var userId = userService.getAuthenticatedUserId(authentication);
 
-            String schoolYearName = params.get("year");
-            Long userID = Long.parseLong(params.get("user"));
-
-            Set<UserSubject> userSubjects = userSubjectRepository.findBySchoolYearNameAndUserId(schoolYearName, userID);
+            Set<UserSubject> userSubjects = new HashSet<>(userSubjectRepository.findByUserId(userId));
 
 
             HashMap<String, Set<String>> subjectsByYear = new HashMap<>();
             for (UserSubject userSubject : userSubjects) {
                 String year = userSubject.getSchoolYear().getName();
                 String subject = userSubject.getSubject().getName();
-
                 subjectsByYear.computeIfAbsent(year, k -> new HashSet<>()).add(subject);
             }
 
             model.addAttribute("subjectsByYear", subjectsByYear);
-            model.addAttribute("year", schoolYearName);
-            model.addAttribute("user", userID);
+            model.addAttribute("user", userId);
 
-
-
-
-            return "/userSubjects";
+            return "userSubjects";
         } catch (IllegalArgumentException e) {
             model.addAttribute("error", e.getMessage());
             return "error";
         }
     }
+
 }

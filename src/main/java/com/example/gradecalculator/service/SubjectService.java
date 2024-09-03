@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 public interface SubjectService {
+
     SubjectTO dataTO(Subject subject);
     List<SubjectTO> getAllSubjects();
     Set<UserSubject> getUserSubjectsByYearAndUserId(int year, Long userId);
@@ -20,6 +21,10 @@ public interface SubjectService {
     void getSelectedSubjectsForSchoolYear(String schoolYearName, Long userId);
 
     Subject findSubjectById(Long id);
+    List<UserSubject> getUserSubjectsByUserId(Long userId);
+
+
 }
+
 
 
