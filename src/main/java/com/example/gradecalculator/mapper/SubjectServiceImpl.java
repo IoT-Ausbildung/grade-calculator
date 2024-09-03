@@ -46,6 +46,7 @@ public class SubjectServiceImpl implements SubjectService {
     public List<SubjectTO> getAllSubjects() {
         return StreamSupport.stream(subjectRepository.findAll().spliterator(), false)
                 .map(this::dataTO)
+                .sorted()
                 .collect(Collectors.toList());
     }
 

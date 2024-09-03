@@ -69,7 +69,7 @@ public class UserController {
     }
 
     @GetMapping("/myProfile")
-    public String myProfileGet(Model model, Authentication authentication){
+    public String myProfileGet(Model model, Authentication authentication) {
         var userTypes = userTypeRepository.findAll();
         model.addAttribute("userTypes", userTypes);
 
@@ -82,7 +82,7 @@ public class UserController {
     }
 
     @GetMapping("/editProfile")
-    public String editProfileGet(Model model, Authentication authentication){
+    public String editProfileGet(Model model, Authentication authentication) {
         var userData = userService.getAuthenticatedUser(authentication);
         model.addAttribute("editProfile", userData);
 
@@ -90,7 +90,7 @@ public class UserController {
     }
 
     @GetMapping("/editPassword")
-    public String editPasswordGet(){
+    public String editPasswordGet() {
 
         return "editPassword";
     }
@@ -105,14 +105,13 @@ public class UserController {
     }
 
     @PostMapping("/editPassword")
-    public String editPasswordPost(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword")
-    String newPassword, Authentication authentication, Model model){
+    public String editPasswordPost(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword, Authentication authentication, Model model) {
 
         var userData = userService.getAuthenticatedUser(authentication);
 
         var errors = userService.editPasswordService(oldPassword, newPassword, userData);
 
-        if(errors.isEmpty()){
+        if (errors.isEmpty()) {
             return "login";
         }
 
@@ -121,7 +120,7 @@ public class UserController {
     }
 
     @PostMapping("/editProfile")
-    private String editProfilePost(@Valid @ModelAttribute UserEditTO editProfile, Authentication authentication){
+    private String editProfilePost(@Valid @ModelAttribute UserEditTO editProfile, Authentication authentication) {
         var userID = userService.getAuthenticatedUserId(authentication);
         var user = userService.editProfile(userID, editProfile);
         return "index";
@@ -157,6 +156,7 @@ public class UserController {
         List<SchoolYear> years = schoolYearRepository.findAll();
         List<Subject> subjects = (List<Subject>) subjectRepository.findAll();
 
+
         model.addAttribute("years", years);
         model.addAttribute("subjects", subjects);
 
@@ -166,10 +166,7 @@ public class UserController {
     }
 
     @PostMapping("/userSubject/save")
-    public String saveUserSubject(@RequestParam("schoolYear") long yearId,
-                                  @RequestParam("subjects") long subjectId,
-                                  Authentication authentication,
-                                  Model model) {
+    public String saveUserSubject(@RequestParam("schoolYear") long yearId, @RequestParam("subjects") long subjectId, Authentication authentication, Model model) {
         try {
             SchoolYear selectedYear = schoolYearRepository.findById(yearId).orElseThrow(() -> new IllegalArgumentException("Year not found"));
             Subject selectedSubject = subjectRepository.findById(subjectId).orElseThrow(() -> new IllegalArgumentException("Subject not found"));
@@ -188,19 +185,20 @@ public class UserController {
             return "error";
         }
     }
+
     @GetMapping("userSubject/selected")
     public String showSelectedSubjects(Model model, Authentication authentication) {
         try {
             var userId = userService.getAuthenticatedUserId(authentication);
 
-            Set<UserSubject> userSubjects = new HashSet<>(userSubjectRepository.findByUserId(userId));
+            var userSubjects = userSubjectRepository.findByUserId(userId);
 
 
-            HashMap<String, Set<String>> subjectsByYear = new HashMap<>();
+            TreeMap<String, Set<String>> subjectsByYear = new TreeMap<>();
             for (UserSubject userSubject : userSubjects) {
                 String year = userSubject.getSchoolYear().getName();
                 String subject = userSubject.getSubject().getName();
-                subjectsByYear.computeIfAbsent(year, k -> new HashSet<>()).add(subject);
+                subjectsByYear.computeIfAbsent(year, k -> new TreeSet<>()).add(subject);
             }
 
             model.addAttribute("subjectsByYear", subjectsByYear);
