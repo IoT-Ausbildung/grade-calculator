@@ -26,10 +26,18 @@
     width: 200px;
 }
 
-.containerOfSelectedSubjects{
+#selectedSubjectsContainer{
     margin-top: 20px;
-    margin-left: 7px;
+    margin-left: 18px;
 }
+
+#subjects-container {
+    padding: 50px;
+}
+#subjects-container2{
+    margin-top: 30px;
+}
+
 
 
 

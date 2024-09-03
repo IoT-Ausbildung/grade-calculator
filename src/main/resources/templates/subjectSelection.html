@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
@@ -21,7 +23,7 @@
 
     <script src="/js/navbarFooter.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <link rel="stylesheet" href="/css/styles.css">
+
     <title>Subject Selection</title>
 </head>
 <body>
@@ -37,9 +39,9 @@
     <div class="modal-dialog custom-modal-margin custom-modal-size" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="subjectModalLabel">
+                <h4 class="modal-title" id="subjectModalLabel">
                     Select your subjects and school year
-                </h5>
+                </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -66,12 +68,13 @@
                         <div id="selectedSubjectsContainer">
                             <div th:each="selection : ${selectedSubjects}" class="selected-subject" th:data-combined-value="${selection.subject}-${selection.year}">
                                 <span th:text="${selection.subject} + ' - ' + ${selection.year}"></span>
-                                <button type="button" class="btn btn-link remove-btn">Remove</button>
+                                <button type="button" class="btn btn-link remove-btn"><i class="fas fa-trash"></i></button>
                                 <input type="hidden" th:name="selectedSubjects" th:value="${selection.subject}-${selection.year}">
                             </div>
                         </div>
                     </div>
                 </form>
+            </div>
             </div>
 
             <div class="modal-footer">
@@ -80,7 +83,6 @@
             </div>
         </div>
     </div>
-</div>
 
 <script>
     $(document).ready(function() {
@@ -101,7 +103,7 @@
                 var subjectHtml = `
             <div class="selected-subject" data-combined-value="${combinedValue}">
                 <span>${selectedSubjectText} - ${selectedYearText}</span>
-                <button type="button" class="btn btn-link remove-btn">Remove</button>
+                       <button type="button" class="btn btn-link remove-btn"><i class="fas fa-trash"></i></button>
                 <input type="hidden" name="selectedSubjects" value="${combinedValue}">
             </div>`;
                 $('#selectedSubjectsContainer').append(subjectHtml);
