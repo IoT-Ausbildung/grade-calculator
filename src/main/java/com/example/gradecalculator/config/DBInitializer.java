@@ -18,7 +18,9 @@ public class DBInitializer {
     private final SubjectRepository subjectRepository;
     private final SchoolYearRepository schoolYearRepository;
 
-    public DBInitializer(UserTypeRepository userTypeRepository, SubjectRepository subjectRepository, SchoolYearRepository schoolYearRepository) {
+    public DBInitializer(UserTypeRepository userTypeRepository,
+                         SubjectRepository subjectRepository,
+                         SchoolYearRepository schoolYearRepository) {
         this.userTypeRepository = userTypeRepository;
         this.subjectRepository = subjectRepository;
         this.schoolYearRepository = schoolYearRepository;
@@ -34,7 +36,7 @@ public class DBInitializer {
 
         if (schoolYearRepository.count() == 0) {
             String[] schoolYearData = {
-                    "2023-2024", "2024-2025", "2025-2026", "2026-2027", "2027-2028"
+                    "2023/24", "2024/25", "2025/26", "2026/27", "2027/28"
             };
             LocalDate startDate = LocalDate.of(2023, 9, 1);
             LocalDate endDate = startDate.plusYears(1).minusDays(1);
@@ -60,8 +62,6 @@ public class DBInitializer {
             saveUsertypes(UserNames.STUDENT.getValue());
         }
     }
-
-    ;
 
     private void saveUsertypes(String types) {
         UserType usertype = new UserType();
