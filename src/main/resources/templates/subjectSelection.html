@@ -33,7 +33,9 @@
         Add new subject
     </button>
 </div>
-
+<div th:if="${error}" class="alert alert-danger" role="alert">
+    <p th:text="${error}"></p>
+</div>
 <div class="modal fade" id="subjectModal" tabindex="-1" role="dialog" aria-labelledby="subjectModalLabel"
      aria-hidden="true">
     <div class="modal-dialog custom-modal-margin custom-modal-size" role="document">
@@ -53,8 +55,10 @@
                             <select id="subjects" name="subjects"
                                     class="subjects form-select dropdown custom-select-size"
                                     aria-label="Default select example">
+
                                 <option th:each="item : ${subjects}" th:value="${item.getId()}"
                                         th:text="${item.getName()}"></option>
+
                             </select>
                             <select id="schoolYear" name="schoolYear"
                                     class="years form-select dropdown custom-select-size"
@@ -62,7 +66,6 @@
                                 <option th:each="item : ${years}" th:value="${item.getId()}"
                                         th:text="${item.getName()}"></option>
                             </select>
-
                             <button type="button" id="addBtn" class="btn btn-secondary">+</button>
                         </div>
                         <div id="selectedSubjectsContainer">
@@ -73,14 +76,12 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" form="subjectForm" class="btn btn-primary">Submit</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" form="subjectForm" class="btn btn-primary">Submit</button>
+                    </div>
                 </form>
             </div>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
             </div>
         </div>
     </div>
@@ -104,8 +105,8 @@
                 var subjectHtml = `
             <div class="selected-subject" data-combined-value="${combinedValue}">
                 <span>${selectedSubjectText} - ${selectedYearText}</span>
-                       <button type="button" class="btn btn-link remove-btn"><i class="fas fa-trash"></i></button>
-                <input type="hidden" name="selectedSubjects" value="${combinedValue}">
+                <button type="button" class="btn btn-link remove-btn"><i class="fas fa-trash"></i></button>
+                <input type="hidden" name="selectedValues" value="${combinedValue}">
             </div>`;
                 $('#selectedSubjectsContainer').append(subjectHtml);
             }

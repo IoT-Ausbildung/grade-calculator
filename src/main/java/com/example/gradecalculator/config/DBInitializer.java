@@ -70,16 +70,27 @@ public class DBInitializer {
     }
 
     private void seedSubjects() {
-        List<String> subjectNames = List.of(
-                "ITT1", "ITT2", "ITS", "AP", "BGP", "Englisch", "Deutsch", "Sport", "PuG"
+        List<Subject> subjects = List.of(
+                new Subject("ITT1", "IT Technik 1 (more of economic topics)"),
+                new Subject("ITT2", "IT Technik 2 (more of technical topics)"),
+                new Subject("ITS", "IT Systems"),
+                new Subject("AP", "Application development and programming (Anwendungsentwicklung und Programmierung)"),
+                new Subject("BGP", "Business and economic processes (Betriebs- und Gesamtwirtschaftliche prozesse)"),
+                new Subject("English", "English language"),
+                new Subject("German", "German language"),
+                new Subject("Sport", "Sport"),
+                new Subject("PuG", "Politics and Society (Politik und Gesellschaft)")
         );
 
-        for (String subjectName : subjectNames) {
-            if (subjectRepository.findByName(subjectName).isEmpty()) {
-                Subject subject = new Subject();
-                subject.setName(subjectName);
-                subject.setDescription(subjectName + "Description");
+        for (Subject subject : subjects) {
+            var existingEntry = subjectRepository.findByName(subject.getName());
+            if (existingEntry.isEmpty()) {
                 subjectRepository.save(subject);
+            }
+            else {
+                var dbSubject = existingEntry.get();
+                dbSubject.setDescription(subject.getDescription());
+                subjectRepository.save(dbSubject);
             }
         }
     }

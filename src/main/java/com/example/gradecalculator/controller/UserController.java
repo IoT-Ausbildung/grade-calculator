@@ -166,19 +166,27 @@ public class UserController {
     }
 
     @PostMapping("/userSubject/save")
-    public String saveUserSubject(@RequestParam("schoolYear") long yearId, @RequestParam("subjects") long subjectId, Authentication authentication, Model model) {
+    public String saveUserSubject(@RequestParam(value = "selectedValues", required = false) String[] selectedValues, Authentication authentication, Model model) {
         try {
-            SchoolYear selectedYear = schoolYearRepository.findById(yearId).orElseThrow(() -> new IllegalArgumentException("Year not found"));
-            Subject selectedSubject = subjectRepository.findById(subjectId).orElseThrow(() -> new IllegalArgumentException("Subject not found"));
-            var userID = userService.getAuthenticatedUserId(authentication);
-            User selectedUser = userRepository.findById(userID).orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-            subjectService.selectSubjectForYear(selectedYear.getStartDate().getYear(), selectedSubject.getName());
+            for (String entry : selectedValues) {
+                var splittedString = entry.split("-");
+                long selectedSubjectId = Long.parseLong(splittedString[0]);
+                long selectedYearId = Long.parseLong(splittedString[1]);
 
-            UserSubject userSubject = new UserSubject(selectedUser, selectedSubject, selectedYear);
-            userSubjectRepository.save(userSubject);
+                SchoolYear selectedYear = schoolYearRepository.findById(selectedYearId).orElseThrow(() -> new IllegalArgumentException("Year not found"));
+                Subject selectedSubject = subjectRepository.findById(selectedSubjectId).orElseThrow(() -> new IllegalArgumentException("Subject not found"));
+                var userID = userService.getAuthenticatedUserId(authentication);
+                User selectedUser = userRepository.findById(userID).orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-            return "redirect:/userSubject/selected?year=" + selectedYear.getName() + "&user=" + userID;
+
+                subjectService.selectSubjectForYear(selectedYear.getStartDate().getYear(), selectedSubject.getName());
+
+                UserSubject userSubject = new UserSubject(selectedUser, selectedSubject, selectedYear);
+                userSubjectRepository.save(userSubject);
+
+            }
+            return "redirect:/userSubject/selected";
 
         } catch (IllegalArgumentException e) {
             model.addAttribute("error", e.getMessage());
@@ -210,5 +218,4 @@ public class UserController {
             return "error";
         }
     }
-
 }
