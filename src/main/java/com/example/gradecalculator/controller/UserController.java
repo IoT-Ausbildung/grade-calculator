@@ -1,14 +1,9 @@
 package com.example.gradecalculator.controller;
 
-import com.example.gradecalculator.entities.SchoolYear;
-import com.example.gradecalculator.entities.Subject;
-import com.example.gradecalculator.entities.User;
-import com.example.gradecalculator.entities.UserSubject;
 import com.example.gradecalculator.mapper.SubjectMapper;
 import com.example.gradecalculator.mapper.UserMapper;
 import com.example.gradecalculator.model.UserEditTO;
 import com.example.gradecalculator.model.UserSignUpTO;
-import com.example.gradecalculator.model.UserSubjectTO;
 import com.example.gradecalculator.repository.*;
 import com.example.gradecalculator.service.SubjectService;
 import com.example.gradecalculator.service.UserService;
@@ -17,17 +12,16 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -54,12 +48,15 @@ public class UserController {
     private SubjectMapper subjectMapper;
 
     @Autowired
-    public UserController(UserRepository userRepository, UserTypeRepository userTypeRepository, UserSubjectRepository userSubjectRepository, SubjectRepository subjectRepository, SchoolYearRepository schoolYearRepository) {
+    public UserController(UserRepository userRepository, UserTypeRepository userTypeRepository,
+                          UserSubjectRepository userSubjectRepository, SubjectRepository subjectRepository,
+                          SchoolYearRepository schoolYearRepository, SubjectService subjectService) {
         this.userRepository = userRepository;
         this.userTypeRepository = userTypeRepository;
         this.userSubjectRepository = userSubjectRepository;
         this.subjectRepository = subjectRepository;
         this.schoolYearRepository = schoolYearRepository;
+        this.subjectService = subjectService;
     }
 
     @GetMapping("/signup")
@@ -152,90 +149,5 @@ public class UserController {
         this.logoutHandler.logout(request, response, authentication);
         return "index";
     }
-
     SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
-
-
-    @GetMapping("/userSubject/form")
-    public String showUserSubjectForm(Model model) {
-        List<SchoolYear> years = schoolYearRepository.findAll();
-        List<Subject> subjects = (List<Subject>) subjectRepository.findAll();
-
-
-        model.addAttribute("years", years);
-        model.addAttribute("subjects", subjects);
-
-        model.addAttribute("selectedSubjects", new ArrayList<UserSubject>());
-
-        return "subjectSelection";
-    }
-
-    @PostMapping("/userSubject/save")
-    public String saveUserSubject(@RequestParam(value = "selectedValues", required = false) String[] selectedValues, Authentication authentication, Model model) {
-        try {
-
-            for (String entry : selectedValues) {
-                var splittedString = entry.split("-");
-                long selectedSubjectId = Long.parseLong(splittedString[0]);
-                long selectedYearId = Long.parseLong(splittedString[1]);
-
-                SchoolYear selectedYear = schoolYearRepository.findById(selectedYearId).orElseThrow(() -> new IllegalArgumentException("Year not found"));
-                Subject selectedSubject = subjectRepository.findById(selectedSubjectId).orElseThrow(() -> new IllegalArgumentException("Subject not found"));
-                var userID = userService.getAuthenticatedUserId(authentication);
-                User selectedUser = userRepository.findById(userID).orElseThrow(() -> new IllegalArgumentException("User not found"));
-
-
-                subjectService.selectSubjectForYear(selectedYear.getStartDate().getYear(), selectedSubject.getName());
-
-                UserSubject userSubject = new UserSubject(selectedUser, selectedSubject, selectedYear);
-                userSubjectRepository.save(userSubject);
-
-            }
-            return "redirect:/userSubject/selected";
-
-        } catch (IllegalArgumentException e) {
-            model.addAttribute("error", e.getMessage());
-            return "error";
-        }
-    }
-
-    @GetMapping("userSubject/selected")
-    public String showSelectedSubjects(Model model, Authentication authentication) {
-        try {
-            var userId = userService.getAuthenticatedUserId(authentication);
-
-            var userSubjects = userSubjectRepository.findByUserId(userId);
-
-            TreeMap<String, Set<UserSubjectTO>> subjectsByYear = new TreeMap<>();
-            for (UserSubject userSubject : userSubjects) {
-                String year = userSubject.getSchoolYear().getName();
-                var userSubjectTO = new UserSubjectTO();
-                userSubjectTO.setID(userSubject.getId());
-                userSubjectTO.setName(userSubject.getSubject().getName());
-                subjectsByYear.computeIfAbsent(year, k -> new HashSet<>()).add(userSubjectTO);
-            }
-
-            model.addAttribute("subjectsByYear", subjectsByYear);
-            model.addAttribute("user", userId);
-
-            return "userSubjects";
-        } catch (IllegalArgumentException e) {
-            model.addAttribute("error", e.getMessage());
-            return "error";
-        }
-    }
-
-
-    @DeleteMapping("/subject/delete/{ID}")
-    public ResponseEntity<Void> deleteSubject(@PathVariable Long ID, Authentication authentication) {
-        var userId = userService.getAuthenticatedUserId(authentication);
-
-        boolean deleted = subjectService.deleteSubject(ID, String.valueOf(userId));
-
-        if (deleted) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        }
-    }
 }
