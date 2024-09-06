@@ -32,6 +32,8 @@ public interface SubjectService {
     Subject findSubjectById(Long id);
 
     List<UserSubject> getUserSubjectsByUserId(Long userId);
+
+    boolean deleteSubject(Long subjectId, String userId);
 }
 
 

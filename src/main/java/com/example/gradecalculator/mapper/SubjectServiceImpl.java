@@ -7,6 +7,7 @@ import com.example.gradecalculator.repository.SubjectRepository;
 import com.example.gradecalculator.repository.UserRepository;
 import com.example.gradecalculator.repository.UserSubjectRepository;
 import com.example.gradecalculator.service.SubjectService;
+import jakarta.transaction.Transactional;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,8 +53,9 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public Set<UserSubject> getUserSubjectsByYearAndUserId(int year, Long userId) {
-        return userSubjectRepository.findBySchoolYearAndUserId(year, userId);
+        return null;
     }
+
 
     @Override
     public void selectSubjectForYear(int year, String subject) {
@@ -64,24 +66,19 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public Set<String> getSelectedSubjectsForYear(int year) {
-        return selectedSubjectsByYear.getOrDefault(year, new HashSet<>());
+        return null;
     }
 
     @Override
     public void removeSubjectForYear(int year, String subject) {
-        Set<String> selectedSubjects = selectedSubjectsByYear.get(year);
-        if (selectedSubjects != null) {
-            selectedSubjects.remove(subject);
-            if (selectedSubjects.isEmpty()) {
-                selectedSubjectsByYear.remove(year);
-            }
-        }
+
     }
 
     @Override
     public void saveUserSubjects() {
-        saveUserSubjects(null, null, null);
+
     }
+
 
     @Override
     public void saveUserSubjects(String schoolYearName, Long userId, List<String> subjects) {
@@ -90,7 +87,7 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public void getSelectedSubjectsForSchoolYear() {
-        getSelectedSubjectsForSchoolYear(null, null);
+
     }
 
     @Override
@@ -107,6 +104,29 @@ public class SubjectServiceImpl implements SubjectService {
     public List<UserSubject> getUserSubjectsByUserId(Long userId) {
         return null;
     }
+    @Override
+    @Transactional
+    public boolean deleteSubject(Long subjectId, String userId) {
+        Optional<UserSubject> userSubjectOpt = userSubjectRepository.findById(subjectId);
 
+        if (userSubjectOpt.isPresent()) {
+            UserSubject userSubject = userSubjectOpt.get();
+            if (userSubject.getUser().getId().equals(Long.parseLong(userId))) {
+                userSubjectRepository.delete(userSubject);
+                boolean exists = userSubjectRepository.existsById(subjectId);
+                if (!exists) {
+                    System.out.println("Subject with ID " + subjectId + " successfully deleted.");
+                    return true;
+                } else {
+                    System.out.println("Failed to delete the subject with ID " + subjectId);
+                }
+            } else {
+                System.out.println("User ID does not match for subject ID: " + subjectId);
+            }
+        } else {
+            System.out.println("User subject not found with ID: " + subjectId);
+        }
 
+        return false;
+    }
 }

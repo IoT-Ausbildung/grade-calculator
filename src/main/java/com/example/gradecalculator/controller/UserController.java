@@ -8,6 +8,7 @@ import com.example.gradecalculator.mapper.SubjectMapper;
 import com.example.gradecalculator.mapper.UserMapper;
 import com.example.gradecalculator.model.UserEditTO;
 import com.example.gradecalculator.model.UserSignUpTO;
+import com.example.gradecalculator.model.UserSubjectTO;
 import com.example.gradecalculator.repository.*;
 import com.example.gradecalculator.service.SubjectService;
 import com.example.gradecalculator.service.UserService;
@@ -16,6 +17,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -35,7 +38,7 @@ public class UserController {
     private final UserSubjectRepository userSubjectRepository;
     private final SchoolYearRepository schoolYearRepository;
 
-    private final SubjectService subjectService;
+
     private UserMapper userMapper = Mappers.getMapper(UserMapper.class);
 
     @Autowired
@@ -45,16 +48,18 @@ public class UserController {
     private UserService userService;
 
     @Autowired
+    private SubjectService subjectService;
+
+    @Autowired
     private SubjectMapper subjectMapper;
 
     @Autowired
-    public UserController(UserRepository userRepository, UserTypeRepository userTypeRepository, UserSubjectRepository userSubjectRepository, SubjectRepository subjectRepository, SchoolYearRepository schoolYearRepository, SubjectService subjectService) {
+    public UserController(UserRepository userRepository, UserTypeRepository userTypeRepository, UserSubjectRepository userSubjectRepository, SubjectRepository subjectRepository, SchoolYearRepository schoolYearRepository) {
         this.userRepository = userRepository;
         this.userTypeRepository = userTypeRepository;
         this.userSubjectRepository = userSubjectRepository;
         this.subjectRepository = subjectRepository;
         this.schoolYearRepository = schoolYearRepository;
-        this.subjectService = subjectService;
     }
 
     @GetMapping("/signup")
@@ -201,12 +206,13 @@ public class UserController {
 
             var userSubjects = userSubjectRepository.findByUserId(userId);
 
-
-            TreeMap<String, Set<String>> subjectsByYear = new TreeMap<>();
+            TreeMap<String, Set<UserSubjectTO>> subjectsByYear = new TreeMap<>();
             for (UserSubject userSubject : userSubjects) {
                 String year = userSubject.getSchoolYear().getName();
-                String subject = userSubject.getSubject().getName();
-                subjectsByYear.computeIfAbsent(year, k -> new TreeSet<>()).add(subject);
+                var userSubjectTO = new UserSubjectTO();
+                userSubjectTO.setID(userSubject.getId());
+                userSubjectTO.setName(userSubject.getSubject().getName());
+                subjectsByYear.computeIfAbsent(year, k -> new HashSet<>()).add(userSubjectTO);
             }
 
             model.addAttribute("subjectsByYear", subjectsByYear);
@@ -216,6 +222,20 @@ public class UserController {
         } catch (IllegalArgumentException e) {
             model.addAttribute("error", e.getMessage());
             return "error";
+        }
+    }
+
+
+    @DeleteMapping("/subject/delete/{ID}")
+    public ResponseEntity<Void> deleteSubject(@PathVariable Long ID, Authentication authentication) {
+        var userId = userService.getAuthenticatedUserId(authentication);
+
+        boolean deleted = subjectService.deleteSubject(ID, String.valueOf(userId));
+
+        if (deleted) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
     }
 }
