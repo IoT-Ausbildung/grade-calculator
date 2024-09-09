@@ -5,6 +5,7 @@ import com.example.gradecalculator.entities.Subject;
 import com.example.gradecalculator.entities.User;
 import com.example.gradecalculator.entities.UserSubject;
 import com.example.gradecalculator.model.SubjectTO;
+import com.example.gradecalculator.model.UserSubjectTO;
 import com.example.gradecalculator.repository.SchoolYearRepository;
 import com.example.gradecalculator.repository.SubjectRepository;
 import com.example.gradecalculator.repository.UserRepository;
@@ -74,6 +75,7 @@ public class SubjectService {
     }
 
     public void saveSubjectYearSelecteduser(long userId, long subjectId, long yearId) {
+
         SchoolYear selectedYear = schoolYearRepository.findById(yearId).orElseThrow(() -> new IllegalArgumentException("Year not found"));
         Subject selectedSubject = subjectRepository.findById(subjectId).orElseThrow(() -> new IllegalArgumentException("Subject not found"));
         User selectedUser = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
@@ -92,14 +94,16 @@ public class SubjectService {
         }
     }
 
-    public TreeMap<String, Set<String>> selectedSubject(long userId) {
+    public TreeMap<String, Set<UserSubjectTO>> selectedSubject(long userId) {
 
         var userSubjects = userSubjectRepository.findByUserId(userId);
-        TreeMap<String, Set<String>> subjectsByYear = new TreeMap<>();
+        TreeMap<String, Set<UserSubjectTO>> subjectsByYear = new TreeMap<>();
         for (UserSubject userSubject : userSubjects) {
             String year = userSubject.getSchoolYear().getName();
-            String subject = userSubject.getSubject().getName();
-            subjectsByYear.computeIfAbsent(year, k -> new TreeSet<>()).add(subject);
+            var userSubjectTO = new UserSubjectTO();
+            userSubjectTO.setID(userSubject.getId());
+            userSubjectTO.setName(userSubject.getSubject().getName());
+            subjectsByYear.computeIfAbsent(year, k -> new HashSet<>()).add(userSubjectTO);
         }
 
         return subjectsByYear;

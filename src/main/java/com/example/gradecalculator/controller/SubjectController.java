@@ -99,24 +99,16 @@ public class SubjectController {
     public String showSelectedSubjects(Model model, Authentication authentication) {
         try {
             var userId = userService.getAuthenticatedUserId(authentication);
-
-            var userSubjects = userSubjectRepository.findByUserId(userId);
-
-            TreeMap<String, Set<UserSubjectTO>> subjectsByYear = new TreeMap<>();
-            for (UserSubject userSubject : userSubjects) {
-                String year = userSubject.getSchoolYear().getName();
-                var userSubjectTO = new UserSubjectTO();
-                userSubjectTO.setID(userSubject.getId());
-                userSubjectTO.setName(userSubject.getSubject().getName());
-                subjectsByYear.computeIfAbsent(year, k -> new HashSet<>()).add(userSubjectTO);
-            }
+            var subjectsByYear = subjectService.selectedSubject(userId);
 
             model.addAttribute("subjectsByYear", subjectsByYear);
             model.addAttribute("user", userId);
 
             return "userSubjects";
+
         } catch (IllegalArgumentException e) {
             model.addAttribute("error", e.getMessage());
+
             return "error";
         }
     }
