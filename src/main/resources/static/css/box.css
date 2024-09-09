@@ -53,19 +53,18 @@
     border-radius: 15px;
 }
 
-/* Customize modal header */
+
 #errorModal .modal-header {
-    border-bottom: 1px solid #dc3545; /* Change border color to match title */
+    border-bottom: 1px solid #dc3545;
 }
 
-/* Customize modal body */
+
 #errorModal .modal-body {
     font-size: 1.1em;
     color: #333;
     text-align: center;
 }
 
-/* Customize modal footer */
 #errorModal .modal-footer {
     justify-content: center;
 }
