@@ -1,5 +1,8 @@
 package com.example.gradecalculator.repository;
 
+import com.example.gradecalculator.entities.SchoolYear;
+import com.example.gradecalculator.entities.Subject;
+import com.example.gradecalculator.entities.User;
 import com.example.gradecalculator.entities.UserSubject;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -23,6 +26,8 @@ public interface UserSubjectRepository extends CrudRepository<UserSubject, Long>
 
     Set<UserSubject> findBySchoolYearNameAndUserId(@Param("schoolYearName") String schoolYearName, @Param("userId") Long userId);
     List<UserSubject> findByUserId(Long userId);
+
+    boolean existsByUserAndSubjectAndSchoolYear(User selectedUser, Subject selectedSubject, SchoolYear selectedYear);
 }
 
 

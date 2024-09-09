@@ -73,7 +73,7 @@ public class SubjectService {
         }
     }
 
-    public void saveSubjectYearSelecteduser(long userId, long subjectId, long yearId) {
+    public void saveSubjectYearSelectedUser(long userId, long subjectId, long yearId) {
         SchoolYear selectedYear = schoolYearRepository.findById(yearId).orElseThrow(() -> new IllegalArgumentException("Year not found"));
         Subject selectedSubject = subjectRepository.findById(subjectId).orElseThrow(() -> new IllegalArgumentException("Subject not found"));
         User selectedUser = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));

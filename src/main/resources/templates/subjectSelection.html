@@ -78,7 +78,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" form="subjectForm" class="btn btn-primary">Submit</button>
+                        <button type="button" form="subjectForm" class="btn btn-primary" id="submitFormBtn">Submit</button>
                     </div>
                 </form>
             </div>
@@ -114,6 +114,28 @@
 
         $('#selectedSubjectsContainer').on('click', '.remove-btn', function () {
             $(this).closest('.selected-subject').remove();
+        });
+
+
+        $('#submitFormBtn').click(function() {
+            var formData = $("#subjectForm").serialize();
+            console.log("submit-btn click");
+            $.ajax({
+                type: "POST",
+                url: "/userSubject/save",
+                data: formData,
+                success: function(response) {
+                    console.log(response);
+                    if (response.success) {
+                        window.location.href = "/userSubject/selected";
+                    }
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                    var result = xhr.responseJSON;
+                    alert(result.error);
+                }
+            });
         });
     });
 </script>

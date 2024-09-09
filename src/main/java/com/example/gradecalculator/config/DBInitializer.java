@@ -53,17 +53,17 @@ public class DBInitializer {
     private void seedUserTypes() {
 
         if (userTypeRepository.findByName(UserNames.TRAINEE.getValue()) == null) {
-            saveUsertypes(UserNames.TRAINEE.getValue());
+            saveUserTypes(UserNames.TRAINEE.getValue());
         }
         if (userTypeRepository.findByName(UserNames.TRAINER.getValue()) == null) {
-            saveUsertypes(UserNames.TRAINER.getValue());
+            saveUserTypes(UserNames.TRAINER.getValue());
         }
         if (userTypeRepository.findByName(UserNames.STUDENT.getValue()) == null) {
-            saveUsertypes(UserNames.STUDENT.getValue());
+            saveUserTypes(UserNames.STUDENT.getValue());
         }
     }
 
-    private void saveUsertypes(String types) {
+    private void saveUserTypes(String types) {
         UserType usertype = new UserType();
         usertype.setName(types);
         userTypeRepository.save(usertype);

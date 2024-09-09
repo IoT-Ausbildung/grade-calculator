@@ -27,6 +27,7 @@
 <div ID="subjects-container"
      class="container d-flex flex-column flex-md-col justify-content-between col-sm-12 col-md-6 col-lg-4 mt-5">
     <h1>Your Subjects</h1>
+    <div id="errorContainer"></div>
 
     <div id="subjects-container2" th:each="entry : ${subjectsByYear}">
         <h2 th:text="${entry.key}"></h2>
@@ -43,7 +44,6 @@
                         <span th:text="${subject.getName()}"></span>
                         <button type="reset" class="btn btn-link remove-btn" th:data-id="${subject.getID()}">
                             <i class="fas fa-trash"></i>
-
                         </button>
                     </div>
                 </td>
@@ -80,6 +80,7 @@
                         } else {
                             return response.text().then(text => {
                                 alert(`Failed to delete the subject. Server responded with: ${text}`);
+
                             });
                         }
                     }).catch(error => {

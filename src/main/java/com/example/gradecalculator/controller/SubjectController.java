@@ -25,6 +25,7 @@ import java.util.*;
 
 @Controller
 public class SubjectController {
+
     private final SubjectService subjectService;
     private final SubjectRepository subjectRepository;
     private final UserSubjectRepository userSubjectRepository;
@@ -35,7 +36,8 @@ public class SubjectController {
 
     @Autowired
     public SubjectController(SubjectService subjectService, UserSubjectRepository userSubjectRepository,
-                             SubjectRepository subjectRepository, SchoolYearRepository schoolYearRepository, SubjectMapper subjectMapper, UserService userService, UserRepository userRepository) {
+                             SubjectRepository subjectRepository, SchoolYearRepository schoolYearRepository,
+                             SubjectMapper subjectMapper, UserService userService, UserRepository userRepository) {
         this.userSubjectRepository = userSubjectRepository;
         this.subjectRepository = subjectRepository;
         this.schoolYearRepository = schoolYearRepository;
@@ -67,8 +69,14 @@ public class SubjectController {
     }
 
     @PostMapping("/userSubject/save")
-    public String saveUserSubject(@RequestParam(value = "selectedValues", required = false) String[] selectedValues, Authentication authentication, Model model) {
+    public ResponseEntity<Map<String, Object>> saveUserSubject(@RequestParam(value = "selectedValues", required = false) String[] selectedValues, Authentication authentication) {
+        Map<String, Object> response = new TreeMap<>();
         try {
+            if (selectedValues == null || selectedValues.length == 0) {
+                response.put("success", false);
+                response.put("error", "No subjects selected.");
+                return ResponseEntity.badRequest().body(response);
+            }
 
             for (String entry : selectedValues) {
                 var splittedString = entry.split("-");
@@ -80,18 +88,25 @@ public class SubjectController {
                 var userID = userService.getAuthenticatedUserId(authentication);
                 User selectedUser = userRepository.findById(userID).orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-
                 subjectService.selectSubjectForYear(selectedYear.getStartDate().getYear(), selectedSubject.getName());
+
+                if (userSubjectRepository.existsByUserAndSubjectAndSchoolYear(selectedUser, selectedSubject, selectedYear)) {
+                    response.put("success", false);
+                    response.put("error", "Subject already selected for the given year: " + selectedSubject.getName() + " - " + selectedYear.getName());
+                    return ResponseEntity.badRequest().body(response);
+                }
 
                 UserSubject userSubject = new UserSubject(selectedUser, selectedSubject, selectedYear);
                 userSubjectRepository.save(userSubject);
-
             }
-            return "redirect:/userSubject/selected";
+
+            response.put("success", true);
+            return ResponseEntity.ok(response);
 
         } catch (IllegalArgumentException e) {
-            model.addAttribute("error", e.getMessage());
-            return "error";
+            response.put("success", false);
+            response.put("error", e.getMessage());
+            return ResponseEntity.badRequest().body(response);
         }
     }
 
