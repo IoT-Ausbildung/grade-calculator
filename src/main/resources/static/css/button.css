@@ -31,3 +31,6 @@
     margin-top: 20px;
 }
 
+#errorModal .close {
+    margin-top: -10px;
+}

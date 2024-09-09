@@ -6,7 +6,6 @@ import com.example.gradecalculator.entities.User;
 import com.example.gradecalculator.entities.UserSubject;
 import com.example.gradecalculator.mapper.SubjectMapper;
 import com.example.gradecalculator.model.SubjectTO;
-import com.example.gradecalculator.model.UserSubjectTO;
 import com.example.gradecalculator.repository.SchoolYearRepository;
 import com.example.gradecalculator.repository.SubjectRepository;
 import com.example.gradecalculator.repository.UserRepository;
@@ -21,7 +20,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 @Controller
 public class SubjectController {
@@ -71,10 +73,13 @@ public class SubjectController {
     @PostMapping("/userSubject/save")
     public ResponseEntity<Map<String, Object>> saveUserSubject(@RequestParam(value = "selectedValues", required = false) String[] selectedValues, Authentication authentication) {
         Map<String, Object> response = new TreeMap<>();
+        List<String> errorMessages = new ArrayList<>();
+
         try {
             if (selectedValues == null || selectedValues.length == 0) {
                 response.put("success", false);
-                response.put("error", "No subjects selected.");
+                errorMessages.add("No subjects selected.");
+                response.put("errors", errorMessages);
                 return ResponseEntity.badRequest().body(response);
             }
 
@@ -88,16 +93,18 @@ public class SubjectController {
                 var userID = userService.getAuthenticatedUserId(authentication);
                 User selectedUser = userRepository.findById(userID).orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-                subjectService.selectSubjectForYear(selectedYear.getStartDate().getYear(), selectedSubject.getName());
-
                 if (userSubjectRepository.existsByUserAndSubjectAndSchoolYear(selectedUser, selectedSubject, selectedYear)) {
-                    response.put("success", false);
-                    response.put("error", "Subject already selected for the given year: " + selectedSubject.getName() + " - " + selectedYear.getName());
-                    return ResponseEntity.badRequest().body(response);
+                    errorMessages.add("Subject already is already on the list for the given year: " + selectedSubject.getName() + " - " + selectedYear.getName());
+                } else {
+                    UserSubject userSubject = new UserSubject(selectedUser, selectedSubject, selectedYear);
+                    userSubjectRepository.save(userSubject);
                 }
+            }
 
-                UserSubject userSubject = new UserSubject(selectedUser, selectedSubject, selectedYear);
-                userSubjectRepository.save(userSubject);
+            if (!errorMessages.isEmpty()) {
+                response.put("success", false);
+                response.put("errors", errorMessages);
+                return ResponseEntity.badRequest().body(response);
             }
 
             response.put("success", true);
@@ -105,7 +112,8 @@ public class SubjectController {
 
         } catch (IllegalArgumentException e) {
             response.put("success", false);
-            response.put("error", e.getMessage());
+            errorMessages.add(e.getMessage());
+            response.put("errors", errorMessages);
             return ResponseEntity.badRequest().body(response);
         }
     }
@@ -123,11 +131,9 @@ public class SubjectController {
 
         } catch (IllegalArgumentException e) {
             model.addAttribute("error", e.getMessage());
-
             return "error";
         }
     }
-
 
     @DeleteMapping("/subject/delete/{ID}")
     public ResponseEntity<Void> deleteSubject(@PathVariable Long ID, Authentication authentication) {

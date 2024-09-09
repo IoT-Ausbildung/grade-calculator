@@ -38,6 +38,34 @@
     margin-top: 30px;
 }
 
+.modal-backdrop {
+    z-index: 1040 !important;
+}
+.modal {
+    z-index: 1050 !important;
+}
+#errorModal{
+    margin-top: 70px;
+}
 
+#errorModal .modal-content {
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    border-radius: 15px;
+}
 
+/* Customize modal header */
+#errorModal .modal-header {
+    border-bottom: 1px solid #dc3545; /* Change border color to match title */
+}
 
+/* Customize modal body */
+#errorModal .modal-body {
+    font-size: 1.1em;
+    color: #333;
+    text-align: center;
+}
+
+/* Customize modal footer */
+#errorModal .modal-footer {
+    justify-content: center;
+}
