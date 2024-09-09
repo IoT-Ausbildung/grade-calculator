@@ -127,7 +127,7 @@ public class SubjectServiceTest {
         when(userSubjectRepository.findByUserId(anyLong())).thenReturn(Collections.emptyList());
 
         // Act
-        subjectService.saveSubjectYearSelecteduser(1L, 1L, 1L);
+        subjectService.saveSubjectYearSelectedUser(1L, 1L, 1L);
 
         // Assert
         verify(userSubjectRepository, times(1)).save(any(UserSubject.class));
