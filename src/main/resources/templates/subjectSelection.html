@@ -33,9 +33,6 @@
         Add new subject
     </button>
 </div>
-<div th:if="${error}" class="alert alert-danger" role="alert">
-    <p th:text="${error}"></p>
-</div>
 <div class="modal fade" id="subjectModal" tabindex="-1" role="dialog" aria-labelledby="subjectModalLabel"
      aria-hidden="true">
     <div class="modal-dialog custom-modal-margin custom-modal-size" role="document">
@@ -132,7 +129,7 @@
                 error: function(xhr) {
                     console.log(xhr.responseText);
                     var result = xhr.responseJSON;
-                    alert(result.error);
+                    alert(result.errors);
                 }
             });
         });
