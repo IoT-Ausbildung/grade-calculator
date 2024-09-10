@@ -6,7 +6,7 @@ import java.text.DecimalFormat;
 
 @Entity
 @Table(name = "grade_type")
-public  class GradeType {
+public class GradeType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

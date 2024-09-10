@@ -14,8 +14,6 @@ import java.io.Serializable;
 @Setter
 public class UserSubject implements Serializable {
 
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
