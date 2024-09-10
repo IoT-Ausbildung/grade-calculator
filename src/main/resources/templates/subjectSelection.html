@@ -91,8 +91,6 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
@@ -127,20 +125,21 @@
             $(this).closest('.selected-subject').remove();
         });
 
-        $('#submitFormBtn').click(function() {
+        $('#submitFormBtn').click(function () {
             var formData = $("#subjectForm").serialize();
             console.log("submit-btn click");
+
             $.ajax({
                 type: "POST",
                 url: "/userSubject/save",
                 data: formData,
-                success: function(response) {
+                success: function (response) {
                     console.log(response);
                     if (response.success) {
                         window.location.href = "/userSubject/selected";
                     }
                 },
-                error: function(xhr) {
+                error: function (xhr) {
                     console.log('AJAX error response:', xhr.responseText);
                     var result = xhr.responseJSON;
                     var errorMessages = result.errors?.join("<br>") || 'An unexpected error occurred';
@@ -154,9 +153,7 @@
             });
         });
     });
-
 </script>
-
 <div id="footer-placeholder"></div>
 </body>
 </html>

@@ -84,16 +84,17 @@ public class SubjectController {
                 long selectedSubjectId = Long.parseLong(splittedString[0]);
                 long selectedYearId = Long.parseLong(splittedString[1]);
 
-                SchoolYear selectedYear = schoolYearRepository.findById(selectedYearId).orElseThrow(() -> new IllegalArgumentException("Year not found"));
-                Subject selectedSubject = subjectRepository.findById(selectedSubjectId).orElseThrow(() -> new IllegalArgumentException("Subject not found"));
+                SchoolYear selectedYear = schoolYearRepository.findById(selectedYearId)
+                        .orElseThrow(() -> new IllegalArgumentException("Year not found"));
+                Subject selectedSubject = subjectRepository.findById(selectedSubjectId)
+                        .orElseThrow(() -> new IllegalArgumentException("Subject not found"));
                 var userID = userService.getAuthenticatedUserId(authentication);
-                User selectedUser = userRepository.findById(userID).orElseThrow(() -> new IllegalArgumentException("User not found"));
+                User selectedUser = userRepository.findById(userID)
+                        .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
 
                 if (userSubjectRepository.existsByUserAndSubjectAndSchoolYear(selectedUser, selectedSubject, selectedYear)) {
-                    errorMessages.add("Subject is already on the list for the given year: " + selectedSubject.getName() + " - " + selectedYear.getName());
-                } else {
-                    UserSubject userSubject = new UserSubject(selectedUser, selectedSubject, selectedYear);
-                    userSubjectRepository.save(userSubject);
+                    errorMessages.add("Subject already on the list for the given year: " + selectedSubject.getName() + " - " + selectedYear.getName());
                 }
             }
 
@@ -101,6 +102,21 @@ public class SubjectController {
                 response.put("success", false);
                 response.put("errors", errorMessages);
                 return ResponseEntity.badRequest().body(response);
+            }
+
+
+            for (String entry : selectedValues) {
+                var splittedString = entry.split("-");
+                long selectedSubjectId = Long.parseLong(splittedString[0]);
+                long selectedYearId = Long.parseLong(splittedString[1]);
+
+                SchoolYear selectedYear = schoolYearRepository.findById(selectedYearId).orElseThrow(() -> new IllegalArgumentException("Year not found"));
+                Subject selectedSubject = subjectRepository.findById(selectedSubjectId).orElseThrow(() -> new IllegalArgumentException("Subject not found"));
+                var userID = userService.getAuthenticatedUserId(authentication);
+                User selectedUser = userRepository.findById(userID).orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+                UserSubject userSubject = new UserSubject(selectedUser, selectedSubject, selectedYear);
+                userSubjectRepository.save(userSubject);
             }
 
             response.put("success", true);
