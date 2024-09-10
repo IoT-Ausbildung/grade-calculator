@@ -1,81 +1,76 @@
 package com.example.gradecalculator.entities;
 
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class SchoolYearTest {
 
+    private SchoolYear schoolYear;
+
+    @BeforeEach
+    public void setUp() {
+        schoolYear = new SchoolYear("2022-2023", LocalDate.of(2022, 9, 1), LocalDate.of(2023, 6, 30));
+    }
+
     @Test
     public void testGetId() {
-        SchoolYear schoolYear = new SchoolYear("2022-2023", LocalDate.of(2022, 9, 1), LocalDate.of(2023, 6, 30));
         schoolYear.setId(1L);
-        Assertions.assertEquals(1L, schoolYear.getId());
+        assertThat(schoolYear.getId()).isEqualTo(1L);
     }
 
     @Test
     public void testGetName() {
-        SchoolYear schoolYear = new SchoolYear("2022-2023", LocalDate.of(2022, 9, 1), LocalDate.of(2023, 6, 30));
-        Assertions.assertEquals("2022-2023", schoolYear.getName());
+        assertThat(schoolYear.getName()).isEqualTo("2022-2023");
     }
 
     @Test
     public void testSetName() {
-        SchoolYear schoolYear = new SchoolYear("2022-2023", LocalDate.of(2022, 9, 1), LocalDate.of(2023, 6, 30));
         schoolYear.setName("2023-2024");
-        Assertions.assertEquals("2023-2024", schoolYear.getName());
+        assertThat(schoolYear.getName()).isEqualTo("2023-2024");
     }
 
     @Test
     public void testGetStartDate() {
-        SchoolYear schoolYear = new SchoolYear("2022-2023", LocalDate.of(2022, 9, 1), LocalDate.of(2023, 6, 30));
-        Assertions.assertEquals(LocalDate.of(2022, 9, 1), schoolYear.getStartDate());
+        assertThat(schoolYear.getStartDate()).isEqualTo(LocalDate.of(2022, 9, 1));
     }
 
     @Test
     public void testSetStartDate() {
-        SchoolYear schoolYear = new SchoolYear("2022-2023", LocalDate.of(2022, 9, 1), LocalDate.of(2023, 6, 30));
         schoolYear.setStartDate(LocalDate.of(2023, 8, 1));
-        Assertions.assertEquals(LocalDate.of(2023, 8, 1), schoolYear.getStartDate());
+        assertThat(schoolYear.getStartDate()).isEqualTo(LocalDate.of(2023, 8, 1));
     }
 
     @Test
     public void testGetEndDate() {
-        SchoolYear schoolYear = new SchoolYear("2022-2023", LocalDate.of(2022, 9, 1), LocalDate.of(2023, 6, 30));
-        Assertions.assertEquals(LocalDate.of(2023, 6, 30), schoolYear.getEndDate());
+        assertThat(schoolYear.getEndDate()).isEqualTo(LocalDate.of(2023, 6, 30));
     }
 
     @Test
     public void testSetEndDate() {
-        SchoolYear schoolYear = new SchoolYear("2022-2023", LocalDate.of(2022, 9, 1), LocalDate.of(2023, 6, 30));
         schoolYear.setEndDate(LocalDate.of(2024, 6, 30));
-        Assertions.assertEquals(LocalDate.of(2024, 6, 30), schoolYear.getEndDate());
+        assertThat(schoolYear.getEndDate()).isEqualTo(LocalDate.of(2024, 6, 30));
     }
 
     @Test
-    public void testGetGradeSystem() {
-        GradeSystem gradeSystem = new GradeSystem(1L, "Grade System");
-        SchoolYear schoolYear = new SchoolYear("2022-2023", LocalDate.of(2022, 9, 1), LocalDate.of(2023, 6, 30));
-
+    public void testNoArgsConstructor() {
+        SchoolYear emptySchoolYear = new SchoolYear();
+        assertThat(emptySchoolYear.getId()).isNull();
+        assertThat(emptySchoolYear.getName()).isNull();
+        assertThat(emptySchoolYear.getStartDate()).isNull();
+        assertThat(emptySchoolYear.getEndDate()).isNull();
     }
 
     @Test
-    public void testSetGradeSystem() {
-        GradeSystem gradeSystem1 = new GradeSystem(1L, "Grade System 1");
-        GradeSystem gradeSystem2 = new GradeSystem(2L, "Grade System 2");
-        SchoolYear schoolYear = new SchoolYear("2022-2023", LocalDate.of(2022, 9, 1), LocalDate.of(2023, 6, 30));
+    public void testOverloadedConstructorWithIdAndName() {
+        SchoolYear schoolYearWithIdAndName = new SchoolYear(2L, "2021-2022");
+        assertThat(schoolYearWithIdAndName.getId()).isEqualTo(2L);
+        assertThat(schoolYearWithIdAndName.getName()).isEqualTo("2021-2022");
     }
 
-    @Test
-    public void testGetSubjects() {
-        List<Subject> subjects = new ArrayList<>();
-        subjects.add(new Subject("Math", "Mathematics"));
-        subjects.add(new Subject("Science", "Science subject"));
-        SchoolYear schoolYear = new SchoolYear("2022-2023", LocalDate.of(2022, 9, 1), LocalDate.of(2023, 6, 30));
-        schoolYear.setSubjects(subjects);
-    }
+
+
 }
-
