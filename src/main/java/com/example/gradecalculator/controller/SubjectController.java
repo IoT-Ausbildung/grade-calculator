@@ -20,10 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 @Controller
 public class SubjectController {
@@ -64,7 +61,6 @@ public class SubjectController {
 
         model.addAttribute("years", years);
         model.addAttribute("subjects", subjects);
-
         model.addAttribute("selectedSubjects", new ArrayList<UserSubject>());
 
         return "subjectSelection";
@@ -131,6 +127,7 @@ public class SubjectController {
 
         } catch (IllegalArgumentException e) {
             model.addAttribute("error", e.getMessage());
+
             return "error";
         }
     }

@@ -12,6 +12,7 @@ import com.example.gradecalculator.repository.UserRepository;
 import com.example.gradecalculator.repository.UserSubjectRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -74,23 +75,39 @@ public class SubjectService {
         }
     }
 
-    public void saveSubjectYearSelectedUser(long userId, long subjectId, long yearId) {
-        SchoolYear selectedYear = schoolYearRepository.findById(yearId).orElseThrow(() -> new IllegalArgumentException("Year not found"));
+    public List<String> saveSubjects(String[] selectedValues, long userId) {
+
+        var errors = new ArrayList<String>();
+        for (String entry : selectedValues) {
+            var splittedString = entry.split("-");
+            long selectedSubjectId = Long.parseLong(splittedString[0]);
+            long selectedYearId = Long.parseLong(splittedString[1]);
+            String error = saveSubjectYearSelectedUser(userId ,selectedSubjectId, selectedYearId);
+            if(error != null){
+                errors.add(error);
+            }
+        }
+
+        return errors;
+    }
+
+    public String saveSubjectYearSelectedUser(long userId, long subjectId, long yearId) {
+
         Subject selectedSubject = subjectRepository.findById(subjectId).orElseThrow(() -> new IllegalArgumentException("Subject not found"));
+        SchoolYear selectedYear = schoolYearRepository.findById(yearId).orElseThrow(() -> new IllegalArgumentException("Year not found"));
         User selectedUser = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
         this.selectSubjectForYear(selectedYear.getStartDate().getYear(), selectedSubject.getName());
         var subjects = userSubjectRepository.findByUserId(userId);
         boolean exists = subjects.stream().anyMatch(item -> item.getSubject().getId().equals(subjectId) && item.getSchoolYear().getId().equals(yearId));
         if (!exists) {
-            Subject subject = subjectRepository.findById(subjectId).orElseThrow(() -> new RuntimeException("Subject not found"));
-            SchoolYear schoolYear = schoolYearRepository.findById(yearId).orElseThrow(() -> new RuntimeException("School year not found"));
-            User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
             UserSubject userSubject = new UserSubject();
-            userSubject.setUser(user);
-            userSubject.setSubject(subject);
-            userSubject.setSchoolYear(schoolYear);
+            userSubject.setUser(selectedUser);
+            userSubject.setSubject(selectedSubject);
+            userSubject.setSchoolYear(selectedYear);
             userSubjectRepository.save(userSubject);
+            return null;
         }
+        return ("Subject already selected for the given year: " + selectedSubject.getName() + " - " + selectedYear.getName());
     }
 
     public TreeMap<String, Set<UserSubjectTO>> selectedSubject(long userId) {
