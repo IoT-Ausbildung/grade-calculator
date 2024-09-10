@@ -29,19 +29,20 @@ public class SubjectTest {
     @Test
     public void testSetName() {
         subject.setName("German");
-        assertThat(subject.getName()).isEqualTo("GErman");
+        assertThat(subject.getName()).isEqualTo("German");
     }
 
     @Test
     public void testGetDescription() {
         assertThat(subject.getDescription()).isEqualTo("Math is a Subject in which you learn how " +
-                "                                           to calculate and use it in Real life situations");
+                                                            "to calculate and use it in Real life situations");
     }
 
     @Test
     public void testSetDescription() {
-        subject.setDescription("German is a Subject in which you learn how to Speak and use the Grammar the right way");
+        subject.setDescription("Math is a Subject in which you learn how to calculate " +
+                                                    "and use it in Real life situations");
         assertThat(subject.getDescription()).isEqualTo("Math is a Subject in which you learn how " +
-                "                                            to calculate and use it in Real life situations");
+                                                            "to calculate and use it in Real life situations");
     }
 }
