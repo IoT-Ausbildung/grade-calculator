@@ -94,7 +94,7 @@ public class SubjectController {
                 User selectedUser = userRepository.findById(userID).orElseThrow(() -> new IllegalArgumentException("User not found"));
 
                 if (userSubjectRepository.existsByUserAndSubjectAndSchoolYear(selectedUser, selectedSubject, selectedYear)) {
-                    errorMessages.add("Subject already is already on the list for the given year: " + selectedSubject.getName() + " - " + selectedYear.getName());
+                    errorMessages.add("Subject is already on the list for the given year: " + selectedSubject.getName() + " - " + selectedYear.getName());
                 } else {
                     UserSubject userSubject = new UserSubject(selectedUser, selectedSubject, selectedYear);
                     userSubjectRepository.save(userSubject);
