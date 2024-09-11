@@ -18,11 +18,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
     boolean existsByUserName(@Param("userName") String userName);
 
     Optional<User> findById(Long id);
-
     User findByUserName(String userName);
-
     User findByEmail(String email);
-
     User findByUserNameOrEmail(String userName, String email);
 
 

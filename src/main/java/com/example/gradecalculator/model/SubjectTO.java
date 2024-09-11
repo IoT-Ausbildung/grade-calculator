@@ -3,11 +3,9 @@ package com.example.gradecalculator.model;
 import com.example.gradecalculator.entities.Subject;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.List;
 
 public class SubjectTO {
-
 
     @Getter
     @Setter
@@ -29,10 +27,9 @@ public class SubjectTO {
     @Getter
     @Setter
     private String userSubject;
-
+    @Getter
+    @Setter
     private List<SubjectTO> subjects;
-
-
     public SubjectTO(Long id, String name, String description) {
     }
 

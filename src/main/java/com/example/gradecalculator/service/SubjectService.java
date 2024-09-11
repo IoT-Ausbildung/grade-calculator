@@ -12,7 +12,6 @@ import com.example.gradecalculator.repository.UserRepository;
 import com.example.gradecalculator.repository.UserSubjectRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -62,8 +61,8 @@ public class SubjectService {
             var splittedString = entry.split("-");
             long selectedSubjectId = Long.parseLong(splittedString[0]);
             long selectedYearId = Long.parseLong(splittedString[1]);
-            String error = saveSubjectYearSelectedUser(userId ,selectedSubjectId, selectedYearId);
-            if(error != null){
+            String error = saveSubjectYearSelectedUser(userId, selectedSubjectId, selectedYearId);
+            if (error != null) {
                 errors.add(error);
             }
         }
@@ -105,7 +104,7 @@ public class SubjectService {
     }
 
 
-    @Transactional
+@Transactional
     public boolean deleteSubject(Long subjectId, String userId) {
         Optional<UserSubject> userSubjectOpt = userSubjectRepository.findById(subjectId);
 

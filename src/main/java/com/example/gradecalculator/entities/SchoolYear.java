@@ -2,9 +2,10 @@ package com.example.gradecalculator.entities;
 
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.Year;
 import java.util.List;
 import java.util.Set;
 
@@ -12,22 +13,29 @@ import java.util.Set;
 @Table(name = "school_year")
 public class SchoolYear {
 
+    @Setter
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
+    @Setter
+    @Getter
     @Column(name = "name")
     private String name;
+    @Setter
+    @Getter
     private LocalDate startDate;
 
+    @Setter
+    @Getter
     private LocalDate endDate;
 
     @OneToMany(mappedBy = "schoolYear")
     private Set<UserSubject> userSubjects;
     @OneToMany(mappedBy = "schoolYear")
     private Set<User> user;
-
 
 
     public SchoolYear(String name, LocalDate startDate, LocalDate endDate) {
@@ -44,46 +52,6 @@ public class SchoolYear {
     public SchoolYear() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-
     public void setSubjects(List<Subject> subjects) {
-    }
-
-    public Year orElse(Object o) {
-        return null;
-    }
-
-    public SchoolYear orElseThrow(Object yearNotFound) {
-        return null;
     }
 }

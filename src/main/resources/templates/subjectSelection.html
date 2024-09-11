@@ -19,6 +19,9 @@
         Add new subject
     </button>
 </div>
+<div th:if="${error}" class="alert alert-danger" role="alert">
+    <p th:text="${error}"></p>
+</div>
 <div class="modal fade" id="subjectModal" tabindex="-1" role="dialog" aria-labelledby="subjectModalLabel"
      aria-hidden="true">
     <div class="modal-dialog custom-modal-margin custom-modal-size" role="document">
@@ -52,16 +55,20 @@
                             <button type="button" id="addBtn" class="btn btn-secondary">+</button>
                         </div>
                         <div id="selectedSubjectsContainer">
-                            <div th:each="selection : ${selectedSubjects}" class="selected-subject" th:data-combined-value="${selection.subject}-${selection.year}">
+                            <div th:each="selection : ${selectedSubjects}" class="selected-subject"
+                                     th:data-combined-value="${selection.subject}-${selection.year}">
                                 <span th:text="${selection.subject} + ' - ' + ${selection.year}"></span>
-                                <button type="button" class="btn btn-link remove-btn"><i class="fas fa-trash"></i></button>
-                                <input type="hidden" th:name="selectedSubjects" th:value="${selection.subject}-${selection.year}">
+                                <button type="button" class="btn btn-link remove-btn"><i class="fas fa-trash"></i>
+                                    </button>
+                                <input type="hidden" th:name="selectedSubjects"
+                                           th:value="${selection.subject}-${selection.year}">
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" form="subjectForm" class="btn btn-primary" id="submitFormBtn">Submit</button>
+                        <button type="button" form="subjectForm" class="btn btn-primary" id="submitFormBtn">Submit
+                            </button>
                     </div>
                 </form>
             </div>
@@ -69,7 +76,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -95,8 +103,8 @@
 
 
 <script>
-    $(document).ready(function() {
-        $('#addBtn').click(function() {
+    $(document).ready(function () {
+        $('#addBtn').click(function () {
             var selectedSubject = $('#subjects option:selected');
             var selectedSubjectText = selectedSubject.text();
             var selectedSubjectValue = selectedSubject.val();
@@ -145,7 +153,7 @@
 
                     $('#errorMessage').html(errorMessages);
                     $('#errorModal').modal('show');
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#errorModal').modal('show');
                     }, 500);
                 }

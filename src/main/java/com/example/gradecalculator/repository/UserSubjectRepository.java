@@ -15,7 +15,6 @@ import java.util.Set;
 @Repository
 public interface UserSubjectRepository extends CrudRepository<UserSubject, Long> {
 
-
     @Query("SELECT us FROM UserSubject us WHERE us.schoolYear.name = :year AND us.user.id = :userId")
     Set<UserSubject> findBySchoolYearAndUserId(@Param("year") int schoolYear, @Param("userId") Long userId);
 
@@ -23,8 +22,8 @@ public interface UserSubjectRepository extends CrudRepository<UserSubject, Long>
     boolean existsBySubjectName(@Param("subjectName") String subjectName);
 
     @Query("SELECT us FROM UserSubject us WHERE us.schoolYear.name = :schoolYearName AND us.user.id = :userId")
-
     Set<UserSubject> findBySchoolYearNameAndUserId(@Param("schoolYearName") String schoolYearName, @Param("userId") Long userId);
+
     List<UserSubject> findByUserId(Long userId);
 
     boolean existsByUserAndSubjectAndSchoolYear(User selectedUser, Subject selectedSubject, SchoolYear selectedYear);

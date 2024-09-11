@@ -3,6 +3,7 @@ package com.example.gradecalculator.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
 import java.util.Set;
 
 @Setter
@@ -14,17 +15,16 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String firstName;
-
     private String lastName;
-
     private String userName;
-
     private String email;
 
+    @Setter
+    @Getter
     private String encodedPassword;
 
+    @Setter
     @ManyToOne
     @JoinColumn(name = "user_type_id")
     private UserType userType;
@@ -50,23 +50,4 @@ public class User {
         this.encodedPassword = encodedPassword;
     }
 
-    public User orElse(Object o) {
-        return null;
-    }
-
-    public User orElseThrow(Object userNotFound) {
-        return null;
-    }
-
-    public String getEncodedPassword() {
-        return encodedPassword;
-    }
-
-    public void setEncodedPassword(String encodedPassword) {
-        this.encodedPassword = encodedPassword;
-    }
-
-    public void setUserType(UserType userType) {
-        this.userType = userType;
-    }
 }
