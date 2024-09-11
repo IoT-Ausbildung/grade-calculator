@@ -55,26 +55,6 @@ public class SubjectService {
         return userSubjectRepository.findBySchoolYearAndUserId(year, userId);
     }
 
-    public void selectSubjectForYear(int year, String subject) {
-        Set<String> selectedSubjects = selectedSubjectsByYear.getOrDefault(year, new HashSet<>());
-        selectedSubjects.add(subject);
-        selectedSubjectsByYear.put(year, selectedSubjects);
-    }
-
-    public Set<String> getSelectedSubjectsForYear(int year) {
-        return selectedSubjectsByYear.getOrDefault(year, new HashSet<>());
-    }
-
-    public void removeSubjectForYear(int year, String subject) {
-        Set<String> selectedSubjects = selectedSubjectsByYear.get(year);
-        if (selectedSubjects != null) {
-            selectedSubjects.remove(subject);
-            if (selectedSubjects.isEmpty()) {
-                selectedSubjectsByYear.remove(year);
-            }
-        }
-    }
-
     public List<String> saveSubjects(String[] selectedValues, long userId) {
 
         var errors = new ArrayList<String>();
@@ -96,7 +76,6 @@ public class SubjectService {
         Subject selectedSubject = subjectRepository.findById(subjectId).orElseThrow(() -> new IllegalArgumentException("Subject not found"));
         SchoolYear selectedYear = schoolYearRepository.findById(yearId).orElseThrow(() -> new IllegalArgumentException("Year not found"));
         User selectedUser = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
-        this.selectSubjectForYear(selectedYear.getStartDate().getYear(), selectedSubject.getName());
         var subjects = userSubjectRepository.findByUserId(userId);
         boolean exists = subjects.stream().anyMatch(item -> item.getSubject().getId().equals(subjectId) && item.getSchoolYear().getId().equals(yearId));
         if (!exists) {
@@ -130,20 +109,17 @@ public class SubjectService {
     public boolean deleteSubject(Long subjectId, String userId) {
         Optional<UserSubject> userSubjectOpt = userSubjectRepository.findById(subjectId);
 
-        if (userSubjectOpt.isPresent()) {
-            UserSubject userSubject = userSubjectOpt.get();
-            if (userSubject.getUser().getId().equals(Long.parseLong(userId))) {
-                userSubjectRepository.delete(userSubject);
-                boolean exists = userSubjectRepository.existsById(subjectId);
-                if (!exists) {
-                    System.out.println("Subject with ID " + subjectId + " successfully deleted.");
-                    return true;
-                }
-                System.out.println("Failed to delete the subject with ID " + subjectId);
-            }
-            System.out.println("User ID does not match for subject ID: " + subjectId);
+        if (!userSubjectOpt.isPresent()) {
+            System.out.println("User subject not found with ID: " + subjectId);
+            return false;
         }
-        System.out.println("User subject not found with ID: " + subjectId);
-        return false;
+        UserSubject userSubject = userSubjectOpt.get();
+        if (!userSubject.getUser().getId().equals(Long.parseLong(userId))) {
+            System.out.println("User ID does not match for subject ID: " + subjectId);
+            return false;
+        }
+        userSubjectRepository.delete(userSubject);
+        System.out.println("Subject with ID " + subjectId + " successfully deleted.");
+        return true;
     }
 }
