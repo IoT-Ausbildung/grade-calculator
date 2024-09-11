@@ -1,17 +1,23 @@
 package com.example.gradecalculator.entities;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class GradeTypeTest {
 
+
+    private GradeType gradeType;
+
+    @BeforeEach
+    public void setUp() {
+        gradeType = new GradeType();
+    }
+
     @Test
     public void testGetWeightagePercentage() {
-        GradeType gradeType = new GradeType();
         gradeType.setWeightage(0.50);
-
         String expectedPercentage = "50%";
-
         String actualPercentage = gradeType.getWeightagePercentage();
 
         Assertions.assertEquals(expectedPercentage, actualPercentage);
@@ -19,9 +25,6 @@ public class GradeTypeTest {
 
     @Test
     public void testGettersAndSetters() {
-
-        GradeType gradeType = new GradeType();
-
         gradeType.setId(1L);
         gradeType.setName("Grade Type 1");
         gradeType.setDescription("Description 1");

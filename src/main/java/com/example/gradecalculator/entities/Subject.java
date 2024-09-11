@@ -6,6 +6,8 @@ import lombok.Setter;
 
 import java.util.Set;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "subject")
 public class Subject {

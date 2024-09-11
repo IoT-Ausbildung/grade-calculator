@@ -137,16 +137,12 @@ public class SubjectService {
                 if (!exists) {
                     System.out.println("Subject with ID " + subjectId + " successfully deleted.");
                     return true;
-                } else {
-                    System.out.println("Failed to delete the subject with ID " + subjectId);
                 }
-            } else {
-                System.out.println("User ID does not match for subject ID: " + subjectId);
+                System.out.println("Failed to delete the subject with ID " + subjectId);
             }
-        } else {
-            System.out.println("User subject not found with ID: " + subjectId);
+            System.out.println("User ID does not match for subject ID: " + subjectId);
         }
-
+        System.out.println("User subject not found with ID: " + subjectId);
         return false;
     }
 }
