@@ -86,15 +86,15 @@ public class SubjectService {
     }
 
     public TreeMap<String, Set<UserSubjectTO>> selectedSubject(long userId) {
-
         var userSubjects = userSubjectRepository.findByUserId(userId);
         TreeMap<String, Set<UserSubjectTO>> subjectsByYear = new TreeMap<>();
+
         for (UserSubject userSubject : userSubjects) {
             String year = userSubject.getSchoolYear().getName();
             var userSubjectTO = new UserSubjectTO();
             userSubjectTO.setID(userSubject.getId());
             userSubjectTO.setName(userSubject.getSubject().getName());
-            subjectsByYear.computeIfAbsent(year, k -> new HashSet<>()).add(userSubjectTO);
+            subjectsByYear.computeIfAbsent(year, k -> new TreeSet<>(Comparator.comparing(UserSubjectTO::getName))).add(userSubjectTO);
         }
 
         return subjectsByYear;
