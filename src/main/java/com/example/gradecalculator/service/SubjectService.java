@@ -24,7 +24,6 @@ public class SubjectService {
     private final UserSubjectRepository userSubjectRepository;
     private final SubjectRepository subjectRepository;
     private final UserRepository userRepository;
-    private final Map<Integer, Set<String>> selectedSubjectsByYear;
     private final SchoolYearRepository schoolYearRepository;
 
     @Autowired
@@ -32,7 +31,6 @@ public class SubjectService {
         this.userSubjectRepository = userSubjectRepository;
         this.subjectRepository = subjectRepository;
         this.userRepository = userRepository;
-        this.selectedSubjectsByYear = new HashMap<>();
         this.schoolYearRepository = schoolYearRepository;
     }
 
@@ -66,7 +64,6 @@ public class SubjectService {
                 errors.add(error);
             }
         }
-
         return errors;
     }
 
@@ -102,7 +99,6 @@ public class SubjectService {
 
         return subjectsByYear;
     }
-
 
 @Transactional
     public boolean deleteSubject(Long subjectId, String userId) {

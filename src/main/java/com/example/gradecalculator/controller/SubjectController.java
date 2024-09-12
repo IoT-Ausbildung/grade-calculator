@@ -27,23 +27,16 @@ public class SubjectController {
 
     private final SubjectService subjectService;
     private final SubjectRepository subjectRepository;
-    private final UserSubjectRepository userSubjectRepository;
     private final SchoolYearRepository schoolYearRepository;
-    private final SubjectMapper subjectMapper;
     private final UserService userService;
-    private final UserRepository userRepository;
 
     @Autowired
-    public SubjectController(SubjectService subjectService, UserSubjectRepository userSubjectRepository,
-                             SubjectRepository subjectRepository, SchoolYearRepository schoolYearRepository,
-                             SubjectMapper subjectMapper, UserService userService, UserRepository userRepository) {
-        this.userSubjectRepository = userSubjectRepository;
+    public SubjectController(SubjectService subjectService, SubjectRepository subjectRepository,
+                             SchoolYearRepository schoolYearRepository, UserService userService) {
         this.subjectRepository = subjectRepository;
         this.schoolYearRepository = schoolYearRepository;
         this.subjectService = subjectService;
-        this.subjectMapper = subjectMapper;
         this.userService = userService;
-        this.userRepository = userRepository;
     }
 
     @GetMapping("/subjects")
