@@ -49,7 +49,7 @@ public class SubjectController {
     @GetMapping("/userSubject/form")
     public String showUserSubjectForm(Model model) {
         List<SchoolYear> years = schoolYearRepository.findAll();
-        List<Subject> subjects = (List<Subject>) subjectRepository.findAll();
+        List<SubjectTO> subjects = subjectService.getAllSubjects();
 
 
         model.addAttribute("years", years);
@@ -60,8 +60,9 @@ public class SubjectController {
     }
 
     @PostMapping("/userSubject/save")
-    public ResponseEntity<Map<String, Object>> saveUserSubject(@RequestParam(value = "selectedValues", required = false)
-                                                                   String[] selectedValues, Authentication authentication) {
+    public ResponseEntity<Map<String, Object>> saveUserSubject(@RequestParam(value = "selectedValues",
+                                                                required = false) String[] selectedValues,
+                                                               Authentication authentication) {
         Map<String, Object> response = new TreeMap<>();
         try {
             if (selectedValues == null || selectedValues.length == 0) {
@@ -107,7 +108,6 @@ public class SubjectController {
     @DeleteMapping("/subject/delete/{ID}")
     public ResponseEntity<Void> deleteSubject(@PathVariable Long ID, Authentication authentication) {
         var userId = userService.getAuthenticatedUserId(authentication);
-
         boolean deleted = subjectService.deleteSubject(ID, String.valueOf(userId));
 
         if (deleted) {

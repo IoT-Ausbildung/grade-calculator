@@ -4,6 +4,7 @@ import com.example.gradecalculator.entities.SchoolYear;
 import com.example.gradecalculator.entities.Subject;
 import com.example.gradecalculator.entities.User;
 import com.example.gradecalculator.entities.UserSubject;
+import com.example.gradecalculator.mapper.SubjectMapper;
 import com.example.gradecalculator.model.SubjectTO;
 import com.example.gradecalculator.model.UserSubjectTO;
 import com.example.gradecalculator.repository.SchoolYearRepository;
@@ -25,26 +26,25 @@ public class SubjectService {
     private final SubjectRepository subjectRepository;
     private final UserRepository userRepository;
     private final SchoolYearRepository schoolYearRepository;
+    private final SubjectMapper subjectMapper;
 
     @Autowired
-    public SubjectService(UserSubjectRepository userSubjectRepository, SubjectRepository subjectRepository, UserRepository userRepository, SchoolYearRepository schoolYearRepository) {
+    public SubjectService(UserSubjectRepository userSubjectRepository, SubjectRepository subjectRepository,
+                          UserRepository userRepository, SchoolYearRepository schoolYearRepository,
+                          SubjectMapper subjectMapper) {
         this.userSubjectRepository = userSubjectRepository;
         this.subjectRepository = subjectRepository;
         this.userRepository = userRepository;
         this.schoolYearRepository = schoolYearRepository;
-    }
-
-    public SubjectTO dataTO(Subject subject) {
-        if (subject == null) {
-            return null;
-        }
-        return new SubjectTO(subject.getId(), subject.getName(), subject.getDescription());
+        this.subjectMapper = subjectMapper;
     }
 
     public List<SubjectTO> getAllSubjects() {
         return StreamSupport.stream(subjectRepository.findAll().spliterator(), false)
-                .map(this::dataTO)
-                .sorted()
+                .map(subjectMapper::subjectToSubjectTO)
+                .filter(Objects::nonNull) // Add this line to filter out null SubjectTO
+                .sorted(Comparator.comparing(SubjectTO::getName))//.sorted()
+
                 .collect(Collectors.toList());
     }
 

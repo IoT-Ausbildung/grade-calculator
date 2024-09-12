@@ -1,6 +1,7 @@
-package com.example.gradecalculator.mapper;
+package com.example.gradecalculator.service;
 
 import com.example.gradecalculator.entities.User;
+import com.example.gradecalculator.model.UserDetailsImpl;
 import com.example.gradecalculator.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

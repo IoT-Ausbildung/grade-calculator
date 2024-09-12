@@ -1,7 +1,7 @@
 package com.example.gradecalculator.service;
 
 import com.example.gradecalculator.entities.User;
-import com.example.gradecalculator.mapper.UserDetailsImpl;
+import com.example.gradecalculator.model.UserDetailsImpl;
 import com.example.gradecalculator.model.UserEditTO;
 import com.example.gradecalculator.repository.UserRepository;
 import com.example.gradecalculator.repository.UserTypeRepository;

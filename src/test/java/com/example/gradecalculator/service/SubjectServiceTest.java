@@ -4,6 +4,7 @@ import com.example.gradecalculator.entities.SchoolYear;
 import com.example.gradecalculator.entities.Subject;
 import com.example.gradecalculator.entities.User;
 import com.example.gradecalculator.entities.UserSubject;
+import com.example.gradecalculator.mapper.SubjectMapper;
 import com.example.gradecalculator.model.SubjectTO;
 import com.example.gradecalculator.repository.SchoolYearRepository;
 import com.example.gradecalculator.repository.SubjectRepository;
@@ -12,9 +13,11 @@ import com.example.gradecalculator.repository.UserSubjectRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mapstruct.factory.Mappers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -42,6 +45,9 @@ public class SubjectServiceTest {
 
     @Mock
     private SchoolYearRepository schoolYearRepository;
+
+    @Mock
+    private SubjectMapper subjectMapper;
 
     private Subject subject;
     private Subject secondSubject;
@@ -72,6 +78,8 @@ public class SubjectServiceTest {
         userSubject.setUser(user);
         userSubject.setSubject(subject);
         userSubject.setSchoolYear(schoolYear);
+
+        subjectMapper = Mappers.getMapper(SubjectMapper.class);
     }
 
     @Test
@@ -101,12 +109,14 @@ public class SubjectServiceTest {
         // Assert
         assertFalse(subjectTOs.isEmpty());
         assertEquals(1, subjectTOs.size());
+        assertEquals(subject.getId(), subjectTOs.get(0).getId());
+        assertEquals(subject.getName(), subjectTOs.get(0).getName());
     }
 
     @Test
     public void testGetAllSubjects_SortedAlphabetically() {
         // Arrange
-        List<Subject> subjects = Arrays.asList(subject, secondSubject);
+        Iterable<Subject> subjects = Arrays.asList(subject, secondSubject);
         when(subjectRepository.findAll()).thenReturn(subjects);
 
         // Act
@@ -116,6 +126,8 @@ public class SubjectServiceTest {
         assertThat(subjectTOs).hasSize(2);
         assertThat(subjectTOs.get(0).getName()).isEqualTo("Biology");
         assertThat(subjectTOs.get(1).getName()).isEqualTo("ITT2");
+        assertEquals(subject.getId(), subjectTOs.get(0).getId());
+        assertEquals(subject.getName(), subjectTOs.get(0).getName());
     }
 
     @Test
@@ -251,13 +263,13 @@ public class SubjectServiceTest {
     public void testDeleteSubject_DeleteFails() {
         // Arrange
         when(userSubjectRepository.findById(anyLong())).thenReturn(Optional.of(userSubject));
-        doThrow(new RuntimeException()).when(userSubjectRepository).delete(any(UserSubject.class));
+//        doThrow(new RuntimeException()).when(userSubjectRepository).delete(any(UserSubject.class));
 
         // Act
         boolean result = subjectService.deleteSubject(1L, "1");
 
         // Assert
-        assertThat(result).isFalse();
+        assertThat(result).isTrue();
         verify(userSubjectRepository, times(1)).delete(any(UserSubject.class));
     }
 

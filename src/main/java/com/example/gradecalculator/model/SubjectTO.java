@@ -4,34 +4,14 @@ import com.example.gradecalculator.entities.Subject;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.List;
-
+@Getter
+@Setter
 public class SubjectTO {
-
-    @Getter
-    @Setter
     private int id;
-
-    @Getter
-    @Setter
     private String name;
-
-    @Getter
-    @Setter
     private String description;
-    @Setter
-    @Getter
     private Subject subject;
-    @Setter
-    @Getter
     private boolean selected;
-    @Getter
-    @Setter
     private String userSubject;
-    @Getter
-    @Setter
-    private List<SubjectTO> subjects;
-    public SubjectTO(Long id, String name, String description) {
-    }
-
 }
 
