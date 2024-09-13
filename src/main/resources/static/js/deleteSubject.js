@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
         if (selectedID) {
-            fetch(`/subject/delete/${selectedID}`, {
+            fetch(`/userSubject/delete/${selectedID}`, {
                 method: 'DELETE', headers: {
                     'Content-Type': 'application/json'
                 }

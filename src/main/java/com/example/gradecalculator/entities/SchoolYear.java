@@ -1,35 +1,28 @@
 package com.example.gradecalculator.entities;
 
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "school_year")
 public class SchoolYear {
 
-    @Setter
-    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Setter
-    @Getter
     @Column(name = "name")
     private String name;
-    @Setter
-    @Getter
+
     private LocalDate startDate;
 
-    @Setter
-    @Getter
     private LocalDate endDate;
 
     @OneToMany(mappedBy = "schoolYear")

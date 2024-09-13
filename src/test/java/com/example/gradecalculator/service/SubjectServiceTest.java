@@ -14,10 +14,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -275,7 +273,6 @@ public class SubjectServiceTest {
     public void testDeleteSubject_DeleteFails() {
         // Arrange
         when(userSubjectRepository.findById(anyLong())).thenReturn(Optional.of(userSubject));
-//        doThrow(new RuntimeException()).when(userSubjectRepository).delete(any(UserSubject.class));
 
         // Act
         boolean result = subjectService.deleteSubject(1L, "1");

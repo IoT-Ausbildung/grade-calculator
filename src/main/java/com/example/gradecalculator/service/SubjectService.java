@@ -42,8 +42,8 @@ public class SubjectService {
     public List<SubjectTO> getAllSubjects() {
         return StreamSupport.stream(subjectRepository.findAll().spliterator(), false)
                 .map(subjectMapper::subjectToSubjectTO)
-                .filter(Objects::nonNull) // Add this line to filter out null SubjectTO
-                .sorted(Comparator.comparing(SubjectTO::getName))//.sorted()
+                .filter(Objects::nonNull)
+                .sorted(Comparator.comparing(SubjectTO::getName))
 
                 .collect(Collectors.toList());
     }
@@ -106,7 +106,7 @@ public class SubjectService {
         return subjectsByYear;
     }
 
-@Transactional
+    @Transactional
     public boolean deleteSubject(Long subjectId, String userId) {
         Optional<UserSubject> userSubjectOpt = userSubjectRepository.findById(subjectId);
 

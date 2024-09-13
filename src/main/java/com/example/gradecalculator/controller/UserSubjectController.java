@@ -4,7 +4,6 @@ import com.example.gradecalculator.entities.SchoolYear;
 import com.example.gradecalculator.entities.UserSubject;
 import com.example.gradecalculator.model.SubjectTO;
 import com.example.gradecalculator.repository.SchoolYearRepository;
-import com.example.gradecalculator.repository.SubjectRepository;
 import com.example.gradecalculator.service.SubjectService;
 import com.example.gradecalculator.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,23 +14,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 @Controller
-public class SubjectController {
+public class UserSubjectController {
 
-    private final SubjectService subjectService;
-    private final SubjectRepository subjectRepository;
+    private final SubjectService subjectService;;
     private final SchoolYearRepository schoolYearRepository;
     private final UserService userService;
 
     @Autowired
-    public SubjectController(SubjectService subjectService, SubjectRepository subjectRepository,
-                             SchoolYearRepository schoolYearRepository, UserService userService) {
-        this.subjectRepository = subjectRepository;
+    public UserSubjectController(SubjectService subjectService, SchoolYearRepository schoolYearRepository,
+                                 UserService userService) {
         this.schoolYearRepository = schoolYearRepository;
         this.subjectService = subjectService;
         this.userService = userService;
@@ -48,8 +42,6 @@ public class SubjectController {
     public String showUserSubjectForm(Model model) {
         List<SchoolYear> years = schoolYearRepository.findAll();
         List<SubjectTO> subjects = subjectService.getAllSubjects();
-
-
         model.addAttribute("years", years);
         model.addAttribute("subjects", subjects);
         model.addAttribute("selectedSubjects", new ArrayList<UserSubject>());
@@ -103,7 +95,7 @@ public class SubjectController {
         }
     }
 
-    @DeleteMapping("/subject/delete/{ID}")
+    @DeleteMapping("/userSubject/delete/{ID}")
     public ResponseEntity<Void> deleteSubject(@PathVariable Long ID, Authentication authentication) {
         var userId = userService.getAuthenticatedUserId(authentication);
         boolean deleted = subjectService.deleteSubject(ID, String.valueOf(userId));

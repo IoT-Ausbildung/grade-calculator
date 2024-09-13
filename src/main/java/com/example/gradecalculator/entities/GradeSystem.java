@@ -1,10 +1,13 @@
 package com.example.gradecalculator.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
-
+@Getter
+@Setter
 @Entity
 @Table(name = "grade_system")
 public class GradeSystem {
@@ -28,37 +31,4 @@ public class GradeSystem {
     public GradeSystem() {
 
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public List<GradeType> getGradeTypes() {
-        return gradeTypes;
-    }
-
-    public void setGradeTypes(List<GradeType> gradeTypes) {
-        this.gradeTypes = gradeTypes;
-    }
-
 }

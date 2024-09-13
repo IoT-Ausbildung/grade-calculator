@@ -40,7 +40,7 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests((requests) -> requests.anyRequest().permitAll())
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers(new AntPathRequestMatcher("/subject/delete/{ID}"))
+                        .ignoringRequestMatchers(new AntPathRequestMatcher("/userSubject/delete/{ID}"))
                 )
                 .httpBasic(Customizer.withDefaults())
                 .formLogin((form) -> form
