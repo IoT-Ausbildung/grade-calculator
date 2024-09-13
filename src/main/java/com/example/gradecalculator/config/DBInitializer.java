@@ -71,15 +71,15 @@ public class DBInitializer {
 
     private void seedSubjects() {
         List<Subject> subjects = List.of(
-                new Subject("ITT1", "IT Technic 1 (Subject about hardware components of devices in combination with economic topics and processes in company specifically)"),
-                new Subject("ITT2", "IT Technic 2 (It is pure technical subject concentrated on security)"),
+                new Subject("ITT1", "IT Technic 1 (Subject about hardware components of devices in combination with economic topics and processes in a company)"),
+                new Subject("ITT2", "IT Technic 2 (Technical subject concentrated on security)"),
                 new Subject("ITS", "IT Systems (Subject covers wide range of networking topics)"),
                 new Subject("AP", "Application development and programming (Learning Java and Database)"),
                 new Subject("BGP", "Business and economic processes in general"),
                 new Subject("English", "English language"),
                 new Subject("German", "German language"),
-                new Subject("Sport", "Sport, physical activity through playing different sport arts"),
-                new Subject("PuG", "Politics and Society (Political and Social topics of Germany, such as elections, education/health system etc)")
+                new Subject("Sport", "Physical activities"),
+                new Subject("PuG", "Politics and Society (Political and social topics of Germany, such as elections, education/health care system etc)")
         );
 
         for (Subject subject : subjects) {

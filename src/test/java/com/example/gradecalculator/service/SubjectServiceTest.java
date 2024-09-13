@@ -273,7 +273,6 @@ public class SubjectServiceTest {
     public void testDeleteSubject_DeleteFails() {
         // Arrange
         when(userSubjectRepository.findById(anyLong())).thenReturn(Optional.of(userSubject));
-//        doThrow(new RuntimeException()).when(userSubjectRepository).delete(any(UserSubject.class));
 
         // Act
         boolean result = subjectService.deleteSubject(1L, "1");
