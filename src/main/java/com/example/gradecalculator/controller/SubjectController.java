@@ -2,7 +2,6 @@ package com.example.gradecalculator.controller;
 
 import com.example.gradecalculator.entities.SchoolYear;
 import com.example.gradecalculator.entities.Subject;
-import com.example.gradecalculator.entities.User;
 import com.example.gradecalculator.entities.UserSubject;
 import com.example.gradecalculator.mapper.SubjectMapper;
 import com.example.gradecalculator.model.SubjectTO;
@@ -20,7 +19,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 @Controller
 public class SubjectController {
