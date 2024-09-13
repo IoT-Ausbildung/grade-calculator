@@ -29,23 +29,16 @@ public class SubjectController {
 
     private final SubjectService subjectService;
     private final SubjectRepository subjectRepository;
-    private final UserSubjectRepository userSubjectRepository;
     private final SchoolYearRepository schoolYearRepository;
-    private final SubjectMapper subjectMapper;
     private final UserService userService;
-    private final UserRepository userRepository;
 
     @Autowired
-    public SubjectController(SubjectService subjectService, UserSubjectRepository userSubjectRepository,
-                             SubjectRepository subjectRepository, SchoolYearRepository schoolYearRepository,
-                             SubjectMapper subjectMapper, UserService userService, UserRepository userRepository) {
-        this.userSubjectRepository = userSubjectRepository;
+    public SubjectController(SubjectService subjectService, SubjectRepository subjectRepository,
+                             SchoolYearRepository schoolYearRepository, UserService userService) {
         this.subjectRepository = subjectRepository;
         this.schoolYearRepository = schoolYearRepository;
         this.subjectService = subjectService;
-        this.subjectMapper = subjectMapper;
         this.userService = userService;
-        this.userRepository = userRepository;
     }
 
     @GetMapping("/subjects")
@@ -58,7 +51,7 @@ public class SubjectController {
     @GetMapping("/userSubject/form")
     public String showUserSubjectForm(Model model) {
         List<SchoolYear> years = schoolYearRepository.findAll();
-        List<Subject> subjects = (List<Subject>) subjectRepository.findAll();
+        List<SubjectTO> subjects = subjectService.getAllSubjects();
 
 
         model.addAttribute("years", years);
@@ -69,8 +62,9 @@ public class SubjectController {
     }
 
     @PostMapping("/userSubject/save")
-    public ResponseEntity<Map<String, Object>> saveUserSubject(@RequestParam(value = "selectedValues", required = false)
-                                                                   String[] selectedValues, Authentication authentication) {
+    public ResponseEntity<Map<String, Object>> saveUserSubject(@RequestParam(value = "selectedValues",
+                                                                required = false) String[] selectedValues,
+                                                               Authentication authentication) {
         Map<String, Object> response = new TreeMap<>();
         try {
             if (selectedValues == null || selectedValues.length == 0) {
@@ -116,7 +110,6 @@ public class SubjectController {
     @DeleteMapping("/subject/delete/{ID}")
     public ResponseEntity<Void> deleteSubject(@PathVariable Long ID, Authentication authentication) {
         var userId = userService.getAuthenticatedUserId(authentication);
-
         boolean deleted = subjectService.deleteSubject(ID, String.valueOf(userId));
 
         if (deleted) {

@@ -32,4 +32,3 @@ public interface SubjectMapper {
 
     List<SubjectTO> userSubjectsToSubjectTOs(List<Subject> subjects);
 }
-
