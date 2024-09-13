@@ -199,28 +199,19 @@ public class SubjectServiceTest {
 
     @Test
     public void testSaveSubjectYearSelectedUser_SubjectNotFound() {
-        // Arrange
-        when(subjectRepository.findById(anyLong())).thenReturn(Optional.empty());
-
-        // Act & Assert
+        // Arrange & Act & Assert
         assertThrows(IllegalArgumentException.class, () -> subjectService.saveSubjectYearSelectedUser(1L, 1L, 1L));
     }
 
     @Test
     public void testSaveSubjectYearSelectedUser_YearNotFound() {
-        // Arrange
-        when(subjectRepository.findById(anyLong())).thenReturn(Optional.of(subject));
-        when(schoolYearRepository.findById(anyLong())).thenReturn(Optional.empty());
-
-        // Act & Assert
+        // Arrange & Act & Assert
         assertThrows(IllegalArgumentException.class, () -> subjectService.saveSubjectYearSelectedUser(1L, 1L, 1L));
     }
 
     @Test
     public void testSaveSubjectYearSelectedUser_UserNotFound() {
         // Arrange
-        when(subjectRepository.findById(anyLong())).thenReturn(Optional.of(subject));
-        when(schoolYearRepository.findById(anyLong())).thenReturn(Optional.of(schoolYear));
         when(userRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         // Act & Assert
