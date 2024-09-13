@@ -55,11 +55,12 @@ public class SubjectService {
     public List<String> saveSubjects(String[] selectedValues, long userId) {
 
         var errors = new ArrayList<String>();
+        User selectedUser = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
         for (String entry : selectedValues) {
             var splittedString = entry.split("-");
             long selectedSubjectId = Long.parseLong(splittedString[0]);
             long selectedYearId = Long.parseLong(splittedString[1]);
-            String error = saveSubjectYearSelectedUser(userId, selectedSubjectId, selectedYearId);
+            String error = saveSubjectYearSelectedUser(selectedUser, selectedSubjectId, selectedYearId);
             if (error != null) {
                 errors.add(error);
             }
@@ -67,12 +68,16 @@ public class SubjectService {
         return errors;
     }
 
-    public String saveSubjectYearSelectedUser(long userId, long subjectId, long yearId) {
+    public String saveSubjectYearSelectedUser(long userID, long subjectId, long yearId) {
+        var user = userRepository.findById(userID).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        return saveSubjectYearSelectedUser(user, subjectId, yearId);
+    }
+
+    private String saveSubjectYearSelectedUser(User selectedUser, long subjectId, long yearId) {
 
         Subject selectedSubject = subjectRepository.findById(subjectId).orElseThrow(() -> new IllegalArgumentException("Subject not found"));
         SchoolYear selectedYear = schoolYearRepository.findById(yearId).orElseThrow(() -> new IllegalArgumentException("Year not found"));
-        User selectedUser = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
-        var subjects = userSubjectRepository.findByUserId(userId);
+        var subjects = userSubjectRepository.findByUserId(selectedUser.getId());
         boolean exists = subjects.stream().anyMatch(item -> item.getSubject().getId().equals(subjectId) && item.getSchoolYear().getId().equals(yearId));
         if (!exists) {
             UserSubject userSubject = new UserSubject();

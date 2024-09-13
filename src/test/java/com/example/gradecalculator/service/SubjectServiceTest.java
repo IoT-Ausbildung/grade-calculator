@@ -31,7 +31,6 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class SubjectServiceTest {
 
-    @InjectMocks
     private SubjectService subjectService;
 
     @Mock
@@ -46,9 +45,7 @@ public class SubjectServiceTest {
     @Mock
     private SchoolYearRepository schoolYearRepository;
 
-    @Mock
     private SubjectMapper subjectMapper;
-
     private Subject subject;
     private Subject secondSubject;
     private User user;
@@ -80,6 +77,20 @@ public class SubjectServiceTest {
         userSubject.setSchoolYear(schoolYear);
 
         subjectMapper = Mappers.getMapper(SubjectMapper.class);
+        subjectService = new SubjectService(userSubjectRepository, subjectRepository, userRepository,
+                                            schoolYearRepository, subjectMapper);
+    }
+
+    @Test
+    public void testSubjectToSubjectTO() {
+        // Arrange
+        SubjectTO subjectTO = subjectMapper.subjectToSubjectTO(subject);
+
+        // Assert
+        assertNotNull(subjectTO);
+        assertEquals(subject.getId(), subjectTO.getId());
+        assertEquals(subject.getName(), subjectTO.getName());
+        assertEquals(subject.getDescription(), subjectTO.getDescription());
     }
 
     @Test
@@ -107,7 +118,6 @@ public class SubjectServiceTest {
         List<SubjectTO> subjectTOs = subjectService.getAllSubjects();
 
         // Assert
-        assertFalse(subjectTOs.isEmpty());
         assertEquals(1, subjectTOs.size());
         assertEquals(subject.getId(), subjectTOs.get(0).getId());
         assertEquals(subject.getName(), subjectTOs.get(0).getName());
@@ -126,8 +136,10 @@ public class SubjectServiceTest {
         assertThat(subjectTOs).hasSize(2);
         assertThat(subjectTOs.get(0).getName()).isEqualTo("Biology");
         assertThat(subjectTOs.get(1).getName()).isEqualTo("ITT2");
-        assertEquals(subject.getId(), subjectTOs.get(0).getId());
-        assertEquals(subject.getName(), subjectTOs.get(0).getName());
+        assertEquals(subject.getId(), subjectTOs.get(1).getId());
+        assertEquals(subject.getName(), subjectTOs.get(1).getName());
+        assertEquals(secondSubject.getId(), subjectTOs.get(0).getId());
+        assertEquals(secondSubject.getName(), subjectTOs.get(0).getName());
     }
 
     @Test
