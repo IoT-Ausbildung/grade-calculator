@@ -1,14 +1,10 @@
 package com.example.gradecalculator.controller;
 
 import com.example.gradecalculator.entities.SchoolYear;
-import com.example.gradecalculator.entities.Subject;
 import com.example.gradecalculator.entities.UserSubject;
-import com.example.gradecalculator.mapper.SubjectMapper;
 import com.example.gradecalculator.model.SubjectTO;
 import com.example.gradecalculator.repository.SchoolYearRepository;
 import com.example.gradecalculator.repository.SubjectRepository;
-import com.example.gradecalculator.repository.UserRepository;
-import com.example.gradecalculator.repository.UserSubjectRepository;
 import com.example.gradecalculator.service.SubjectService;
 import com.example.gradecalculator.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
