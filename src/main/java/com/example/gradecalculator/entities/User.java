@@ -19,12 +19,8 @@ public class User {
     private String lastName;
     private String userName;
     private String email;
-
-    @Setter
-    @Getter
     private String encodedPassword;
 
-    @Setter
     @ManyToOne
     @JoinColumn(name = "user_type_id")
     private UserType userType;
@@ -49,5 +45,4 @@ public class User {
     public User(String encodedPassword) {
         this.encodedPassword = encodedPassword;
     }
-
 }

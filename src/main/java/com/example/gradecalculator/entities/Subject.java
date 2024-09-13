@@ -12,19 +12,13 @@ import java.util.Set;
 @Table(name = "subject")
 public class Subject {
 
-    @Setter
-    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Setter
-    @Getter
     @Column(unique = true)
     private String name;
 
-    @Setter
-    @Getter
     private String description;
 
     @OneToMany(mappedBy = "subject")
