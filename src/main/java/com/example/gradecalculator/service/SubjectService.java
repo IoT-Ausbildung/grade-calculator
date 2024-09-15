@@ -44,7 +44,6 @@ public class SubjectService {
                 .map(subjectMapper::subjectToSubjectTO)
                 .filter(Objects::nonNull)
                 .sorted(Comparator.comparing(SubjectTO::getName))
-
                 .collect(Collectors.toList());
     }
 
