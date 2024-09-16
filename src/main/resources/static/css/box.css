@@ -10,11 +10,6 @@
     margin-top: 90px;
 }
 
-.custom-modal-margin {
-    margin-top: 150px;
-    margin-left: 28%;
-}
-
 .custom-modal-size {
     max-width: 50%;
     margin-top: 50px;
@@ -43,12 +38,7 @@
 }
 
 .modal-backdrop {
-    z-index: 1040 !important;
     opacity: 0.3 !important;
-}
-
-.modal {
-    z-index: 1050 !important;
 }
 
 #errorModal {

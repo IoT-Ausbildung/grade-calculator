@@ -32,13 +32,6 @@ public class UserSubjectController {
         this.userService = userService;
     }
 
-    @GetMapping("/subjects")
-    public String getSubjects(Model model) {
-        List<SubjectTO> subjects = subjectService.getAllSubjects();
-        model.addAttribute("subjects", subjects);
-        return "subjectSelection";
-    }
-
     @GetMapping("/userSubject/form")
     public String showUserSubjectForm(Model model) {
         List<SchoolYear> years = schoolYearRepository.findAll();
