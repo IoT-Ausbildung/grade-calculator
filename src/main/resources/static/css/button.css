@@ -5,13 +5,13 @@
 .btn-login {
     width: 100%;
     text-transform: uppercase;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 0.6rem;
+    border-radius: 0.3rem;
     background-color: #007bff;
     color: #fff;
     border: none;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 1.5rem;
 }
 
 .logout-button {
@@ -20,17 +20,19 @@
     color: white;
     text-transform: uppercase;
     font-family: "Poppins", sans-serif;
-    font-size: 18px;
+    font-size: 1.5rem;
 }
-.plusButton{
+
+.plusButton {
     height: 3rem;
     font-size: 1.2rem;
-    margin-left: 10px;
+    margin-left: 0.3rem;
 }
-.center-container{
-    margin-top: 20px;
+
+.center-container {
+    margin-top: 1.5rem;
 }
 
 #errorModal .close {
-    margin-top: -10px;
+    margin-top: -0.3rem;
 }

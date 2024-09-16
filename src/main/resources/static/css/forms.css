@@ -1,18 +1,18 @@
 .login-form {
-    width: 600px;
-    padding: 20px;
+    width: 37.5rem;
+    padding: 1.5rem;
     border: 1px solid #ccc;
-    border-radius: 10px;
+    border-radius: 0.3rem;
 }
 
 .form-group {
-    margin-bottom: 10px;
-    font-size: 18px;
-    padding: 10px;
+    margin-bottom: 0.3rem;
+    font-size: 1.5rem;
+    padding: 0.3rem;
 }
 
 .signup-form {
-    margin-top: 60px;
+    margin-top: 3.75rem;
 }
 
 .logout-form {
