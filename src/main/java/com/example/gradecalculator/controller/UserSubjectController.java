@@ -19,7 +19,8 @@ import java.util.*;
 @Controller
 public class UserSubjectController {
 
-    private final SubjectService subjectService;;
+    private final SubjectService subjectService;
+    ;
     private final SchoolYearRepository schoolYearRepository;
     private final UserService userService;
 
@@ -50,30 +51,32 @@ public class UserSubjectController {
     }
 
     @PostMapping("/userSubject/save")
-    public ResponseEntity<Map<String, Object>> saveUserSubject(@RequestParam(value = "selectedValues",
-                                                                required = false) String[] selectedValues,
-                                                               Authentication authentication) {
+    public ResponseEntity<Map<String, Object>> saveUserSubject(
+            @RequestParam(value = "selectedValues", required = false) String[] selectedValues,
+            Authentication authentication) {
         Map<String, Object> response = new TreeMap<>();
         try {
             if (selectedValues == null || selectedValues.length == 0) {
-                response.put("success", false);
-                response.put("error", "No subjects selected.");
-                return ResponseEntity.badRequest().body(response);
+                response.put("errors", List.of("No subjects selected."));
+                return ResponseEntity.badRequest().body(response); // 400 Bad Request
             }
+
             var userId = userService.getAuthenticatedUserId(authentication);
             var errorList = subjectService.saveSubjects(selectedValues, userId);
-            if(errorList.isEmpty()) {
-                response.put("success", true);
-                return ResponseEntity.ok(response);
+
+            if (errorList.isEmpty()) {
+                return ResponseEntity.ok().build();
             }
-            response.put("success", false);
+
             response.put("errors", errorList);
             return ResponseEntity.badRequest().body(response);
 
         } catch (IllegalArgumentException e) {
-            response.put("success", false);
-            response.put("error", e.getMessage());
+            response.put("errors", List.of(e.getMessage()));
             return ResponseEntity.badRequest().body(response);
+        } catch (Exception e) {
+            response.put("errors", List.of("An unexpected error occurred."));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
 
