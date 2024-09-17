@@ -1,19 +1,16 @@
 package com.example.gradecalculator.controller;
 
 import com.example.gradecalculator.mapper.UserMapper;
-import com.example.gradecalculator.model.UserDetailsImpl;
 import com.example.gradecalculator.model.UserEditTO;
-import com.example.gradecalculator.repository.UserRepository;
-import com.example.gradecalculator.repository.UserTypeRepository;
-import com.example.gradecalculator.service.UserService;
 import com.example.gradecalculator.model.UserSignUpTO;
+import com.example.gradecalculator.repository.*;
+import com.example.gradecalculator.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,10 +25,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserController {
     private final UserRepository userRepository;
     private final UserTypeRepository userTypeRepository;
-    private UserMapper userMapper = Mappers.getMapper(UserMapper.class);
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private UserMapper userMapper = Mappers.getMapper(UserMapper.class);
 
     @Autowired
     private UserService userService;
@@ -54,7 +49,7 @@ public class UserController {
     }
 
     @GetMapping("/myProfile")
-    public String myProfileGet(Model model, Authentication authentication){
+    public String myProfileGet(Model model, Authentication authentication) {
         var userTypes = userTypeRepository.findAll();
         model.addAttribute("userTypes", userTypes);
 
@@ -67,7 +62,7 @@ public class UserController {
     }
 
     @GetMapping("/editProfile")
-    public String editProfileGet(Model model, Authentication authentication){
+    public String editProfileGet(Model model, Authentication authentication) {
         var userData = userService.getAuthenticatedUser(authentication);
         model.addAttribute("editProfile", userData);
 
@@ -75,7 +70,7 @@ public class UserController {
     }
 
     @GetMapping("/editPassword")
-    public String editPasswordGet(){
+    public String editPasswordGet() {
 
         return "editPassword";
     }
@@ -90,14 +85,13 @@ public class UserController {
     }
 
     @PostMapping("/editPassword")
-    public String editPasswordPost(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword")
-    String newPassword, Authentication authentication, Model model){
+    public String editPasswordPost(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword, Authentication authentication, Model model) {
 
         var userData = userService.getAuthenticatedUser(authentication);
 
         var errors = userService.editPasswordService(oldPassword, newPassword, userData);
 
-        if(errors.isEmpty()){
+        if (errors.isEmpty()) {
             return "login";
         }
 
@@ -106,7 +100,7 @@ public class UserController {
     }
 
     @PostMapping("/editProfile")
-    private String editProfilePost(@Valid @ModelAttribute UserEditTO editProfile, Authentication authentication){
+    private String editProfilePost(@Valid @ModelAttribute UserEditTO editProfile, Authentication authentication) {
         var userID = userService.getAuthenticatedUserId(authentication);
         var user = userService.editProfile(userID, editProfile);
         return "index";
@@ -118,7 +112,7 @@ public class UserController {
 
         if (errors.isEmpty()) {
             var user = userService.createUser(registration);
-            return "index";
+            return "login";
         }
 
         var userTypes = userTypeRepository.findAll();
@@ -133,6 +127,5 @@ public class UserController {
         this.logoutHandler.logout(request, response, authentication);
         return "index";
     }
-
     SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 }

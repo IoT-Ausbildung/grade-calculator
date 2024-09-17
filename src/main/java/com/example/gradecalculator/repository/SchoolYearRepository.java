@@ -1,8 +1,11 @@
 package com.example.gradecalculator.repository;
 
 import com.example.gradecalculator.entities.SchoolYear;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.ListCrudRepository;
 
-public interface SchoolYearRepository extends CrudRepository<SchoolYear, Long> {
-    SchoolYear findById(long id);
+import java.util.Optional;
+
+public interface SchoolYearRepository extends ListCrudRepository<SchoolYear, Long> {
+    Optional<SchoolYear> findById(Long id);
+    Optional<SchoolYear> findByName(String name);
 }

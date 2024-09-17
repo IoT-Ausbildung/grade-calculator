@@ -1,11 +1,92 @@
 .site-header, .site-footer {
     background-color: #1e194b;
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(1.5rem);
+    backdrop-filter: saturate(180%) blur(1.5rem);
 }
 
 .login-container {
     display: flex;
     justify-content: center;
-    margin-top: 90px;
+    margin-top: 5.6rem;
 }
+
+.custom-modal-size {
+    max-width: 50%;
+    margin-top: 3.1rem;
+}
+
+.years {
+    margin-left: 0.7rem;
+}
+
+.custom-select-size {
+    height: 3rem;
+    width: 12.5rem;
+}
+
+#selectedSubjectsContainer {
+    margin-top: 1.5rem;
+    margin-left: 1rem;
+}
+
+#subjects-container {
+    padding: 3.1rem;
+}
+
+#subjects-container2 {
+    margin-top: 1.8rem;
+}
+
+.modal-backdrop {
+    opacity: 0.3 !important;
+}
+
+#errorModal {
+    margin-top: 4.3rem;
+}
+
+#errorModal .modal-content {
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+    border-radius: 1rem;
+}
+
+#errorModal .modal-header {
+    border-bottom: 1px solid #dc3545;
+}
+
+#errorModal .modal-body {
+    font-size: 1.1em;
+    color: #333;
+    text-align: center;
+}
+
+#errorModal .modal-footer {
+    justify-content: center;
+}
+
+#confirmationModal {
+    margin-top: 12.5rem;
+}
+
+#confirmationModal .modal-content {
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+    border-radius: 1rem;
+}
+
+#confirmationModal .modal-header {
+    border-bottom: 1px solid #dc3545;
+}
+
+#alertModal {
+    margin-top: 12.5rem;
+}
+
+#alertModal .modal-header {
+    border-bottom: 1px solid #dc3545;
+}
+
+#alertModal .modal-content {
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+    border-radius: 1rem;
+}
+

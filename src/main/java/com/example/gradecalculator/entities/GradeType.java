@@ -1,13 +1,15 @@
 package com.example.gradecalculator.entities;
 
 import jakarta.persistence.*;
-
-import java.math.BigDecimal;
+import lombok.Getter;
+import lombok.Setter;
 import java.text.DecimalFormat;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "grade_type")
-public  class GradeType {
+public class GradeType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,45 +43,5 @@ public  class GradeType {
         this.name = name;
         this.description = description;
         this.weightage = weightage;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Double getWeightage() {
-        return weightage;
-    }
-
-    public void setWeightage(Double weightage) {
-        this.weightage = weightage;
-    }
-
-    public GradeSystem getGradeSystem() {
-        return gradeSystem;
-    }
-
-    public void setGradeSystem(GradeSystem gradeSystem) {
-        this.gradeSystem = gradeSystem;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

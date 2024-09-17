@@ -15,6 +15,7 @@ public class UserSignUpTO {
     private Long userType;
 
     public UserSignUpTO(){}
+
     public String getFirstName() {
         return firstName;
     }
