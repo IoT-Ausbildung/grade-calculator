@@ -10,15 +10,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -26,15 +25,14 @@ public class UserController {
     private final UserRepository userRepository;
     private final UserTypeRepository userTypeRepository;
 
-    private UserMapper userMapper = Mappers.getMapper(UserMapper.class);
-
-    @Autowired
+    private final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
     private UserService userService;
 
     @Autowired
-    public UserController(UserRepository userRepository, UserTypeRepository userTypeRepository) {
+    public UserController(UserRepository userRepository, UserTypeRepository userTypeRepository, UserService userService) {
         this.userRepository = userRepository;
         this.userTypeRepository = userTypeRepository;
+        this.userService = userService;
     }
 
     @GetMapping("/signup")
@@ -127,5 +125,18 @@ public class UserController {
         this.logoutHandler.logout(request, response, authentication);
         return "index";
     }
+
+    @DeleteMapping("/myProfile")
+    public ResponseEntity<Void> deleteUser(Authentication authentication) {
+        var userId = userService.getAuthenticatedUserId(authentication);
+
+        boolean profileDeleted = userService.deleteUserAndSubjects(userId);
+        if (profileDeleted) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 }
