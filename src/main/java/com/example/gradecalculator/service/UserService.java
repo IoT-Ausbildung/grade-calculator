@@ -12,6 +12,7 @@ import com.example.gradecalculator.repository.UserTypeRepository;
 import com.example.gradecalculator.model.UserSignUpTO;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

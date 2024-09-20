@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }).then(response => {
             confirmationModal.hide();
             if (response.ok) {
-                window.location = "/login";
+                window.location.href = "/login";
             }
         }).catch(error => {
             console.error('Error:', error);

@@ -132,7 +132,9 @@ public class UserController {
 
         boolean profileDeleted = userService.deleteUserAndSubjects(userId);
         if (profileDeleted) {
+
             return ResponseEntity.ok().build();
+
         } else {
             return ResponseEntity.badRequest().build();
         }
