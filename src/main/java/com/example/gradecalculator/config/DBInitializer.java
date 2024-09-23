@@ -1,9 +1,11 @@
 package com.example.gradecalculator.config;
 
+import com.example.gradecalculator.entities.GradeType;
 import com.example.gradecalculator.entities.SchoolYear;
 import com.example.gradecalculator.entities.Subject;
 import com.example.gradecalculator.entities.UserType;
 import com.example.gradecalculator.enums.UserNames;
+import com.example.gradecalculator.repository.GradeTypeRepository;
 import com.example.gradecalculator.repository.SchoolYearRepository;
 import com.example.gradecalculator.repository.SubjectRepository;
 import com.example.gradecalculator.repository.UserTypeRepository;
@@ -17,19 +19,23 @@ public class DBInitializer {
     private final UserTypeRepository userTypeRepository;
     private final SubjectRepository subjectRepository;
     private final SchoolYearRepository schoolYearRepository;
+    private final GradeTypeRepository gradeTypeRepository;
 
     public DBInitializer(UserTypeRepository userTypeRepository,
                          SubjectRepository subjectRepository,
-                         SchoolYearRepository schoolYearRepository) {
+                         SchoolYearRepository schoolYearRepository,
+                         GradeTypeRepository gradeTypeRepository) {
         this.userTypeRepository = userTypeRepository;
         this.subjectRepository = subjectRepository;
         this.schoolYearRepository = schoolYearRepository;
+        this.gradeTypeRepository = gradeTypeRepository;
     }
 
     public void seedData() {
         seedUserTypes();
         seedSubjects();
         seedSchoolYears();
+        seedGradeTypes();
     }
 
     private void seedSchoolYears() {
@@ -58,15 +64,26 @@ public class DBInitializer {
         if (userTypeRepository.findByName(UserNames.TRAINER.getValue()) == null) {
             saveUserTypes(UserNames.TRAINER.getValue());
         }
-        if (userTypeRepository.findByName(UserNames.STUDENT.getValue()) == null) {
-            saveUserTypes(UserNames.STUDENT.getValue());
-        }
     }
 
     private void saveUserTypes(String types) {
-        UserType usertype = new UserType();
-        usertype.setName(types);
-        userTypeRepository.save(usertype);
+        UserType userType = new UserType();
+        userType.setName(types);
+        userTypeRepository.save(userType);
+    }
+
+    private void seedGradeTypes() {
+        List<GradeType> gradeTypes = List.of(
+                new GradeType("Oral Mark", "Grade for active participation in class"),
+                new GradeType("Class Test", "Class test mark"),
+                new GradeType("School Assignment", "School assignment mark")
+        );
+
+        for (GradeType gradeType : gradeTypes) {
+            if (gradeTypeRepository.findByName(gradeType.getName()) == null) {
+                gradeTypeRepository.save(gradeType);
+            }
+        }
     }
 
     private void seedSubjects() {
@@ -93,4 +110,6 @@ public class DBInitializer {
             }
         }
     }
+
+
 }

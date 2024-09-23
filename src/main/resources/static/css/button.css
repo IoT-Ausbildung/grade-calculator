@@ -36,3 +36,7 @@
 #errorModal .close {
     margin-top: -0.3rem;
 }
+#gradeInput{
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+}

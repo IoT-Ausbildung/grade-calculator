@@ -3,6 +3,7 @@ package com.example.gradecalculator.controller;
 import com.example.gradecalculator.entities.SchoolYear;
 import com.example.gradecalculator.entities.UserSubject;
 import com.example.gradecalculator.model.SubjectTO;
+import com.example.gradecalculator.repository.GradeTypeRepository;
 import com.example.gradecalculator.repository.SchoolYearRepository;
 import com.example.gradecalculator.service.SubjectService;
 import com.example.gradecalculator.service.UserService;
@@ -23,13 +24,15 @@ public class UserSubjectController {
     ;
     private final SchoolYearRepository schoolYearRepository;
     private final UserService userService;
+    private final GradeTypeRepository gradeTypeRepository;
 
     @Autowired
     public UserSubjectController(SubjectService subjectService, SchoolYearRepository schoolYearRepository,
-                                 UserService userService) {
+                                 UserService userService,GradeTypeRepository gradeTypeRepository ) {
         this.schoolYearRepository = schoolYearRepository;
         this.subjectService = subjectService;
         this.userService = userService;
+        this.gradeTypeRepository = gradeTypeRepository;
     }
 
     @GetMapping("/userSubject/form")
@@ -78,9 +81,11 @@ public class UserSubjectController {
         try {
             var userId = userService.getAuthenticatedUserId(authentication);
             var subjectsByYear = subjectService.selectedSubject(userId);
+            var gradeTypes = gradeTypeRepository.findAll();
 
             model.addAttribute("subjectsByYear", subjectsByYear);
             model.addAttribute("user", userId);
+            model.addAttribute("gradeTypes", gradeTypes);
 
             return "userSubjects";
 

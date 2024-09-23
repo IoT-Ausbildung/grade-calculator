@@ -1,11 +1,13 @@
 package com.example.gradecalculator.enums;
 
-public enum UserNames {
-    TRAINEE("Trainee"),
-    TRAINER("Trainer");
+public enum GradeTypes {
+    OralMark("Oral mark"),
+    ClassTest("Class test"),
+    SchoolAssignment("School assignment");
+
     private final String value;
 
-    UserNames(String value) {
+    GradeTypes(String value) {
         this.value = value;
     }
 
