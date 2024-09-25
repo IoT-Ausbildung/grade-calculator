@@ -1,9 +1,14 @@
 package com.example.gradecalculator.controller;
 
-import com.example.gradecalculator.repository.GradeTypeRepository;
-import com.example.gradecalculator.repository.UserGradeRepository;
-import com.example.gradecalculator.repository.UserSubjectRepository;
+import com.example.gradecalculator.model.GradeTO;
+import com.example.gradecalculator.service.GradeService;
+import com.example.gradecalculator.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,20 +16,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/grades")
 public class GradesController {
 
-    @Autowired
-    private UserSubjectRepository userSubjectRepository;
+    private final GradeService gradeService;
+
+    private final UserService userService;
 
     @Autowired
-    private GradeTypeRepository gradeTypeRepository;
+    public GradesController(GradeService gradeService, UserService userService) {
+        this.gradeService = gradeService;
+        this.userService = userService;
+    }
 
-    @Autowired
-    private UserGradeRepository userGradeRepository;
-
-    public GradesController(UserSubjectRepository userSubjectRepository, GradeTypeRepository gradeTypeRepository, UserGradeRepository userGradeRepository) {
-        this.userSubjectRepository = userSubjectRepository;
-        this.gradeTypeRepository = gradeTypeRepository;
-        this.userGradeRepository = userGradeRepository;
+    @PostMapping("/save-grade")
+    public ResponseEntity<?> saveGrade(@RequestBody GradeTO gradeTO, Authentication authentication) {
+        try {
+            var userId = userService.getAuthenticatedUserId(authentication);
+            gradeService.saveGrade(gradeTO, userId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error saving grade");
+        }
     }
 }
+
 
 

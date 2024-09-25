@@ -5,6 +5,7 @@ import com.example.gradecalculator.entities.UserSubject;
 import com.example.gradecalculator.model.SubjectTO;
 import com.example.gradecalculator.repository.GradeTypeRepository;
 import com.example.gradecalculator.repository.SchoolYearRepository;
+import com.example.gradecalculator.service.GradeService;
 import com.example.gradecalculator.service.SubjectService;
 import com.example.gradecalculator.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +26,16 @@ public class UserSubjectController {
     private final SchoolYearRepository schoolYearRepository;
     private final UserService userService;
     private final GradeTypeRepository gradeTypeRepository;
+    private final GradeService gradeService;
 
     @Autowired
     public UserSubjectController(SubjectService subjectService, SchoolYearRepository schoolYearRepository,
-                                 UserService userService,GradeTypeRepository gradeTypeRepository ) {
+                                 UserService userService, GradeTypeRepository gradeTypeRepository, GradeService gradeService) {
         this.schoolYearRepository = schoolYearRepository;
         this.subjectService = subjectService;
         this.userService = userService;
         this.gradeTypeRepository = gradeTypeRepository;
+        this.gradeService = gradeService;
     }
 
     @GetMapping("/userSubject/form")
@@ -54,7 +57,7 @@ public class UserSubjectController {
         try {
             if (selectedValues == null || selectedValues.length == 0) {
                 response.put("errors", List.of("No subjects selected."));
-                return ResponseEntity.badRequest().body(response); // 400 Bad Request
+                return ResponseEntity.badRequest().body(response);
             }
 
             var userId = userService.getAuthenticatedUserId(authentication);
@@ -82,10 +85,13 @@ public class UserSubjectController {
             var userId = userService.getAuthenticatedUserId(authentication);
             var subjectsByYear = subjectService.selectedSubject(userId);
             var gradeTypes = gradeTypeRepository.findAll();
+            var selectedGrades = gradeService.getSelectedGrades(userId);
 
             model.addAttribute("subjectsByYear", subjectsByYear);
             model.addAttribute("user", userId);
             model.addAttribute("gradeTypes", gradeTypes);
+            model.addAttribute("selectedGrades", selectedGrades);
+
 
             return "userSubjects";
 

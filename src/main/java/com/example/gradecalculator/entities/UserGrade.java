@@ -22,15 +22,13 @@ public class UserGrade {
     @JoinColumn(name = "grade_type_id", nullable = false)
     private GradeType gradeType;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     @Column(nullable = false)
     private int grade;
 
     public UserGrade() {
-    }
-
-    public UserGrade(UserSubject userSubject, GradeType gradeType, int grade) {
-        this.userSubject = userSubject;
-        this.gradeType = gradeType;
-        this.grade = grade;
     }
 }
