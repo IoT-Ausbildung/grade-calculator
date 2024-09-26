@@ -4,9 +4,9 @@ import com.example.gradecalculator.entities.SchoolYear;
 import com.example.gradecalculator.entities.Subject;
 import com.example.gradecalculator.entities.User;
 import com.example.gradecalculator.entities.UserSubject;
+import com.example.gradecalculator.mapper.GradeMapper;
 import com.example.gradecalculator.mapper.SubjectMapper;
-import com.example.gradecalculator.model.SubjectTO;
-import com.example.gradecalculator.model.UserSubjectTO;
+import com.example.gradecalculator.model.*;
 import com.example.gradecalculator.repository.SchoolYearRepository;
 import com.example.gradecalculator.repository.SubjectRepository;
 import com.example.gradecalculator.repository.UserRepository;
@@ -27,16 +27,18 @@ public class SubjectService {
     private final UserRepository userRepository;
     private final SchoolYearRepository schoolYearRepository;
     private final SubjectMapper subjectMapper;
+    private final GradeMapper gradeMapper;
 
     @Autowired
     public SubjectService(UserSubjectRepository userSubjectRepository, SubjectRepository subjectRepository,
                           UserRepository userRepository, SchoolYearRepository schoolYearRepository,
-                          SubjectMapper subjectMapper) {
+                          SubjectMapper subjectMapper, GradeMapper gradeMapper) {
         this.userSubjectRepository = userSubjectRepository;
         this.subjectRepository = subjectRepository;
         this.userRepository = userRepository;
         this.schoolYearRepository = schoolYearRepository;
         this.subjectMapper = subjectMapper;
+        this.gradeMapper = gradeMapper;
     }
 
     public List<SubjectTO> getAllSubjects() {
@@ -121,5 +123,48 @@ public class SubjectService {
         userSubjectRepository.delete(userSubject);
         System.out.println("Subject with ID " + subjectId + " successfully deleted.");
         return true;
+    }
+
+    public SubjectOverviewTO getUserSubjectsWithGrades(long userId) {
+        SubjectOverviewTO overviewTO = new SubjectOverviewTO();
+        var userSubjects = userSubjectRepository.findByUserId(userId);
+        Map<SchoolYear, List<UserSubject>> subjectsGroupedByYear =
+                userSubjects.stream().collect(Collectors.groupingBy(UserSubject::getSchoolYear));
+
+        List<YearTO> yearTOs = new ArrayList<>();
+        for (var entry : subjectsGroupedByYear.entrySet()) {
+            var yearTO = getYearTO(entry);
+            yearTOs.add(yearTO);
+        }
+        overviewTO.setYears(yearTOs);
+        return overviewTO;
+    }
+
+    private YearTO getYearTO(Map.Entry<SchoolYear, List<UserSubject>> entry) {
+        var year = entry.getKey();
+
+        var yearTO = new YearTO();
+        yearTO.setId(year.getId());
+        yearTO.setName(year.getName());
+
+        var subjects = entry.getValue();
+        List<UserSubjectTO> userSubjectTOs = new ArrayList<>();
+        for (var userSubject : subjects) {
+            var userSubjectTO = new UserSubjectTO();
+            userSubjectTO.setId(userSubject.getId());
+            userSubjectTO.setName(userSubject.getSubject().getName());
+            userSubjectTOs.add(userSubjectTO);
+
+            var gradeTOs = new ArrayList<GradeTO>();
+            var userGrades = userSubject.getUserGrades();
+
+            for (var userGrade : userGrades) {
+                var gradeTO = gradeMapper.userGradeToGradeTO(userGrade);
+                gradeTOs.add(gradeTO);
+            }
+            userSubjectTO.setGrades(gradeTOs);
+        }
+        yearTO.setSubjects(userSubjectTOs);
+        return yearTO;
     }
 }

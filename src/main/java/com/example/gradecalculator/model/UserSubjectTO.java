@@ -10,5 +10,6 @@ import java.util.List;
 public class UserSubjectTO {
     private Long id;
     private String name;
+    // TODO: should be grouped by grade type
     private List<GradeTO> grades;
 }

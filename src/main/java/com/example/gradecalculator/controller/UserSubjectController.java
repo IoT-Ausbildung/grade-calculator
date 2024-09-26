@@ -89,15 +89,12 @@ public class UserSubjectController {
     public String showSelectedSubjects(Model model, Authentication authentication) {
         try {
             Long userId = userService.getAuthenticatedUserId(authentication);
-            TreeMap<String, Set<UserSubjectTO>> subjectsByYear = subjectService.selectedSubject(userId);
-            Map<Long, Map<String, List<Integer>>> gradesGroupedBySubjectAndType = gradeService.groupGradesBySubjectAndType(userId);
-            var subjectOverview = new SubjectOverviewTO();
             List<GradeType> gradeTypes = (List<GradeType>) gradeTypeRepository.findAll();
+
+            var subjectOverview = subjectService.getUserSubjectsWithGrades(userId);
 
             model.addAttribute("subjectOverview", subjectOverview);
             model.addAttribute("user", userId);
-            model.addAttribute("subjectsByYear", subjectsByYear);
-            model.addAttribute("gradesGroupedBySubjectAndType", gradesGroupedBySubjectAndType);
             model.addAttribute("gradeTypes", gradeTypes);
 
             return "userSubjects";
