@@ -14,11 +14,12 @@ public class UserGrade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_subject_id", nullable = false)
     private UserSubject userSubject;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne
     @JoinColumn(name = "grade_type_id", nullable = false)
     private GradeType gradeType;
 

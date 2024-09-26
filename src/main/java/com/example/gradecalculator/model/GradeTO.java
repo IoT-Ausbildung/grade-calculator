@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class GradeTO {
     private Long gradeTypeId;
+    private String gradeTypeName;
     private int gradeValue;
     private Long userSubjectId;
 }

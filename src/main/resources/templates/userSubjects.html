@@ -61,6 +61,7 @@
                         </div>
                     </div>
                 </td>
+
                 <td>
                     <div class="d-flex justify-content-center">
                         <button type="reset" class="btn btn-link remove-btn" th:data-id="${subject.getID()}">
@@ -71,18 +72,19 @@
             </tr>
             </tbody>
         </table>
-        <div>
-            <table class="table table-bordered mb-4">
-                <thead class="thead-dark">
-                <tr>
-                    <th>Grade Type</th>
-                    <th>Grade Value</th>
-                </tr>
-                </thead>
-                <tbody id="submitted-grades-list">
-                </tbody>
-            </table>
-        </div>
+    </div>
+    <div>
+        <h2>Submitted Grades</h2>
+        <table class="table table-bordered mb-4">
+            <thead class="thead-dark">
+            <tr>
+                <th>Grade Type</th>
+                <th>Grade Value</th>
+            </tr>
+            </thead>
+            <tbody id="submitted-grades-list">
+            </tbody>
+        </table>
     </div>
 
     <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel"

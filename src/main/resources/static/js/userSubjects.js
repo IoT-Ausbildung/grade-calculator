@@ -10,6 +10,7 @@ $(document).ready(function () {
         const gradeData = {
             userSubjectId: userSubjectId,
             gradeTypeId: gradeTypeId,
+            gradeTypeName: gradeTypeName,
             gradeValue: gradeValue
         };
 
@@ -26,7 +27,6 @@ $(document).ready(function () {
                 xhr.setRequestHeader($('meta[name="_csrf_header"]').attr('content'), $('meta[name="_csrf"]').attr('content'));
             },
             success: function(response) {
-                $('#success-alert').show().delay(2000).fadeOut();
                 appendGradeToTable(gradeData);
             },
             error: function(response) {
@@ -39,10 +39,32 @@ $(document).ready(function () {
         const gradeList = $('#submitted-grades-list');
         const gradeRow = `
             <tr>
-                <td>${gradeData.gradeTypeId}</td>
+                <td>${gradeData.gradeTypeName}</td>
                 <td>${gradeData.gradeValue}</td>
             </tr>
         `;
         gradeList.append(gradeRow);
+    }
+
+    fetchGrades();
+
+    function fetchGrades() {
+        $.ajax({
+            url: '/grades/userGrades',
+            type: 'GET',
+            success: function(grades) {
+                grades.forEach(grade => {
+                    appendGradeToTable({
+                        userSubjectId: grade.userSubjectId,
+                        gradeTypeId: grade.gradeTypeId,
+                        gradeTypeName: grade.gradeTypeName,
+                        gradeValue: grade.gradeValue
+                    });
+                });
+            },
+            error: function() {
+                alert('Error fetching grades!');
+            }
+        });
     }
 });
