@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -57,5 +58,17 @@ public class GradeService {
         return userGrades.stream()
                 .map(gradeMapper::userGradeToGradeTO)
                 .collect(Collectors.toList());
+    }
+
+    public Map<Long, Map<String, List<Integer>>> groupGradesBySubjectAndType(Long userId) {
+        List<GradeTO> selectedGrades = getSelectedGrades(userId);
+        return selectedGrades.stream()
+                .collect(Collectors.groupingBy(
+                        GradeTO::getUserSubjectId,
+                        Collectors.groupingBy(
+                                GradeTO::getGradeTypeName,
+                                Collectors.mapping(GradeTO::getGradeValue, Collectors.toList())
+                        )
+                ));
     }
 }

@@ -29,12 +29,8 @@
 <div id="subjects-container"
      class="container d-flex flex-column flex-md-col justify-content-between col-sm-12 col-md-6 col-lg-4 mt-5">
     <h1>Your Subjects</h1>
-    <div id="errorContainer"></div>
-    <div id="success-alert" class="alert alert-success" role="alert" style="display:none;">
-        Successfully deleted
-    </div>
-    <div id="subjects-container2" th:each="entry : ${subjectsByYear}">
-        <h2 th:text="${entry.key}"></h2>
+    <div th:each="entry : ${subjectsByYear}">
+        <h2 th:text="${entry.key}">Year</h2>
         <table class="table table-bordered mb-4">
             <thead class="thead-dark">
             <tr>
@@ -48,44 +44,50 @@
             <tr th:each="subject : ${entry.value}">
                 <td th:text="${subject.getName()}"></td>
                 <td>
-                    <select class="form-control" name="gradeType">
+                    <select class="form-control" name="gradeType" id="gradeType-${subject.id}">
                         <option th:each="item : ${gradeTypes}" th:value="${item.getId()}"
-                                th:text="${item.getName()}"></option>
+                                th:text="${item.getName()}">Grade Type</option>
                     </select>
                 </td>
                 <td>
                     <div class="input-group">
-                        <input type="number" class="form-control" name="grade" min="1" max="6">
+                        <input type="number" class="form-control" name="grade" min="1" max="6"
+                               id="gradeInput-${subject.id}">
                         <div class="input-group-append">
-                            <button type="button" class="btn btn-secondary add-grade-btn" id="gradeAddBtn">+</button>
+                            <button type="button" class="btn btn-secondary add-grade-btn" data-subject-id="${subject.id}">+</button>
                         </div>
                     </div>
                 </td>
-
                 <td>
-                    <div class="d-flex justify-content-center">
-                        <button type="reset" class="btn btn-link remove-btn" th:data-id="${subject.getID()}">
-                            <i class="fas fa-trash"></i>
-                        </button>
+                    <button type="reset" class="btn btn-link remove-btn" th:data-id="${subject.getID}">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+
+            <tr th:each="grade : ${gradesGroupedBySubjectAndType[userSubject.id]}" class="grade-row">
+                <td colspan="4">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <span th:text="${grade.getGradeTypeName()}"></span>
+                            </div>
+                            <div class="col">
+                                <span th:text="${grade.getGradeValue()}"></span>
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-link remove-grade-btn" th:data-grade-id="${grade.getId()}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
-    <div>
-        <h2>Submitted Grades</h2>
-        <table class="table table-bordered mb-4">
-            <thead class="thead-dark">
-            <tr>
-                <th>Grade Type</th>
-                <th>Grade Value</th>
-            </tr>
-            </thead>
-            <tbody id="submitted-grades-list">
-            </tbody>
-        </table>
-    </div>
+</div>
 
     <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel"
          aria-hidden="true">

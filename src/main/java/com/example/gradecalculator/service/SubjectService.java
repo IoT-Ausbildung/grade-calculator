@@ -97,7 +97,7 @@ public class SubjectService {
         for (UserSubject userSubject : userSubjects) {
             String year = userSubject.getSchoolYear().getName();
             var userSubjectTO = new UserSubjectTO();
-            userSubjectTO.setID(userSubject.getId());
+            userSubjectTO.setId(userSubject.getId());
             userSubjectTO.setName(userSubject.getSubject().getName());
             subjectsByYear.computeIfAbsent(year, k -> new TreeSet<>(Comparator.comparing(UserSubjectTO::getName))).add(userSubjectTO);
         }

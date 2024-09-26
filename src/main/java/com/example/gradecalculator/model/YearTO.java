@@ -4,11 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
-
-@Setter
 @Getter
-public class UserSubjectTO {
-    private Long id;
+@Setter
+public class YearTO {
+    private long id;
     private String name;
-    private List<GradeTO> grades;
+    private List<UserSubjectTO> subjects;
+
 }

@@ -19,6 +19,7 @@ public class UserSubject implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    private String name;
 
     @ManyToOne
     @JoinColumn(name = "school_year_id", nullable = false)

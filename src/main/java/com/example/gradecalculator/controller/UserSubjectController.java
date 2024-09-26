@@ -1,10 +1,14 @@
 package com.example.gradecalculator.controller;
 
+import com.example.gradecalculator.entities.GradeType;
 import com.example.gradecalculator.entities.SchoolYear;
 import com.example.gradecalculator.entities.UserSubject;
+import com.example.gradecalculator.model.SubjectOverviewTO;
 import com.example.gradecalculator.model.SubjectTO;
+import com.example.gradecalculator.model.UserSubjectTO;
 import com.example.gradecalculator.repository.GradeTypeRepository;
 import com.example.gradecalculator.repository.SchoolYearRepository;
+import com.example.gradecalculator.repository.UserSubjectRepository;
 import com.example.gradecalculator.service.GradeService;
 import com.example.gradecalculator.service.SubjectService;
 import com.example.gradecalculator.service.UserService;
@@ -25,15 +29,17 @@ public class UserSubjectController {
     ;
     private final SchoolYearRepository schoolYearRepository;
     private final UserService userService;
+    private final UserSubjectRepository userSubjectRepository;
     private final GradeTypeRepository gradeTypeRepository;
     private final GradeService gradeService;
 
     @Autowired
     public UserSubjectController(SubjectService subjectService, SchoolYearRepository schoolYearRepository,
-                                 UserService userService, GradeTypeRepository gradeTypeRepository, GradeService gradeService) {
+                                 UserService userService, UserSubjectRepository userSubjectRepository, GradeTypeRepository gradeTypeRepository, GradeService gradeService) {
         this.schoolYearRepository = schoolYearRepository;
         this.subjectService = subjectService;
         this.userService = userService;
+        this.userSubjectRepository = userSubjectRepository;
         this.gradeTypeRepository = gradeTypeRepository;
         this.gradeService = gradeService;
     }
@@ -79,25 +85,24 @@ public class UserSubjectController {
         }
     }
 
-    @GetMapping("userSubject/selected")
+    @GetMapping("/userSubject/selected")
     public String showSelectedSubjects(Model model, Authentication authentication) {
         try {
-            var userId = userService.getAuthenticatedUserId(authentication);
-            var subjectsByYear = subjectService.selectedSubject(userId);
-            var gradeTypes = gradeTypeRepository.findAll();
-            var selectedGrades = gradeService.getSelectedGrades(userId);
+            Long userId = userService.getAuthenticatedUserId(authentication);
+            TreeMap<String, Set<UserSubjectTO>> subjectsByYear = subjectService.selectedSubject(userId);
+            Map<Long, Map<String, List<Integer>>> gradesGroupedBySubjectAndType = gradeService.groupGradesBySubjectAndType(userId);
+            var subjectOverview = new SubjectOverviewTO();
+            List<GradeType> gradeTypes = (List<GradeType>) gradeTypeRepository.findAll();
 
-            model.addAttribute("subjectsByYear", subjectsByYear);
+            model.addAttribute("subjectOverview", subjectOverview);
             model.addAttribute("user", userId);
+            model.addAttribute("subjectsByYear", subjectsByYear);
+            model.addAttribute("gradesGroupedBySubjectAndType", gradesGroupedBySubjectAndType);
             model.addAttribute("gradeTypes", gradeTypes);
-            model.addAttribute("selectedGrades", selectedGrades);
-
 
             return "userSubjects";
-
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
-
             return "error";
         }
     }

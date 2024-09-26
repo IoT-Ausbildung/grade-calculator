@@ -36,7 +36,7 @@ $(document).ready(function () {
     }
 
     function appendGradeToTable(gradeData) {
-        const gradeList = $('#submitted-grades-list');
+        const gradeList = $(`#grades-${gradeData.userSubjectId}`);
         const gradeRow = `
             <tr>
                 <td>${gradeData.gradeTypeName}</td>
