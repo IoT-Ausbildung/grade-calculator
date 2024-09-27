@@ -38,10 +38,4 @@ public class GradeType {
         DecimalFormat df = new DecimalFormat("#.##");
         return df.format(weightage * 100) + "%";
     }
-
-    public GradeType(String name, String description, Double weightage) {
-        this.name = name;
-        this.description = description;
-        this.weightage = weightage;
-    }
 }

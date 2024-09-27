@@ -3,6 +3,8 @@ package com.example.gradecalculator.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
@@ -11,7 +13,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "school_year")
-public class SchoolYear {
+public class SchoolYear implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +32,6 @@ public class SchoolYear {
     @OneToMany(mappedBy = "schoolYear")
     private Set<User> user;
 
-
     public SchoolYear(String name, LocalDate startDate, LocalDate endDate) {
         this.name = name;
         this.startDate = startDate;
@@ -43,8 +44,5 @@ public class SchoolYear {
     }
 
     public SchoolYear() {
-    }
-
-    public void setSubjects(List<Subject> subjects) {
     }
 }

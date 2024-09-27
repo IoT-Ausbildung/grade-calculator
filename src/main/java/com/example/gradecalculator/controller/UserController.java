@@ -23,16 +23,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
+
+    private final UserService userService;
     private final UserRepository userRepository;
     private final UserTypeRepository userTypeRepository;
-
-    private UserMapper userMapper = Mappers.getMapper(UserMapper.class);
-
-    @Autowired
-    private UserService userService;
+    private final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
+    private final SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 
     @Autowired
-    public UserController(UserRepository userRepository, UserTypeRepository userTypeRepository) {
+    public UserController(UserService userService, UserRepository userRepository, UserTypeRepository userTypeRepository) {
+        this.userService = userService;
         this.userRepository = userRepository;
         this.userTypeRepository = userTypeRepository;
     }
@@ -127,5 +127,4 @@ public class UserController {
         this.logoutHandler.logout(request, response, authentication);
         return "index";
     }
-    SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 }
