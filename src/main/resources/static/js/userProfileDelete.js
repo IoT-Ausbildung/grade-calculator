@@ -17,13 +17,14 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('Button clicked!');
         confirmationModal.show();
     });
+
     document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
         fetch('/myProfile', {
             method: 'DELETE'
         }).then(response => {
             confirmationModal.hide();
             if (response.ok) {
-                window.location.href = "/login";
+                window.location.herf = "/login";
             }
         }).catch(error => {
             console.error('Error:', error);

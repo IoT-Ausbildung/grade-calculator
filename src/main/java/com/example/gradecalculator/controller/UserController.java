@@ -127,12 +127,12 @@ public class UserController {
     }
 
     @DeleteMapping("/myProfile")
-    public ResponseEntity<Void> deleteUser(Authentication authentication) {
+    public ResponseEntity<Void> deleteUser(Authentication authentication,HttpServletRequest request, HttpServletResponse response) {
         var userId = userService.getAuthenticatedUserId(authentication);
 
         boolean profileDeleted = userService.deleteUserAndSubjects(userId);
         if (profileDeleted) {
-
+            performLogout(authentication, request, response);
             return ResponseEntity.ok().build();
 
         } else {
