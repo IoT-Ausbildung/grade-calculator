@@ -134,10 +134,8 @@ public class UserController {
         if (profileDeleted) {
             performLogout(authentication, request, response);
             return ResponseEntity.ok().build();
-
-        } else {
-            return ResponseEntity.badRequest().build();
         }
+        return ResponseEntity.badRequest().build();
     }
 
     SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();

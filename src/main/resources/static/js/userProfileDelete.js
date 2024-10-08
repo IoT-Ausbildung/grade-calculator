@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
 
     document.getElementById('deleteProfileBtn').addEventListener('click', function () {
-        console.log('Button clicked!');
         confirmationModal.show();
     });
 
