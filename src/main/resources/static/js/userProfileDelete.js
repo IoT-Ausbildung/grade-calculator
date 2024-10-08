@@ -4,15 +4,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
     const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
 
-    fetch('/myProfile', {
-        method: 'DELETE',
-        headers: {
-            [csrfHeader]: csrfToken,
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ your: "data" })
-    })
-
     document.getElementById('deleteProfileBtn').addEventListener('click', function () {
         console.log('Button clicked!');
         confirmationModal.show();
@@ -20,11 +11,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
         fetch('/myProfile', {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                [csrfHeader]: csrfToken,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ your: "data" })
         }).then(response => {
             confirmationModal.hide();
             if (response.ok) {
-                window.location.herf = "/login";
+                window.location = "/signup";
             }
         }).catch(error => {
             console.error('Error:', error);
