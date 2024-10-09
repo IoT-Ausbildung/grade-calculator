@@ -1,7 +1,6 @@
 package com.example.gradecalculator.service;
 
 import com.example.gradecalculator.entities.User;
-import com.example.gradecalculator.entities.UserSubject;
 import com.example.gradecalculator.entities.UserType;
 import com.example.gradecalculator.mapper.UserRegistrationMapper;
 import com.example.gradecalculator.model.UserDetailsImpl;
@@ -12,7 +11,6 @@ import com.example.gradecalculator.repository.UserTypeRepository;
 import com.example.gradecalculator.model.UserSignUpTO;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -141,7 +139,7 @@ public class UserService {
     @Transactional
     public boolean deleteUserAndSubjects(Long userId) {
         Optional<User> userOptional = userRepository.findById(userId);
-        if (!userOptional.isPresent()) {
+        if (userOptional.isEmpty()) {
             System.out.println("User not found with ID: " + userId);
             return false;
         }

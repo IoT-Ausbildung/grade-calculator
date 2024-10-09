@@ -28,26 +28,23 @@
 </head>
 <body>
     <div id="nav-placeholder"></div>
-    <div class="login-container">
-        <form id="deleteForm" onsubmit="event.preventDefault();"
-              class="container d-flex flex-column flex-md-col justify-content-between col-sm-12 col-md-6 col-lg-4">
-                <h3>My Profile</h3><br>
-                <div th:object="${myProfile}">
-                    <big>User Name:</big>
-                    <big class="text-blue" th:text="*{userName}"></big><br><br>
-                    <big>Email:</big>
-                    <big class="text-blue" th:text="*{email}"></big><br><br>
-                    <big>First Name:</big>
-                    <big class="text-blue" th:text="*{firstName}"></big><br><br>
-                    <big>Last Name:</big>
-                    <big class="text-blue" th:text="*{lastName}"></big><br><br>
-                    <big>User Type:</big>
-                    <big class="text-blue" th:text="*{userType}"></big><br><br><br>
-                </div>
-            <a href="/editProfile" class="btn btn-login">Edit your Profile</a><br>
-            <a href="/editPassword" class="btn btn-login">Change your password</a><br>
-            <button type="button" class="btn btn-danger" id="deleteProfileBtn" >Delete Profile</button>
-        </form>
+    <div class="login-container container d-flex flex-column flex-md-col justify-content-between col-sm-12 col-md-6 col-lg-4">
+        <h3>My Profile</h3><br>
+        <div th:object="${myProfile}">
+            <big>User Name:</big>
+            <big class="text-blue" th:text="*{userName}"></big><br><br>
+            <big>Email:</big>
+            <big class="text-blue" th:text="*{email}"></big><br><br>
+            <big>First Name:</big>
+            <big class="text-blue" th:text="*{firstName}"></big><br><br>
+            <big>Last Name:</big>
+            <big class="text-blue" th:text="*{lastName}"></big><br><br>
+            <big>User Type:</big>
+            <big class="text-blue" th:text="*{userType}"></big><br><br><br>
+        </div>
+        <a href="/editProfile" class="btn btn-login">Edit your Profile</a><br>
+        <a href="/editPassword" class="btn btn-login">Change your password</a><br>
+        <button type="button" class="btn btn-danger" id="deleteProfileBtn" >Delete Profile</button>
     </div>
     <div id="footer-placeholder"></div>
     <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -11,6 +11,7 @@ import com.example.gradecalculator.mapper.UserRegistrationMapper;
 import com.example.gradecalculator.entities.UserType;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -337,17 +338,21 @@ public class UserServiceTest {
     }
 
     @Test
-    public void deleteUserAndSubjects_UserExistsButDeleteFails() {
+    public void deleteSubjectBeforeUser() {
         // Arrange
         Long userId = 1L;
         User user = new User();
         user.setId(userId);
-
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
-        doThrow(new RuntimeException("Database error")).when(userSubjectRepository).deleteAllByUserId(userId);
+        InOrder inOrder = inOrder(userSubjectRepository, userRepository);
 
-        // Act & Assert
-        assertThrows(RuntimeException.class, () -> userService.deleteUserAndSubjects(userId));
-        verify(userRepository, never()).delete(user);
+        // Act
+        boolean result = userService.deleteUserAndSubjects(userId);
+
+        // Assert
+        assertTrue(result);
+        inOrder.verify(userSubjectRepository).deleteAllByUserId(userId);
+        inOrder.verify(userRepository).delete(user);
+
     }
 }

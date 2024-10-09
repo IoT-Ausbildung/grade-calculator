@@ -9,13 +9,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
-        fetch('/myProfile', {
+        fetch('/deleteProfile', {
             method: 'DELETE',
             headers: {
                 [csrfHeader]: csrfToken,
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ your: "data" })
         }).then(response => {
             confirmationModal.hide();
             if (response.ok) {

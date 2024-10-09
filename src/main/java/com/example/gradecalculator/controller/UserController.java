@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -26,7 +25,7 @@ public class UserController {
     private final UserTypeRepository userTypeRepository;
 
     private final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     public UserController(UserRepository userRepository, UserTypeRepository userTypeRepository, UserService userService) {
@@ -126,12 +125,12 @@ public class UserController {
         return "index";
     }
 
-    @DeleteMapping("/myProfile")
+    @DeleteMapping("/deleteProfile")
     public ResponseEntity<Void> deleteUser(Authentication authentication,HttpServletRequest request, HttpServletResponse response) {
         var userId = userService.getAuthenticatedUserId(authentication);
 
-        boolean profileDeleted = userService.deleteUserAndSubjects(userId);
-        if (profileDeleted) {
+        boolean isProfileDeleted = userService.deleteUserAndSubjects(userId);
+        if (isProfileDeleted) {
             performLogout(authentication, request, response);
             return ResponseEntity.ok().build();
         }
