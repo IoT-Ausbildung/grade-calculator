@@ -10,15 +10,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -28,7 +26,6 @@ public class UserController {
     private final UserRepository userRepository;
     private final UserTypeRepository userTypeRepository;
     private final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
-    private final SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 
     @Autowired
     public UserController(UserService userService, UserRepository userRepository, UserTypeRepository userTypeRepository) {
@@ -36,7 +33,6 @@ public class UserController {
         this.userRepository = userRepository;
         this.userTypeRepository = userTypeRepository;
     }
-
     @GetMapping("/signup")
     public String signupGet(Model model) {
         var userTypes = userTypeRepository.findAll();
@@ -127,4 +123,17 @@ public class UserController {
         this.logoutHandler.logout(request, response, authentication);
         return "index";
     }
+@DeleteMapping("/deleteProfile")
+    public ResponseEntity<Void> deleteUser(Authentication authentication,HttpServletRequest request, HttpServletResponse response) {
+        var userId = userService.getAuthenticatedUserId(authentication);
+
+        boolean isProfileDeleted = userService.deleteUserAndSubjects(userId);
+        if (isProfileDeleted) {
+            performLogout(authentication, request, response);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
+    SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 }

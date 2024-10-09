@@ -4,12 +4,14 @@ import com.example.gradecalculator.entities.User;
 import com.example.gradecalculator.model.UserDetailsImpl;
 import com.example.gradecalculator.model.UserEditTO;
 import com.example.gradecalculator.repository.UserRepository;
+import com.example.gradecalculator.repository.UserSubjectRepository;
 import com.example.gradecalculator.repository.UserTypeRepository;
 import com.example.gradecalculator.model.UserSignUpTO;
 import com.example.gradecalculator.mapper.UserRegistrationMapper;
 import com.example.gradecalculator.entities.UserType;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -40,6 +42,9 @@ public class UserServiceTest {
 
     @Mock
     private UserTypeRepository userTypeRepository;
+
+    @Mock
+    private UserSubjectRepository userSubjectRepository;
 
     @Mock
     private UserRepository userRepository;
@@ -295,5 +300,59 @@ public class UserServiceTest {
 
         // Act & Assert
         assertThrows(IllegalArgumentException.class, () -> userService.getAuthenticatedUser(authentication));
+    }
+
+    @Test
+    public void deleteUserAndSubjects_UserExistsAndDeletedSuccessfully() {
+        // Arrange
+        Long userId = 1L;
+        User user = new User();
+        user.setId(userId);
+
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+        doNothing().when(userSubjectRepository).deleteAllByUserId(userId);
+        doNothing().when(userRepository).delete(user);
+
+        // Act
+        boolean result = userService.deleteUserAndSubjects(userId);
+
+        // Assert
+        assertTrue(result);
+        verify(userSubjectRepository, times(1)).deleteAllByUserId(userId);
+        verify(userRepository, times(1)).delete(user);
+    }
+
+    @Test
+    public void deleteUserAndSubjects_UserDoesNotExist() {
+        // Arrange
+        Long userId = 1L;
+        when(userRepository.findById(userId)).thenReturn(Optional.empty());
+
+        // Act
+        boolean result = userService.deleteUserAndSubjects(userId);
+
+        // Assert
+        assertFalse(result);
+        verify(userSubjectRepository, never()).deleteAllByUserId(anyLong());
+        verify(userRepository, never()).delete(any(User.class));
+    }
+
+    @Test
+    public void deleteSubjectBeforeUser() {
+        // Arrange
+        Long userId = 1L;
+        User user = new User();
+        user.setId(userId);
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+        InOrder inOrder = inOrder(userSubjectRepository, userRepository);
+
+        // Act
+        boolean result = userService.deleteUserAndSubjects(userId);
+
+        // Assert
+        assertTrue(result);
+        inOrder.verify(userSubjectRepository).deleteAllByUserId(userId);
+        inOrder.verify(userRepository).delete(user);
+
     }
 }

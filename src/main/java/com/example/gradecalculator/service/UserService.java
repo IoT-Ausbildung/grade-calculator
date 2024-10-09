@@ -6,8 +6,12 @@ import com.example.gradecalculator.mapper.UserRegistrationMapper;
 import com.example.gradecalculator.model.UserDetailsImpl;
 import com.example.gradecalculator.model.UserEditTO;
 import com.example.gradecalculator.repository.UserRepository;
+import com.example.gradecalculator.repository.UserSubjectRepository;
 import com.example.gradecalculator.repository.UserTypeRepository;
 import com.example.gradecalculator.model.UserSignUpTO;
+import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,16 +31,19 @@ public class UserService {
     private final UserTypeRepository userTypeRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserRegistrationMapper userRegistrationMapper;
+    private final UserSubjectRepository userSubjectRepository;
+    private final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
     public UserService(UserRepository userRepository,
                        UserTypeRepository userTypeRepository,
                        PasswordEncoder passwordEncoder,
-                       UserRegistrationMapper userRegistrationMapper) {
+                       UserRegistrationMapper userRegistrationMapper, UserSubjectRepository userSubjectRepository) {
         this.userRepository = userRepository;
         this.userTypeRepository = userTypeRepository;
         this.passwordEncoder = passwordEncoder;
         this.userRegistrationMapper = userRegistrationMapper;
+        this.userSubjectRepository = userSubjectRepository;
     }
 
     public User createUser(UserSignUpTO registration) {
@@ -129,5 +137,18 @@ public class UserService {
         } else {
             throw new IllegalArgumentException("User not found");
         }
+    }
+
+    @Transactional
+    public boolean deleteUserAndSubjects(Long userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isEmpty()) {
+            logger.warn("User not found with ID: {}", userId);
+            return false;
+        }
+        userSubjectRepository.deleteAllByUserId(userId);
+        userRepository.delete(userOptional.get());
+        logger.info("User with ID {} and all associated data successfully deleted.", userId);
+        return true;
     }
 }
