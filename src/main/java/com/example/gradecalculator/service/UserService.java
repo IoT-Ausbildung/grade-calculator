@@ -10,6 +10,8 @@ import com.example.gradecalculator.repository.UserSubjectRepository;
 import com.example.gradecalculator.repository.UserTypeRepository;
 import com.example.gradecalculator.model.UserSignUpTO;
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,6 +32,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRegistrationMapper userRegistrationMapper;
     private final UserSubjectRepository userSubjectRepository;
+    private final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
     public UserService(UserRepository userRepository,
@@ -140,12 +143,12 @@ public class UserService {
     public boolean deleteUserAndSubjects(Long userId) {
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isEmpty()) {
-            System.out.println("User not found with ID: " + userId);
+            logger.warn("User not found with ID: {}", userId);
             return false;
         }
         userSubjectRepository.deleteAllByUserId(userId);
         userRepository.delete(userOptional.get());
-        System.out.println("User with ID " + userId + " and all associated data successfully deleted.");
+        logger.info("User with ID {} and all associated data successfully deleted.", userId);
         return true;
     }
 }
