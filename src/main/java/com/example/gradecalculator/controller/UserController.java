@@ -21,19 +21,18 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UserController {
+
+    private final UserService userService;
     private final UserRepository userRepository;
     private final UserTypeRepository userTypeRepository;
-
     private final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
-    private final UserService userService;
 
     @Autowired
-    public UserController(UserRepository userRepository, UserTypeRepository userTypeRepository, UserService userService) {
+    public UserController(UserService userService, UserRepository userRepository, UserTypeRepository userTypeRepository) {
+        this.userService = userService;
         this.userRepository = userRepository;
         this.userTypeRepository = userTypeRepository;
-        this.userService = userService;
     }
-
     @GetMapping("/signup")
     public String signupGet(Model model) {
         var userTypes = userTypeRepository.findAll();
@@ -124,8 +123,7 @@ public class UserController {
         this.logoutHandler.logout(request, response, authentication);
         return "index";
     }
-
-    @DeleteMapping("/deleteProfile")
+@DeleteMapping("/deleteProfile")
     public ResponseEntity<Void> deleteUser(Authentication authentication,HttpServletRequest request, HttpServletResponse response) {
         var userId = userService.getAuthenticatedUserId(authentication);
 
