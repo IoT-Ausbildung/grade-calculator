@@ -29,12 +29,11 @@ $(document).ready(function () {
             },
             success: function(response) {
                 console.log("Grade added successfully.");
-                appendGradeToTable(gradeData);
                 // Reload the page after 5 seconds
                 setTimeout(function(){
                     console.log("Reloading the page.");
                     window.location.reload(1);
-                }, 5000);
+                }, 1000);
             },
             error: function(response) {
                 console.log("Error adding grade.");

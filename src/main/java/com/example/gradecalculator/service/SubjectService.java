@@ -161,12 +161,15 @@ public class SubjectService {
                     .filter(Objects::nonNull)
                     .collect(Collectors.groupingBy(GradeTO::getGradeTypeName));
 
-            Map<String, String > gradesGroupedByTypeAsString = new HashMap<>();
-            for(var grades : gradesGroupedByType.entrySet()) {
-               //TODO replace static String value with actual value, and do joining with comma
-                gradesGroupedByTypeAsString.put(grades.getKey(),"1,2,3");
+            Map<String, String> gradesGroupedByTypeAsString = new HashMap<>();
+            for (var gradesEntry : gradesGroupedByType.entrySet()) {
+                String gradeType = gradesEntry.getKey();
 
+                String gradesAsString = gradesEntry.getValue().stream()
+                        .map(gradeTO -> String.valueOf(gradeTO.getGradeValue()))
+                        .collect(Collectors.joining(", "));
 
+                gradesGroupedByTypeAsString.put(gradeType, gradesAsString);
             }
 
             userSubjectTO.setGradesGroupedByType(gradesGroupedByTypeAsString);
