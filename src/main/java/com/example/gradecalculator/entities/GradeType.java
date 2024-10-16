@@ -23,6 +23,8 @@ public class GradeType {
     @Column(precision = 5)
     private Double weightage;
 
+
+
     public String getWeightagePercentage() {
         DecimalFormat df = new DecimalFormat("#.##");
         return df.format(weightage * 100) + "%";

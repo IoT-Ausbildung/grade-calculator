@@ -10,4 +10,5 @@ public class GradeTO {
     private String gradeTypeName;
     private int gradeValue;
     private Long userSubjectId;
+    private String userSubjectName;
 }

@@ -142,29 +142,40 @@ public class SubjectService {
 
     private YearTO getYearTO(Map.Entry<SchoolYear, List<UserSubject>> entry) {
         var year = entry.getKey();
-
         var yearTO = new YearTO();
         yearTO.setId(year.getId());
         yearTO.setName(year.getName());
 
         var subjects = entry.getValue();
         List<UserSubjectTO> userSubjectTOs = new ArrayList<>();
+
         for (var userSubject : subjects) {
             var userSubjectTO = new UserSubjectTO();
             userSubjectTO.setId(userSubject.getId());
             userSubjectTO.setName(userSubject.getSubject().getName());
-            userSubjectTOs.add(userSubjectTO);
 
-            var gradeTOs = new ArrayList<GradeTO>();
             var userGrades = userSubject.getUserGrades();
 
-            for (var userGrade : userGrades) {
-                var gradeTO = gradeMapper.userGradeToGradeTO(userGrade);
-                gradeTOs.add(gradeTO);
+            Map<String, List<GradeTO>> gradesGroupedByType = userGrades.stream()
+                    .map(gradeMapper::userGradeToGradeTO)
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.groupingBy(GradeTO::getGradeTypeName));
+
+            Map<String, String > gradesGroupedByTypeAsString = new HashMap<>();
+            for(var grades : gradesGroupedByType.entrySet()) {
+               //TODO replace static String value with actual value, and do joining with comma
+                gradesGroupedByTypeAsString.put(grades.getKey(),"1,2,3");
+
+
             }
-            userSubjectTO.setGrades(gradeTOs);
+
+            userSubjectTO.setGradesGroupedByType(gradesGroupedByTypeAsString);
+
+            userSubjectTOs.add(userSubjectTO);
         }
+
         yearTO.setSubjects(userSubjectTOs);
         return yearTO;
     }
+
 }

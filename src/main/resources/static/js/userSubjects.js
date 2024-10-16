@@ -14,6 +14,7 @@ $(document).ready(function () {
             gradeValue: gradeValue
         };
 
+        console.log("Grade data:", gradeData);
         addGradeToDatabase(gradeData);
     });
 
@@ -27,44 +28,19 @@ $(document).ready(function () {
                 xhr.setRequestHeader($('meta[name="_csrf_header"]').attr('content'), $('meta[name="_csrf"]').attr('content'));
             },
             success: function(response) {
+                console.log("Grade added successfully.");
                 appendGradeToTable(gradeData);
+                // Reload the page after 5 seconds
+                setTimeout(function(){
+                    console.log("Reloading the page.");
+                    window.location.reload(1);
+                }, 5000);
             },
             error: function(response) {
+                console.log("Error adding grade.");
                 alert('Error saving grade!');
             }
         });
     }
 
-    function appendGradeToTable(gradeData) {
-        const gradeList = $(`#grades-${gradeData.userSubjectId}`);
-        const gradeRow = `
-            <tr>
-                <td>${gradeData.gradeTypeName}</td>
-                <td>${gradeData.gradeValue}</td>
-            </tr>
-        `;
-        gradeList.append(gradeRow);
-    }
-
-    fetchGrades();
-
-    function fetchGrades() {
-        $.ajax({
-            url: '/grades/userGrades',
-            type: 'GET',
-            success: function(grades) {
-                grades.forEach(grade => {
-                    appendGradeToTable({
-                        userSubjectId: grade.userSubjectId,
-                        gradeTypeId: grade.gradeTypeId,
-                        gradeTypeName: grade.gradeTypeName,
-                        gradeValue: grade.gradeValue
-                    });
-                });
-            },
-            error: function() {
-                alert('Error fetching grades!');
-            }
-        });
-    }
 });

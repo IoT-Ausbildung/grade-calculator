@@ -68,12 +68,15 @@
                         </button>
                     </td>
                 </tr>
-                <tr th:each="grade :  ${subject.getGrades()}">
+                <tr th:each="gradeType :  ${subject.getGradesGroupedByType()}">
+                    <td colspan="1"></td>
                     <td>
-                        <span th:text="${grade.getGradeTypeName()}"></span>
+                        <span th:text="${gradeType.getKey()}"></span>
                     </td>
                     <td>
-                        <span th:text="${grade.getGradeValue()}"></span>
+                        <span th:text="${gradeType.getValue()}"></span>
+                    </td>
+                    <td>
                     </td>
                 </tr>
             </div>
@@ -81,6 +84,7 @@
         </table>
     </div>
 </div>
+
 
 <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel"
      aria-hidden="true">

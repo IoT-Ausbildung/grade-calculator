@@ -1,5 +1,6 @@
 package com.example.gradecalculator.controller;
 
+import com.example.gradecalculator.enums.GradeTypes;
 import com.example.gradecalculator.mapper.GradeMapper;
 import com.example.gradecalculator.model.GradeTO;
 import com.example.gradecalculator.repository.UserGradeRepository;
@@ -11,9 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -48,21 +47,31 @@ public class GradesController {
 
 
     @GetMapping("/userGrades")
-    public ResponseEntity<List<GradeTO>> showGrades(Authentication authentication) {
+    public ResponseEntity<Map<GradeTypes, List<GradeTO>>> showGrades(Authentication authentication) {
         try {
             var userId = userService.getAuthenticatedUserId(authentication);
-            List<GradeTO> gradeTOs = StreamSupport.stream(userGradeRepository.findByUserId(userId).spliterator(), false)
+            Map<GradeTypes, List<GradeTO>> gradeTOs = StreamSupport.stream(userGradeRepository.findByUserId(userId).spliterator(), false)
                     .map(gradeMapper::userGradeToGradeTO)
                     .filter(Objects::nonNull)
                     .sorted(Comparator.comparing(GradeTO::getGradeTypeName))
-                    .collect(Collectors.toList());
+                    .collect(Collectors.groupingBy(gradeTO -> mapToGradeTypesEnum(gradeTO.getGradeTypeName())));
 
             return ResponseEntity.ok(gradeTOs);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
-}
+
+    private GradeTypes mapToGradeTypesEnum(String gradeTypeName) {
+        return Arrays.stream(GradeTypes.values())
+                .filter(gradeType -> gradeType.getValue().equalsIgnoreCase(gradeTypeName))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Unknown grade type: " + gradeTypeName));
+    }
+
+
+    }
+
 
 
 
