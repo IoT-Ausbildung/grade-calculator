@@ -45,6 +45,7 @@ public class GradeService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
+
         UserGrade grade = new UserGrade();
         grade.setUserSubject(userSubject);
         grade.setGradeType(gradeType);

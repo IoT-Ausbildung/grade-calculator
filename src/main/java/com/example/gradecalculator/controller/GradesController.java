@@ -68,9 +68,7 @@ public class GradesController {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Unknown grade type: " + gradeTypeName));
     }
-
-
-    }
+}
 
 
 

@@ -7,6 +7,11 @@ $(document).ready(function () {
         const gradeTypeId = gradeTypeSelect.val();
         const gradeTypeName = gradeTypeSelect.find("option:selected").text();
 
+        if (!gradeValue || gradeValue < 1 || gradeValue > 6) {
+            alert('Please select a valid grade between 1 and 6.');
+            return;
+        }
+
         const gradeData = {
             userSubjectId: userSubjectId,
             gradeTypeId: gradeTypeId,
@@ -29,7 +34,6 @@ $(document).ready(function () {
             },
             success: function(response) {
                 console.log("Grade added successfully.");
-                // Reload the page after 5 seconds
                 setTimeout(function(){
                     console.log("Reloading the page.");
                     window.location.reload(1);
