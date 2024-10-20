@@ -34,10 +34,7 @@ $(document).ready(function () {
             },
             success: function(response) {
                 console.log("Grade added successfully.");
-                setTimeout(function(){
-                    console.log("Reloading the page.");
-                    window.location.reload(1);
-                }, 1000);
+                window.location.reload();
             },
             error: function(response) {
                 console.log("Error adding grade.");

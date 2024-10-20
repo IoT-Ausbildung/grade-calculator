@@ -48,7 +48,7 @@ public class SubjectServiceTest {
     private User user;
     private UserSubject userSubject;
     private SchoolYear schoolYear;
-
+    private UserGradeRepository userGradeRepository;
     @BeforeEach
     public void setUp() {
         subject = new Subject();
@@ -75,7 +75,7 @@ public class SubjectServiceTest {
 
         subjectMapper = Mappers.getMapper(SubjectMapper.class);
         subjectService = new SubjectService(userSubjectRepository, subjectRepository, userRepository,
-                                            schoolYearRepository, subjectMapper, gradeMapper);
+                                            schoolYearRepository, subjectMapper, gradeMapper, userGradeRepository);
     }
 
     @Test

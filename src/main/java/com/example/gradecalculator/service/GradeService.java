@@ -54,6 +54,7 @@ public class GradeService {
         userGradeRepository.save(grade);
     }
 
+
     public List<GradeTO> getSelectedGrades(Long userId) {
         List<UserGrade> userGrades = userGradeRepository.findByUserId(userId);
         return userGrades.stream()

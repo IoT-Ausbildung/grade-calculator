@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface UserGradeRepository extends JpaRepository<UserGrade, Long> {
     List<UserGrade> findByUserId(long userId);
+
+
 }

@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 xhr.setRequestHeader(header, token);
             });
         });
+
         if (selectedID) {
             fetch(`/userSubject/delete/${selectedID}`, {
                 method: 'DELETE',
@@ -49,11 +50,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 confirmationModal.hide();
                 if (response.ok) {
                     selectedButton.closest('tr').remove();
-                    const successAlert = document.getElementById('success-alert');
-                    successAlert.style.display = 'block';
-                    setTimeout(function () {
-                        successAlert.style.display = 'none';
-                    }, 3000); 
+                    alertModalBody.textContent = 'Subject successfully deleted.';
+                    alertModal.show();
+
                 } else {
                     return response.text().then(text => {
                         alertModalBody.textContent = `Failed to delete the subject. Server responded with: ${text}`;
@@ -69,3 +68,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+
+
+
+

@@ -1,16 +1,10 @@
 package com.example.gradecalculator.service;
 
-import com.example.gradecalculator.entities.SchoolYear;
-import com.example.gradecalculator.entities.Subject;
-import com.example.gradecalculator.entities.User;
-import com.example.gradecalculator.entities.UserSubject;
+import com.example.gradecalculator.entities.*;
 import com.example.gradecalculator.mapper.GradeMapper;
 import com.example.gradecalculator.mapper.SubjectMapper;
 import com.example.gradecalculator.model.*;
-import com.example.gradecalculator.repository.SchoolYearRepository;
-import com.example.gradecalculator.repository.SubjectRepository;
-import com.example.gradecalculator.repository.UserRepository;
-import com.example.gradecalculator.repository.UserSubjectRepository;
+import com.example.gradecalculator.repository.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,17 +22,19 @@ public class SubjectService {
     private final SchoolYearRepository schoolYearRepository;
     private final SubjectMapper subjectMapper;
     private final GradeMapper gradeMapper;
+    private final UserGradeRepository userGradeRepository;
 
     @Autowired
     public SubjectService(UserSubjectRepository userSubjectRepository, SubjectRepository subjectRepository,
                           UserRepository userRepository, SchoolYearRepository schoolYearRepository,
-                          SubjectMapper subjectMapper, GradeMapper gradeMapper) {
+                          SubjectMapper subjectMapper, GradeMapper gradeMapper, UserGradeRepository userGradeRepository) {
         this.userSubjectRepository = userSubjectRepository;
         this.subjectRepository = subjectRepository;
         this.userRepository = userRepository;
         this.schoolYearRepository = schoolYearRepository;
         this.subjectMapper = subjectMapper;
         this.gradeMapper = gradeMapper;
+        this.userGradeRepository = userGradeRepository;
     }
 
     public List<SubjectTO> getAllSubjects() {
@@ -120,10 +116,12 @@ public class SubjectService {
             System.out.println("User ID does not match for subject ID: " + subjectId);
             return false;
         }
+
         userSubjectRepository.delete(userSubject);
         System.out.println("Subject with ID " + subjectId + " successfully deleted.");
         return true;
     }
+
 
     public SubjectOverviewTO getUserSubjectsWithGrades(long userId) {
         SubjectOverviewTO overviewTO = new SubjectOverviewTO();
