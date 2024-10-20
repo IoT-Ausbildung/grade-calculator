@@ -1,6 +1,9 @@
 package com.example.gradecalculator.service;
 
-import com.example.gradecalculator.entities.*;
+import com.example.gradecalculator.entities.SchoolYear;
+import com.example.gradecalculator.entities.Subject;
+import com.example.gradecalculator.entities.User;
+import com.example.gradecalculator.entities.UserSubject;
 import com.example.gradecalculator.mapper.GradeMapper;
 import com.example.gradecalculator.mapper.SubjectMapper;
 import com.example.gradecalculator.model.*;
@@ -10,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -23,6 +27,8 @@ public class SubjectService {
     private final SubjectMapper subjectMapper;
     private final GradeMapper gradeMapper;
     private final UserGradeRepository userGradeRepository;
+    private static final Logger LOGGER = Logger.getLogger(SubjectService.class.getName());
+
 
     @Autowired
     public SubjectService(UserSubjectRepository userSubjectRepository, SubjectRepository subjectRepository,
@@ -103,22 +109,31 @@ public class SubjectService {
         return subjectsByYear;
     }
 
+
     @Transactional
     public boolean deleteSubject(Long subjectId, String userId) {
         Optional<UserSubject> userSubjectOpt = userSubjectRepository.findById(subjectId);
 
         if (!userSubjectOpt.isPresent()) {
-            System.out.println("User subject not found with ID: " + subjectId);
+            LOGGER.warning("User subject not found with ID: " + subjectId);
             return false;
         }
+
         UserSubject userSubject = userSubjectOpt.get();
+
         if (!userSubject.getUser().getId().equals(Long.parseLong(userId))) {
-            System.out.println("User ID does not match for subject ID: " + subjectId);
+            LOGGER.warning("User ID does not match for subject ID: " + subjectId);
+            return false;
+        }
+
+        boolean hasGrades = userGradeRepository.existsByUserSubjectIdAndUserId(subjectId, Long.parseLong(userId));
+        if (hasGrades) {
+            LOGGER.warning("Cannot delete a subject with associated grades, subject ID: " + subjectId);
             return false;
         }
 
         userSubjectRepository.delete(userSubject);
-        System.out.println("Subject with ID " + subjectId + " successfully deleted.");
+        LOGGER.info("Subject with ID " + subjectId + " successfully deleted.");
         return true;
     }
 

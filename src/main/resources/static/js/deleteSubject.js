@@ -31,15 +31,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
-        $(function () {
-            var token = $("input[name='_csrf']").val();
-            var header = "X-CSRF-TOKEN";
-            $(document).ajaxSend(function (e, xhr, options) {
-                xhr.setRequestHeader(header, token);
-            });
-        });
-
         if (selectedID) {
+            const csrfToken = $('meta[name="_csrf"]').attr('content');
+            const csrfHeader = $('meta[name="_csrf_header"]').attr('content');
+
             fetch(`/userSubject/delete/${selectedID}`, {
                 method: 'DELETE',
                 headers: {
@@ -50,12 +45,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 confirmationModal.hide();
                 if (response.ok) {
                     selectedButton.closest('tr').remove();
-                    alertModalBody.textContent = 'Subject successfully deleted.';
-                    alertModal.show();
+                    console.log("Subject successfully deleted.");
+
+                        window.location.reload();
 
                 } else {
                     return response.text().then(text => {
-                        alertModalBody.textContent = `Failed to delete the subject. Server responded with: ${text}`;
+                        alertModalBody.textContent = 'Subjects that have grade cannot be deleted';
                         alertModal.show();
                     });
                 }
