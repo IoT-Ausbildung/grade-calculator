@@ -6,9 +6,8 @@ $(document).ready(function () {
         const gradeValue = gradeInput.val();
         const gradeTypeId = gradeTypeSelect.val();
         const gradeTypeName = gradeTypeSelect.find("option:selected").text();
-
         if (!gradeValue || gradeValue < 1 || gradeValue > 6) {
-            alert('Please select a valid grade between 1 and 6.');
+            showAlertModal('Please select a valid grade between 1 and 6.');
             return;
         }
 
@@ -19,13 +18,16 @@ $(document).ready(function () {
             gradeValue: gradeValue
         };
 
-        console.log("Grade data:", gradeData);
         addGradeToDatabase(gradeData);
     });
+    function showAlertModal(message) {
+        document.getElementById('alertModalBody').textContent = message;
+        $('#alertModal').modal('show');
+    }
 
     function addGradeToDatabase(gradeData) {
         $.ajax({
-            url: '/grades/save-grade',
+            url: '/grades/add',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(gradeData),

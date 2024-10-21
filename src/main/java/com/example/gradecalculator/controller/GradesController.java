@@ -21,7 +21,6 @@ import java.util.stream.StreamSupport;
 public class GradesController {
 
     private final GradeService gradeService;
-
     private final UserService userService;
     private final UserGradeRepository userGradeRepository;
     private final GradeMapper gradeMapper;
@@ -34,7 +33,7 @@ public class GradesController {
         this.gradeMapper = gradeMapper;
     }
 
-    @PostMapping("/save-grade")
+    @PostMapping("/add")
     public ResponseEntity<?> saveGrade(@RequestBody GradeTO gradeTO, Authentication authentication) {
         try {
             var userId = userService.getAuthenticatedUserId(authentication);

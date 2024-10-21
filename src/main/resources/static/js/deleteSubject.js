@@ -56,8 +56,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }).catch(error => {
                 confirmationModal.hide();
-                console.error('Network error:', error);
-                alertModalBody.textContent = 'An error occurred. Please try again.';
+                console.error('Server error:', error);
+                alertModalBody.textContent = 'An error occurred. Please try again later.';
                 alertModal.show();
             });
         }

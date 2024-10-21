@@ -7,5 +7,4 @@ import java.util.Optional;
 
 public interface GradeTypeRepository extends CrudRepository<GradeType, Long> {
    Optional<GradeType> findByName(String name);
-   Optional<GradeType> findById(Long Id);
 }
