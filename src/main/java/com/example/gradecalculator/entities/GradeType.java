@@ -3,6 +3,7 @@ package com.example.gradecalculator.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
 import java.text.DecimalFormat;
 
 @Getter
@@ -19,17 +20,15 @@ public class GradeType {
     @Column(precision = 5)
     private Double weightage;
 
-
-
-    public String getWeightagePercentage() {
-        DecimalFormat df = new DecimalFormat("#.##");
-        return df.format(weightage * 100) + "%";
+    public GradeType(String name) {
+        this.name = name;
     }
 
     public GradeType() {
     }
 
-    public GradeType(String name) {
-        this.name = name;
+    public String getWeightagePercentage() {
+        DecimalFormat df = new DecimalFormat("#.##");
+        return df.format(weightage * 100) + "%";
     }
 }

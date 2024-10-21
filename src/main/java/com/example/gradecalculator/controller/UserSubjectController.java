@@ -102,10 +102,10 @@ public class UserSubjectController {
         }
     }
 
-    @DeleteMapping("/userSubject/delete/{ID}")
-    public ResponseEntity<Void> deleteSubject(@PathVariable Long ID, Authentication authentication) {
+    @DeleteMapping("/userSubject/delete/{id}")
+    public ResponseEntity<Void> deleteSubject(@PathVariable Long id, Authentication authentication) {
         var userId = userService.getAuthenticatedUserId(authentication);
-        boolean deleted = subjectService.deleteSubject(ID, String.valueOf(userId));
+        boolean deleted = subjectService.deleteSubject(id, String.valueOf(userId));
 
         if (deleted) {
             return ResponseEntity.ok().build();

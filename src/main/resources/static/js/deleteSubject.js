@@ -46,8 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (response.ok) {
                     selectedButton.closest('tr').remove();
                     console.log("Subject successfully deleted.");
-
-                        window.location.reload();
+                    window.location.reload();
 
                 } else {
                     return response.text().then(text => {
@@ -57,15 +56,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }).catch(error => {
                 confirmationModal.hide();
-                console.error('Error:', error);
+                console.error('Network error:', error);
                 alertModalBody.textContent = 'An error occurred. Please try again.';
                 alertModal.show();
             });
         }
     });
 });
-
-
-
-
-

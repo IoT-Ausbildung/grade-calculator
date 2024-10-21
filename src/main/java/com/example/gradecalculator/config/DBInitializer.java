@@ -80,7 +80,7 @@ public class DBInitializer {
         );
 
         for (GradeType gradeType : gradeTypes) {
-            if (gradeTypeRepository.findByName(gradeType.getName()) == null) {
+            if (gradeTypeRepository.findByName(gradeType.getName()).isEmpty()) {
                 gradeTypeRepository.save(gradeType);
             }
         }

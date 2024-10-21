@@ -90,3 +90,11 @@
     border-radius: 1rem;
 }
 
+#subjects-container {
+    overflow-y: auto;
+    max-height: 100vh;
+}
+
+#modalPlaceholder {
+    padding-bottom: 5rem;
+}
