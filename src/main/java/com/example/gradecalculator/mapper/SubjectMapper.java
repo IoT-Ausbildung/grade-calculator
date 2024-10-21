@@ -4,7 +4,6 @@ import com.example.gradecalculator.entities.Subject;
 import com.example.gradecalculator.model.SubjectTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-
 import java.util.List;
 
 @Mapper(componentModel = "spring")

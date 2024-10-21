@@ -3,13 +3,15 @@ package com.example.gradecalculator.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
 import java.util.Set;
 
 @Setter
 @Getter
 @Entity
 @Table(name = "application_user")
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,9 +41,5 @@ public class User {
         this.lastName = lastName;
         this.userName = userName;
         this.email = email;
-    }
-
-    public User(String encodedPassword) {
-        this.encodedPassword = encodedPassword;
     }
 }

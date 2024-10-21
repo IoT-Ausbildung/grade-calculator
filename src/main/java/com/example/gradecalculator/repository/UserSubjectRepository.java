@@ -27,6 +27,8 @@ public interface UserSubjectRepository extends CrudRepository<UserSubject, Long>
     List<UserSubject> findByUserId(Long userId);
 
     boolean existsByUserAndSubjectAndSchoolYear(User selectedUser, Subject selectedSubject, SchoolYear selectedYear);
+
+    void deleteAllByUserId(Long userId);
 }
 
 

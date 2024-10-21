@@ -3,7 +3,6 @@ package com.example.gradecalculator.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.text.DecimalFormat;
 
 @Getter
@@ -15,7 +14,6 @@ public class GradeType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(unique = true)
     private String name;
 
