@@ -35,11 +35,9 @@ $(document).ready(function () {
                 xhr.setRequestHeader($('meta[name="_csrf_header"]').attr('content'), $('meta[name="_csrf"]').attr('content'));
             },
             success: function(response) {
-                console.log("Grade added successfully.");
                 window.location.reload();
             },
             error: function(response) {
-                console.log("Error adding grade.");
                 alert('Error saving grade!');
             }
         });
