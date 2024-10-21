@@ -48,6 +48,7 @@ public class SubjectServiceTest {
     private User user;
     private UserSubject userSubject;
     private SchoolYear schoolYear;
+    @Mock
     private UserGradeRepository userGradeRepository;
     @BeforeEach
     public void setUp() {
@@ -246,6 +247,7 @@ public class SubjectServiceTest {
     public void testDeleteSubject() {
         // Arrange
         when(userSubjectRepository.findById(anyLong())).thenReturn(Optional.of(userSubject));
+        when(userGradeRepository.existsByUserSubjectIdAndUserId(anyLong(),anyLong())).thenReturn(false);
 
         // Act
         boolean result = subjectService.deleteSubject(1L, "1");
