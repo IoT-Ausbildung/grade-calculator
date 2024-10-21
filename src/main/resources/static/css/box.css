@@ -31,6 +31,8 @@
 
 #subjects-container {
     padding: 3.1rem;
+    overflow-y: auto;
+    max-height: 100vh;
 }
 
 #subjects-container2 {
@@ -90,10 +92,7 @@
     border-radius: 1rem;
 }
 
-#subjects-container {
-    overflow-y: auto;
-    max-height: 100vh;
-}
+
 
 #modalPlaceholder {
     padding-bottom: 5rem;
