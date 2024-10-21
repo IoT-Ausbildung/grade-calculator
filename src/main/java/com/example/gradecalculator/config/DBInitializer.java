@@ -74,9 +74,9 @@ public class DBInitializer {
 
     private void seedGradeTypes() {
         List<GradeType> gradeTypes = List.of(
-                new GradeType("Oral Mark", "Grade for active participation in class"),
-                new GradeType("Class Test", "Class test mark"),
-                new GradeType("School Assignment", "School assignment mark")
+                new GradeType("Oral Mark"),
+                new GradeType("Class Test"),
+                new GradeType("School Assignment")
         );
 
         for (GradeType gradeType : gradeTypes) {

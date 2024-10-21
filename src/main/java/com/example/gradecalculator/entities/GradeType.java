@@ -16,8 +16,6 @@ public class GradeType {
     private Long id;
     @Column(unique = true)
     private String name;
-
-    private String description;
     @Column(precision = 5)
     private Double weightage;
 
@@ -31,8 +29,7 @@ public class GradeType {
     public GradeType() {
     }
 
-    public GradeType(String name, String description) {
+    public GradeType(String name) {
         this.name = name;
-        this.description = description;
     }
 }
