@@ -93,23 +93,7 @@ public class SubjectService {
         }
         return ("Subject already selected for the given year: " + selectedSubject.getName() + " - " + selectedYear.getName());
     }
-
-    public TreeMap<String, Set<UserSubjectTO>> selectedSubject(long userId) {
-        var userSubjects = userSubjectRepository.findByUserId(userId);
-        TreeMap<String, Set<UserSubjectTO>> subjectsByYear = new TreeMap<>();
-
-        for (UserSubject userSubject : userSubjects) {
-            String year = userSubject.getSchoolYear().getName();
-            var userSubjectTO = new UserSubjectTO();
-            userSubjectTO.setId(userSubject.getId());
-            userSubjectTO.setName(userSubject.getSubject().getName());
-            subjectsByYear.computeIfAbsent(year, k -> new TreeSet<>(Comparator.comparing(UserSubjectTO::getName))).add(userSubjectTO);
-        }
-
-        return subjectsByYear;
-    }
-
-
+    
     @Transactional
     public boolean deleteSubject(Long subjectId, String userId) {
         Optional<UserSubject> userSubjectOpt = userSubjectRepository.findById(subjectId);
