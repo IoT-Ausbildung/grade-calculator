@@ -16,6 +16,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.StreamSupport.stream;
+import static org.slf4j.helpers.Reporter.error;
 
 @RestController
 @RequestMapping("/grades")
@@ -47,9 +48,10 @@ public class GradesController {
 
 
     @GetMapping("/userGrades")
-    public ResponseEntity<Map<GradeTypes, List<GradeTO>>> showGrades(Authentication authentication) {
+    public ResponseEntity<?> showGrades(Authentication authentication) {
         try {
             var userId = userService.getAuthenticatedUserId(authentication);
+
             Map<GradeTypes, List<GradeTO>> gradeTOs = stream(userGradeRepository.findByUserId(userId).spliterator(), false)
                     .map(gradeMapper::userGradeToGradeTO)
                     .filter(Objects::nonNull)
@@ -58,7 +60,11 @@ public class GradesController {
 
             return ResponseEntity.ok(gradeTOs);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+
+            error("Error occurred while fetching user grades", e);
+
+            Map<String, String> errorResponse = Collections.singletonMap("error", "An error occurred while fetching grades. Please try again later.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }
 
