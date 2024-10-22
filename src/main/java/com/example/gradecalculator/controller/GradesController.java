@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
+
+import static java.util.stream.StreamSupport.stream;
 
 @RestController
 @RequestMapping("/grades")
@@ -49,7 +50,7 @@ public class GradesController {
     public ResponseEntity<Map<GradeTypes, List<GradeTO>>> showGrades(Authentication authentication) {
         try {
             var userId = userService.getAuthenticatedUserId(authentication);
-            Map<GradeTypes, List<GradeTO>> gradeTOs = StreamSupport.stream(userGradeRepository.findByUserId(userId).spliterator(), false)
+            Map<GradeTypes, List<GradeTO>> gradeTOs = stream(userGradeRepository.findByUserId(userId).spliterator(), false)
                     .map(gradeMapper::userGradeToGradeTO)
                     .filter(Objects::nonNull)
                     .sorted(Comparator.comparing(GradeTO::getGradeTypeName))
