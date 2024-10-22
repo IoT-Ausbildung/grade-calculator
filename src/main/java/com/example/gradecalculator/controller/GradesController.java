@@ -49,7 +49,7 @@ public class GradesController {
     public ResponseEntity<Map<GradeTypes, List<GradeTO>>> showGrades(Authentication authentication) {
         try {
             var userId = userService.getAuthenticatedUserId(authentication);
-            Map<GradeTypes, List<GradeTO>> gradeTOs = StreamSupport.stream(userGradeRepository.findByUserId(userId).spliterator(), false)
+            Map<GradeTypes, List<GradeTO>> gradeTOs = userGradeRepository.findByUserId(userId).stream()
                     .map(gradeMapper::userGradeToGradeTO)
                     .filter(Objects::nonNull)
                     .sorted(Comparator.comparing(GradeTO::getGradeTypeName))
