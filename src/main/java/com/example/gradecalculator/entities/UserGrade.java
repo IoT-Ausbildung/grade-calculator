@@ -30,7 +30,4 @@ public class UserGrade {
 
     @Column(nullable = false)
     private int grade;
-
-    public UserGrade() {
-    }
 }

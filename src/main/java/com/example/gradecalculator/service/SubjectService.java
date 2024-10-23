@@ -98,7 +98,7 @@ public class SubjectService {
     public boolean deleteSubject(Long subjectId, String userId) {
         Optional<UserSubject> userSubjectOpt = userSubjectRepository.findById(subjectId);
 
-        if (!userSubjectOpt.isPresent()) {
+        if (userSubjectOpt.isEmpty()) {
             LOGGER.warning("User subject not found with ID: " + subjectId);
             return false;
         }

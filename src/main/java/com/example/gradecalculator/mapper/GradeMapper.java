@@ -7,7 +7,6 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface GradeMapper {
-
     @Mapping(source = "gradeType.id", target = "gradeTypeId")
     @Mapping(source = "gradeType.name", target = "gradeTypeName")
     @Mapping(source = "userSubject.id", target = "userSubjectId")
