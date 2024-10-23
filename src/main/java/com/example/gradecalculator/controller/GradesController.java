@@ -1,9 +1,7 @@
 package com.example.gradecalculator.controller;
 
 import com.example.gradecalculator.enums.GradeTypes;
-import com.example.gradecalculator.mapper.GradeMapper;
 import com.example.gradecalculator.model.GradeTO;
-import com.example.gradecalculator.repository.UserGradeRepository;
 import com.example.gradecalculator.service.GradeService;
 import com.example.gradecalculator.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +22,11 @@ public class GradesController {
 
     private final GradeService gradeService;
     private final UserService userService;
-    private final UserGradeRepository userGradeRepository;
-    private final GradeMapper gradeMapper;
 
     @Autowired
-    public GradesController(GradeService gradeService, UserService userService, UserGradeRepository userGradeRepository, GradeMapper gradeMapper) {
+    public GradesController(GradeService gradeService, UserService userService) {
         this.gradeService = gradeService;
         this.userService = userService;
-        this.userGradeRepository = userGradeRepository;
-        this.gradeMapper = gradeMapper;
     }
 
     @PostMapping("/add")
@@ -51,7 +45,7 @@ public class GradesController {
     public ResponseEntity<?> showGrades(Authentication authentication) {
         try {
             var userId = userService.getAuthenticatedUserId(authentication);
-            Map<GradeTypes, List<GradeTO>> gradeTOs = gradeService.getAllGrades(userId);
+            Map<GradeTypes, List<GradeTO>> gradeTOs = gradeService.getAllUserGrades(userId);
             return ResponseEntity.ok(gradeTOs);
 
         } catch (Exception e) {

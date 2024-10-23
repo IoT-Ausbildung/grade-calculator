@@ -56,15 +56,7 @@ public class GradeService {
         userGradeRepository.save(grade);
     }
 
-
-    public List<GradeTO> getSelectedGrades(Long userId) {
-        List<UserGrade> userGrades = userGradeRepository.findByUserId(userId);
-        return userGrades.stream()
-                .map(gradeMapper::userGradeToGradeTO)
-                .collect(Collectors.toList());
-    }
-
-    public Map<GradeTypes, List<GradeTO>> getAllGrades(long userId) {
+    public Map<GradeTypes, List<GradeTO>> getAllUserGrades(long userId) {
         return stream(userGradeRepository.findByUserId(userId).spliterator(), false)
                 .map(gradeMapper::userGradeToGradeTO)
                 .filter(Objects::nonNull)
@@ -77,17 +69,5 @@ public class GradeService {
                 .filter(gradeType -> gradeType.getValue().equalsIgnoreCase(gradeTypeName))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Unknown grade type: " + gradeTypeName));
-    }
-
-    public Map<Long, Map<String, List<Integer>>> groupGradesBySubjectAndType(Long userId) {
-        List<GradeTO> selectedGrades = getSelectedGrades(userId);
-        return selectedGrades.stream()
-                .collect(Collectors.groupingBy(
-                        GradeTO::getUserSubjectId,
-                        Collectors.groupingBy(
-                                GradeTO::getGradeTypeName,
-                                Collectors.mapping(GradeTO::getGradeValue, Collectors.toList())
-                        )
-                ));
     }
 }

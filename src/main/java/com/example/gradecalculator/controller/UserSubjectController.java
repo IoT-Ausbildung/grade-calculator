@@ -6,8 +6,6 @@ import com.example.gradecalculator.entities.UserSubject;
 import com.example.gradecalculator.model.SubjectTO;
 import com.example.gradecalculator.repository.GradeTypeRepository;
 import com.example.gradecalculator.repository.SchoolYearRepository;
-import com.example.gradecalculator.repository.UserSubjectRepository;
-import com.example.gradecalculator.service.GradeService;
 import com.example.gradecalculator.service.SubjectService;
 import com.example.gradecalculator.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,31 +16,31 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
+@RequestMapping("/userSubject")
 public class UserSubjectController {
-
     private final SubjectService subjectService;
-    ;
     private final SchoolYearRepository schoolYearRepository;
     private final UserService userService;
-    private final UserSubjectRepository userSubjectRepository;
     private final GradeTypeRepository gradeTypeRepository;
-    private final GradeService gradeService;
+
 
     @Autowired
     public UserSubjectController(SubjectService subjectService, SchoolYearRepository schoolYearRepository,
-                                 UserService userService, UserSubjectRepository userSubjectRepository, GradeTypeRepository gradeTypeRepository, GradeService gradeService) {
+                                 UserService userService, GradeTypeRepository gradeTypeRepository) {
         this.schoolYearRepository = schoolYearRepository;
         this.subjectService = subjectService;
         this.userService = userService;
-        this.userSubjectRepository = userSubjectRepository;
         this.gradeTypeRepository = gradeTypeRepository;
-        this.gradeService = gradeService;
     }
 
-    @GetMapping("/userSubject/form")
+
+    @GetMapping("/form")
     public String showUserSubjectForm(Model model) {
         List<SchoolYear> years = schoolYearRepository.findAll();
         List<SubjectTO> subjects = subjectService.getAllSubjects();
@@ -53,7 +51,7 @@ public class UserSubjectController {
         return "subjectSelection";
     }
 
-    @PostMapping("/userSubject/save")
+    @PostMapping("/save")
     public ResponseEntity<Map<String, Object>> saveUserSubject(
             @RequestParam(value = "selectedValues", required = false) String[] selectedValues,
             Authentication authentication) {
@@ -83,7 +81,7 @@ public class UserSubjectController {
         }
     }
 
-    @GetMapping("/userSubject/selected")
+    @GetMapping("/selected")
     public String showSelectedSubjects(Model model, Authentication authentication) {
         try {
             Long userId = userService.getAuthenticatedUserId(authentication);
@@ -102,7 +100,7 @@ public class UserSubjectController {
         }
     }
 
-    @DeleteMapping("/userSubject/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteSubject(@PathVariable Long id, Authentication authentication) {
         var userId = userService.getAuthenticatedUserId(authentication);
         boolean deleted = subjectService.deleteSubject(id, String.valueOf(userId));
