@@ -13,10 +13,4 @@ public interface GradeMapper {
     @Mapping(source = "userSubject.id", target = "userSubjectId")
     @Mapping(source = "grade", target = "gradeValue")
     GradeTO userGradeToGradeTO(UserGrade userGrade);
-
-    @Mapping(source = "gradeTypeId", target = "gradeType.id")
-    @Mapping(source = "gradeTypeName", target = "gradeType.name")
-    @Mapping(source = "userSubjectId", target = "userSubject.id")
-    @Mapping(source = "gradeValue", target = "grade")
-    UserGrade gradeTOToUserGrade(GradeTO gradeTO);
 }

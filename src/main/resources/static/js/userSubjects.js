@@ -20,6 +20,7 @@ $(document).ready(function () {
 
         addGradeToDatabase(gradeData);
     });
+
     function showAlertModal(message) {
         document.getElementById('alertModalBody').textContent = message;
         $('#alertModal').modal('show');
@@ -31,13 +32,13 @@ $(document).ready(function () {
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(gradeData),
-            beforeSend: function(xhr) {
+            beforeSend: function (xhr) {
                 xhr.setRequestHeader($('meta[name="_csrf_header"]').attr('content'), $('meta[name="_csrf"]').attr('content'));
             },
-            success: function(response) {
+            success: function (response) {
                 window.location.reload();
             },
-            error: function(response) {
+            error: function (response) {
                 alert('Error saving grade!');
             }
         });

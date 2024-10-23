@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -77,16 +78,14 @@ public class UserService {
         var encodedPassword = userData.getEncodedPassword();
         var errors = new ArrayList<String>();
 
-        if(passwordEncoder.matches(oldPassword, encodedPassword)) {
-            if(!newPassword.equals(oldPassword)) {
+        if (passwordEncoder.matches(oldPassword, encodedPassword)) {
+            if (!newPassword.equals(oldPassword)) {
                 userData.setEncodedPassword(passwordEncoder.encode(newPassword));
                 userRepository.save(userData);
-            }
-            else {
+            } else {
                 errors.add("You are currently using this password.");
             }
-        }
-        else {
+        } else {
             errors.add("Passwords do not match.");
         }
 
@@ -122,10 +121,10 @@ public class UserService {
 
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
-            Pattern.CASE_INSENSITIVE);
+                    Pattern.CASE_INSENSITIVE);
 
     public Long getAuthenticatedUserId(Authentication authentication) {
-        var userService = (UserDetailsImpl)authentication.getPrincipal();
+        var userService = (UserDetailsImpl) authentication.getPrincipal();
         return userService.getId();
     }
 

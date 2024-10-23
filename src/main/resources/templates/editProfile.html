@@ -25,21 +25,21 @@
 </head>
 <body>
 <div id="nav-placeholder"></div>
-    <form action="#" th:action="@{/editProfile}" th:object="${editProfile}" method="post"
-          class="container d-flex flex-column flex-md-col col-sm-12 col-md-6 col-lg-4">
-        <h3>Edit Your Profile</h3><br>
-        <div class="firstName form-group">
-            <span>First Name:</span><br>
-            <input class="text-blue" type="text" id="firstName" th:class="form-control"
-                   placeholder="Enter New First Name" th:field="*{firstName}">
-        </div>
-        <div class="lastName form-group">
-            <span>Last Name:</span><br>
-            <input class="text-blue" type="text" id="lastName" th:class="form-control"
-                   placeholder="Enter New Last Name" th:field="*{lastName}"><br>
-        </div>
-        <button type="submit" class="btn btn-primary" value="Submit">Edit</button>
-    </form>
+<form action="#" th:action="@{/editProfile}" th:object="${editProfile}" method="post"
+      class="container d-flex flex-column flex-md-col col-sm-12 col-md-6 col-lg-4">
+    <h3>Edit Your Profile</h3><br>
+    <div class="firstName form-group">
+        <span>First Name:</span><br>
+        <input class="text-blue" type="text" id="firstName" th:class="form-control"
+               placeholder="Enter New First Name" th:field="*{firstName}">
+    </div>
+    <div class="lastName form-group">
+        <span>Last Name:</span><br>
+        <input class="text-blue" type="text" id="lastName" th:class="form-control"
+               placeholder="Enter New Last Name" th:field="*{lastName}"><br>
+    </div>
+    <button type="submit" class="btn btn-primary" value="Submit">Edit</button>
+</form>
 <div id="footer-placeholder"></div>
 </body>
 </html>

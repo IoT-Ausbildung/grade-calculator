@@ -93,7 +93,7 @@ public class SubjectService {
         }
         return ("Subject already selected for the given year: " + selectedSubject.getName() + " - " + selectedYear.getName());
     }
-    
+
     @Transactional
     public boolean deleteSubject(Long subjectId, String userId) {
         Optional<UserSubject> userSubjectOpt = userSubjectRepository.findById(subjectId);

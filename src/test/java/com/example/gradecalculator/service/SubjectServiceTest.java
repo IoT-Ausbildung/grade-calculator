@@ -50,6 +50,7 @@ public class SubjectServiceTest {
     private SchoolYear schoolYear;
     @Mock
     private UserGradeRepository userGradeRepository;
+
     @BeforeEach
     public void setUp() {
         subject = new Subject();
@@ -76,7 +77,7 @@ public class SubjectServiceTest {
 
         subjectMapper = Mappers.getMapper(SubjectMapper.class);
         subjectService = new SubjectService(userSubjectRepository, subjectRepository, userRepository,
-                                            schoolYearRepository, subjectMapper, gradeMapper, userGradeRepository);
+                schoolYearRepository, subjectMapper, gradeMapper, userGradeRepository);
     }
 
     @Test
@@ -247,7 +248,7 @@ public class SubjectServiceTest {
     public void testDeleteSubject() {
         // Arrange
         when(userSubjectRepository.findById(anyLong())).thenReturn(Optional.of(userSubject));
-        when(userGradeRepository.existsByUserSubjectIdAndUserId(anyLong(),anyLong())).thenReturn(false);
+        when(userGradeRepository.existsByUserSubjectIdAndUserId(anyLong(), anyLong())).thenReturn(false);
 
         // Act
         boolean result = subjectService.deleteSubject(1L, "1");
