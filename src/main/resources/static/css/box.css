@@ -31,8 +31,6 @@
 
 #subjects-container {
     padding: 3.1rem;
-    overflow-y: auto;
-    max-height: 100vh;
 }
 
 #subjects-container2 {

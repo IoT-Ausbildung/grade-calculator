@@ -128,11 +128,10 @@ public class SubjectService {
         Map<SchoolYear, List<UserSubject>> subjectsGroupedByYear =
                 userSubjects.stream().collect(Collectors.groupingBy(UserSubject::getSchoolYear));
 
-        List<YearTO> yearTOs = new ArrayList<>();
-        for (var entry : subjectsGroupedByYear.entrySet()) {
-            var yearTO = getYearTO(entry);
-            yearTOs.add(yearTO);
-        }
+        List<YearTO> yearTOs = subjectsGroupedByYear.entrySet().stream()
+                .map(this::getYearTO)
+                .sorted(Comparator.comparing(YearTO::getId).reversed())
+                .collect(Collectors.toList());
         overviewTO.setYears(yearTOs);
         return overviewTO;
     }
@@ -144,38 +143,35 @@ public class SubjectService {
         yearTO.setName(year.getName());
 
         var subjects = entry.getValue();
-        List<UserSubjectTO> userSubjectTOs = new ArrayList<>();
 
-        for (var userSubject : subjects) {
-            var userSubjectTO = new UserSubjectTO();
-            userSubjectTO.setId(userSubject.getId());
-            userSubjectTO.setName(userSubject.getSubject().getName());
+        List<UserSubjectTO> userSubjectTOs = subjects.stream()
+                .sorted(Comparator.comparing(userSubject -> userSubject.getSubject().getName()))
+                .map(userSubject -> {
+                    var userSubjectTO = new UserSubjectTO();
+                    userSubjectTO.setId(userSubject.getId());
+                    userSubjectTO.setName(userSubject.getSubject().getName());
 
-            var userGrades = userSubject.getUserGrades();
+                    var userGrades = userSubject.getUserGrades();
+                    Map<String, List<GradeTO>> gradesGroupedByType = userGrades.stream()
+                            .map(gradeMapper::userGradeToGradeTO)
+                            .filter(Objects::nonNull)
+                            .collect(Collectors.groupingBy(GradeTO::getGradeTypeName));
 
-            Map<String, List<GradeTO>> gradesGroupedByType = userGrades.stream()
-                    .map(gradeMapper::userGradeToGradeTO)
-                    .filter(Objects::nonNull)
-                    .collect(Collectors.groupingBy(GradeTO::getGradeTypeName));
+                    Map<String, String> gradesGroupedByTypeAsString = new HashMap<>();
+                    for (var gradesEntry : gradesGroupedByType.entrySet()) {
+                        String gradeType = gradesEntry.getKey();
+                        String gradesAsString = gradesEntry.getValue().stream()
+                                .map(gradeTO -> String.valueOf(gradeTO.getGradeValue()))
+                                .collect(Collectors.joining(", "));
+                        gradesGroupedByTypeAsString.put(gradeType, gradesAsString);
+                    }
 
-            Map<String, String> gradesGroupedByTypeAsString = new HashMap<>();
-            for (var gradesEntry : gradesGroupedByType.entrySet()) {
-                String gradeType = gradesEntry.getKey();
-
-                String gradesAsString = gradesEntry.getValue().stream()
-                        .map(gradeTO -> String.valueOf(gradeTO.getGradeValue()))
-                        .collect(Collectors.joining(", "));
-
-                gradesGroupedByTypeAsString.put(gradeType, gradesAsString);
-            }
-
-            userSubjectTO.setGradesGroupedByType(gradesGroupedByTypeAsString);
-
-            userSubjectTOs.add(userSubjectTO);
-        }
+                    userSubjectTO.setGradesGroupedByType(gradesGroupedByTypeAsString);
+                    return userSubjectTO;
+                })
+                .collect(Collectors.toList());
 
         yearTO.setSubjects(userSubjectTOs);
         return yearTO;
     }
-
 }
