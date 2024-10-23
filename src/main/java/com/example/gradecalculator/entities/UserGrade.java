@@ -9,8 +9,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "user_grade")
 public class UserGrade {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

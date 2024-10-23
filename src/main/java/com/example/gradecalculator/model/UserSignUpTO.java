@@ -1,7 +1,6 @@
 package com.example.gradecalculator.model;
 
 import jakarta.validation.constraints.NotNull;
-
 public class UserSignUpTO {
     private String firstName;
     private String lastName;
