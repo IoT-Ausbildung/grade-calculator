@@ -12,10 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
-import static java.util.stream.StreamSupport.stream;
 import static org.slf4j.helpers.Reporter.error;
 
 @RestController
@@ -51,28 +51,14 @@ public class GradesController {
     public ResponseEntity<?> showGrades(Authentication authentication) {
         try {
             var userId = userService.getAuthenticatedUserId(authentication);
-
-            Map<GradeTypes, List<GradeTO>> gradeTOs = stream(userGradeRepository.findByUserId(userId).spliterator(), false)
-                    .map(gradeMapper::userGradeToGradeTO)
-                    .filter(Objects::nonNull)
-                    .sorted(Comparator.comparing(GradeTO::getGradeTypeName))
-                    .collect(Collectors.groupingBy(gradeTO -> mapToGradeTypesEnum(gradeTO.getGradeTypeName())));
-
+            Map<GradeTypes, List<GradeTO>> gradeTOs = gradeService.getAllGrades(userId);
             return ResponseEntity.ok(gradeTOs);
+
         } catch (Exception e) {
-
             error("Error occurred while fetching user grades", e);
-
             Map<String, String> errorResponse = Collections.singletonMap("error", "An error occurred while fetching grades. Please try again later.");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
-    }
-
-    private GradeTypes mapToGradeTypesEnum(String gradeTypeName) {
-        return Arrays.stream(GradeTypes.values())
-                .filter(gradeType -> gradeType.getValue().equalsIgnoreCase(gradeTypeName))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Unknown grade type: " + gradeTypeName));
     }
 }
 

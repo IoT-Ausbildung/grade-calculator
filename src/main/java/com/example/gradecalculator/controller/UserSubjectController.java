@@ -57,7 +57,7 @@ public class UserSubjectController {
     public ResponseEntity<Map<String, Object>> saveUserSubject(
             @RequestParam(value = "selectedValues", required = false) String[] selectedValues,
             Authentication authentication) {
-        Map<String, Object> response = new TreeMap<>();
+        Map<String, Object> response = new HashMap<>();
         try {
             if (selectedValues == null || selectedValues.length == 0) {
                 response.put("errors", List.of("No subjects selected."));

@@ -4,6 +4,7 @@ import com.example.gradecalculator.entities.GradeType;
 import com.example.gradecalculator.entities.User;
 import com.example.gradecalculator.entities.UserGrade;
 import com.example.gradecalculator.entities.UserSubject;
+import com.example.gradecalculator.enums.GradeTypes;
 import com.example.gradecalculator.mapper.GradeMapper;
 import com.example.gradecalculator.model.GradeTO;
 import com.example.gradecalculator.repository.GradeTypeRepository;
@@ -13,9 +14,10 @@ import com.example.gradecalculator.repository.UserSubjectRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static java.util.stream.StreamSupport.stream;
 
 @Service
 public class GradeService {
@@ -60,6 +62,21 @@ public class GradeService {
         return userGrades.stream()
                 .map(gradeMapper::userGradeToGradeTO)
                 .collect(Collectors.toList());
+    }
+
+    public Map<GradeTypes, List<GradeTO>> getAllGrades(long userId) {
+        return stream(userGradeRepository.findByUserId(userId).spliterator(), false)
+                .map(gradeMapper::userGradeToGradeTO)
+                .filter(Objects::nonNull)
+                .sorted(Comparator.comparing(GradeTO::getGradeTypeName))
+                .collect(Collectors.groupingBy(gradeTO -> mapToGradeTypesEnum(gradeTO.getGradeTypeName())));
+    }
+
+    private GradeTypes mapToGradeTypesEnum(String gradeTypeName) {
+        return Arrays.stream(GradeTypes.values())
+                .filter(gradeType -> gradeType.getValue().equalsIgnoreCase(gradeTypeName))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Unknown grade type: " + gradeTypeName));
     }
 
     public Map<Long, Map<String, List<Integer>>> groupGradesBySubjectAndType(Long userId) {
