@@ -35,10 +35,10 @@ $(document).ready(function () {
             beforeSend: function (xhr) {
                 xhr.setRequestHeader($('meta[name="_csrf_header"]').attr('content'), $('meta[name="_csrf"]').attr('content'));
             },
-            success: function (response) {
+            success: function () {
                 window.location.reload();
             },
-            error: function (response) {
+            error: function () {
                 alert('Error saving grade!');
             }
         });

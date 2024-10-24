@@ -45,7 +45,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 confirmationModal.hide();
                 if (response.ok) {
                     selectedButton.closest('tr').remove();
-                    console.log("Subject successfully deleted.");
                     window.location.reload();
 
                 } else {
