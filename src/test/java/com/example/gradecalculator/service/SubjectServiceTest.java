@@ -4,12 +4,10 @@ import com.example.gradecalculator.entities.SchoolYear;
 import com.example.gradecalculator.entities.Subject;
 import com.example.gradecalculator.entities.User;
 import com.example.gradecalculator.entities.UserSubject;
+import com.example.gradecalculator.mapper.GradeMapper;
 import com.example.gradecalculator.mapper.SubjectMapper;
 import com.example.gradecalculator.model.SubjectTO;
-import com.example.gradecalculator.repository.SchoolYearRepository;
-import com.example.gradecalculator.repository.SubjectRepository;
-import com.example.gradecalculator.repository.UserRepository;
-import com.example.gradecalculator.repository.UserSubjectRepository;
+import com.example.gradecalculator.repository.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,11 +42,14 @@ public class SubjectServiceTest {
     private SchoolYearRepository schoolYearRepository;
 
     private SubjectMapper subjectMapper;
+    private GradeMapper gradeMapper;
     private Subject subject;
     private Subject secondSubject;
     private User user;
     private UserSubject userSubject;
     private SchoolYear schoolYear;
+    @Mock
+    private UserGradeRepository userGradeRepository;
 
     @BeforeEach
     public void setUp() {
@@ -76,7 +77,7 @@ public class SubjectServiceTest {
 
         subjectMapper = Mappers.getMapper(SubjectMapper.class);
         subjectService = new SubjectService(userSubjectRepository, subjectRepository, userRepository,
-                                            schoolYearRepository, subjectMapper);
+                schoolYearRepository, subjectMapper, gradeMapper, userGradeRepository);
     }
 
     @Test
@@ -247,6 +248,7 @@ public class SubjectServiceTest {
     public void testDeleteSubject() {
         // Arrange
         when(userSubjectRepository.findById(anyLong())).thenReturn(Optional.of(userSubject));
+        when(userGradeRepository.existsByUserSubjectIdAndUserId(anyLong(), anyLong())).thenReturn(false);
 
         // Act
         boolean result = subjectService.deleteSubject(1L, "1");

@@ -1,8 +1,10 @@
 package com.example.gradecalculator.controller;
 
+import com.example.gradecalculator.entities.GradeType;
 import com.example.gradecalculator.entities.SchoolYear;
 import com.example.gradecalculator.entities.UserSubject;
 import com.example.gradecalculator.model.SubjectTO;
+import com.example.gradecalculator.repository.GradeTypeRepository;
 import com.example.gradecalculator.repository.SchoolYearRepository;
 import com.example.gradecalculator.service.SubjectService;
 import com.example.gradecalculator.service.UserService;
@@ -17,22 +19,25 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @Controller
+@RequestMapping("/userSubject")
 public class UserSubjectController {
-
     private final SubjectService subjectService;
-    ;
     private final SchoolYearRepository schoolYearRepository;
     private final UserService userService;
+    private final GradeTypeRepository gradeTypeRepository;
+
 
     @Autowired
     public UserSubjectController(SubjectService subjectService, SchoolYearRepository schoolYearRepository,
-                                 UserService userService) {
+                                 UserService userService, GradeTypeRepository gradeTypeRepository) {
         this.schoolYearRepository = schoolYearRepository;
         this.subjectService = subjectService;
         this.userService = userService;
+        this.gradeTypeRepository = gradeTypeRepository;
     }
 
-    @GetMapping("/userSubject/form")
+
+    @GetMapping("/form")
     public String showUserSubjectForm(Model model) {
         List<SchoolYear> years = schoolYearRepository.findAll();
         List<SubjectTO> subjects = subjectService.getAllSubjects();
@@ -43,15 +48,15 @@ public class UserSubjectController {
         return "subjectSelection";
     }
 
-    @PostMapping("/userSubject/save")
+    @PostMapping("/save")
     public ResponseEntity<Map<String, Object>> saveUserSubject(
             @RequestParam(value = "selectedValues", required = false) String[] selectedValues,
             Authentication authentication) {
-        Map<String, Object> response = new TreeMap<>();
+        Map<String, Object> response = new HashMap<>();
         try {
             if (selectedValues == null || selectedValues.length == 0) {
                 response.put("errors", List.of("No subjects selected."));
-                return ResponseEntity.badRequest().body(response); // 400 Bad Request
+                return ResponseEntity.badRequest().body(response);
             }
 
             var userId = userService.getAuthenticatedUserId(authentication);
@@ -73,25 +78,26 @@ public class UserSubjectController {
         }
     }
 
-    @GetMapping("userSubject/selected")
+    @GetMapping("/selected")
     public String showSelectedSubjects(Model model, Authentication authentication) {
         try {
-            var userId = userService.getAuthenticatedUserId(authentication);
-            var subjectsByYear = subjectService.selectedSubject(userId);
+            Long userId = userService.getAuthenticatedUserId(authentication);
+            List<GradeType> gradeTypes = (List<GradeType>) gradeTypeRepository.findAll();
 
-            model.addAttribute("subjectsByYear", subjectsByYear);
+            var subjectOverview = subjectService.getUserSubjectsWithGrades(userId);
+
+            model.addAttribute("subjectOverview", subjectOverview);
             model.addAttribute("user", userId);
+            model.addAttribute("gradeTypes", gradeTypes);
 
             return "userSubjects";
-
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
-
             return "error";
         }
     }
 
-    @DeleteMapping("/userSubject/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteSubject(@PathVariable Long id, Authentication authentication) {
         var userId = userService.getAuthenticatedUserId(authentication);
         boolean deleted = subjectService.deleteSubject(id, String.valueOf(userId));

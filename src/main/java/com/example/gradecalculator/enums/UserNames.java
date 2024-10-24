@@ -2,9 +2,8 @@ package com.example.gradecalculator.enums;
 
 public enum UserNames {
     TRAINEE("Trainee"),
-    TRAINER("Trainer"),
-    STUDENT("Student");
-
+    STUDENT("Student"),
+    TRAINER("Trainer");
     private final String value;
 
     UserNames(String value) {

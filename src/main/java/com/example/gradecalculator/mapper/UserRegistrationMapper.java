@@ -8,10 +8,8 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public abstract class UserRegistrationMapper {
     public abstract User TOToEntity(UserSignUpTO registration);
-    public UserType map(Long value){
+
+    public UserType map(Long value) {
         return new UserType(value);
-    }
-    public Long map(UserType value){
-        return value.getId();
     }
 }

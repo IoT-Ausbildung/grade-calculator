@@ -4,10 +4,11 @@ const oldPasswordId = "oldPassword"
 
 document.getElementById(passwordId).onchange = validatePassword;
 document.getElementById(passwordCfId).onkeyup = validatePassword;
-function validatePassword(){
+
+function validatePassword() {
     var passwordIn = document.getElementById(passwordId);
     var passwordCf = document.getElementById(passwordCfId);
-    if(passwordIn.value != passwordCf.value) {
+    if (passwordIn.value != passwordCf.value) {
         passwordCf.setCustomValidity("Passwords don't match");
     } else {
         passwordCf.setCustomValidity('');

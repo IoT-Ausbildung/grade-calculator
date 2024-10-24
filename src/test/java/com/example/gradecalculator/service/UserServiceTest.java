@@ -86,7 +86,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void createUser_WhenUsertypeNotFound_ShouldThrowException(){
+    public void createUser_WhenUsertypeNotFound_ShouldThrowException() {
         //Arrange
         UserSignUpTO registration = new UserSignUpTO();
         registration.setUserType(1L);
@@ -97,11 +97,11 @@ public class UserServiceTest {
 
         //Act
         //Assert
-        assertThrows(IllegalArgumentException.class,() -> userService.createUser(registration));
+        assertThrows(IllegalArgumentException.class, () -> userService.createUser(registration));
     }
 
     @Test
-    public void testEditProfile(){
+    public void testEditProfile() {
         //Arrange
         User user = new User();
         user.setId(1L);

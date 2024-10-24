@@ -5,8 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class GradeTypeTest {
-
-
     private GradeType gradeType;
 
     @BeforeEach
@@ -27,12 +25,10 @@ public class GradeTypeTest {
     public void testGettersAndSetters() {
         gradeType.setId(1L);
         gradeType.setName("Grade Type 1");
-        gradeType.setDescription("Description 1");
         gradeType.setWeightage(0.50);
 
         Assertions.assertEquals(1L, gradeType.getId());
         Assertions.assertEquals("Grade Type 1", gradeType.getName());
-        Assertions.assertEquals("Description 1", gradeType.getDescription());
         Assertions.assertEquals(0.50, gradeType.getWeightage().doubleValue());
     }
 }
