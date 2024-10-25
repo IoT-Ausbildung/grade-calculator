@@ -1,11 +1,9 @@
 package com.example.gradecalculator.repository;
 
-import com.example.gradecalculator.entities.GradeSystem;
 import com.example.gradecalculator.entities.GradeType;
 import org.springframework.data.repository.CrudRepository;
-
-import java.util.List;
+import java.util.Optional;
 
 public interface GradeTypeRepository extends CrudRepository<GradeType, Long> {
-    List<GradeType> findByGradeSystem(GradeSystem gradeSystem);
+    Optional<GradeType> findByName(String name);
 }

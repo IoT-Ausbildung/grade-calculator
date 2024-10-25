@@ -14,25 +14,25 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean id = "GradeSystem" class = "src/main/java/com/example/gradecalculator/entities/GradeSystem.java" >
-            <constructor-arg ref = "GradeSystem"/>
+    <bean id="GradeSystem" class="src/main/java/com/example/gradecalculator/entities/GradeSystem.java">
+        <constructor-arg ref="GradeSystem"/>
     </bean>
 
 
-    <bean id = "GradeType" class = "src/main/java/com/example/gradecalculator/entities/GradeType.java" >
-        <constructor-arg ref = "GradeType"/>
+    <bean id="GradeType" class="src/main/java/com/example/gradecalculator/entities/GradeType.java">
+        <constructor-arg ref="GradeType"/>
     </bean>
 
-    <bean id = "Schoolyear" class = "src/main/java/com/example/gradecalculator/entities/Schoolyear.java">
-    <constructor-arg ref = "Schoolyear"/>
+    <bean id="Schoolyear" class="src/main/java/com/example/gradecalculator/entities/Schoolyear.java">
+        <constructor-arg ref="Schoolyear"/>
     </bean>
 
-    <bean id = "Subject" class = "src/main/java/com/example/gradecalculator/entities/Subject.java" >
-        <constructor-arg ref = "Subject"/>
+    <bean id="Subject" class="src/main/java/com/example/gradecalculator/entities/Subject.java">
+        <constructor-arg ref="Subject"/>
     </bean>
 
-    <bean id = "UserType" class = "src/main/java/com/example/gradecalculator/entities/UserType.java">
-        <constructor-arg ref = "UserType"/>
+    <bean id="UserType" class="src/main/java/com/example/gradecalculator/entities/UserType.java">
+        <constructor-arg ref="UserType"/>
     </bean>
 
 

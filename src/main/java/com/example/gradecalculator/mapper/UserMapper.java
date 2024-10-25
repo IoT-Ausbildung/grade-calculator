@@ -9,6 +9,10 @@ import org.mapstruct.Named;
 @Mapper
 public abstract class UserMapper {
     public abstract UserTO dataToTO(User user);
+
     public abstract Iterable<UserTO> dataToTO(Iterable<User> users);
-    public String map(UserType value){return value.getName();}
+
+    public String map(UserType value) {
+        return value.getName();
+    }
 }

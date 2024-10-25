@@ -4,18 +4,15 @@ import com.example.gradecalculator.entities.SchoolYear;
 import com.example.gradecalculator.entities.Subject;
 import com.example.gradecalculator.entities.User;
 import com.example.gradecalculator.entities.UserSubject;
+import com.example.gradecalculator.mapper.GradeMapper;
 import com.example.gradecalculator.mapper.SubjectMapper;
-import com.example.gradecalculator.model.SubjectTO;
-import com.example.gradecalculator.model.UserSubjectTO;
-import com.example.gradecalculator.repository.SchoolYearRepository;
-import com.example.gradecalculator.repository.SubjectRepository;
-import com.example.gradecalculator.repository.UserRepository;
-import com.example.gradecalculator.repository.UserSubjectRepository;
+import com.example.gradecalculator.model.*;
+import com.example.gradecalculator.repository.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -27,16 +24,22 @@ public class SubjectService {
     private final UserRepository userRepository;
     private final SchoolYearRepository schoolYearRepository;
     private final SubjectMapper subjectMapper;
+    private final GradeMapper gradeMapper;
+    private final UserGradeRepository userGradeRepository;
+    private static final Logger LOGGER = Logger.getLogger(SubjectService.class.getName());
+
 
     @Autowired
     public SubjectService(UserSubjectRepository userSubjectRepository, SubjectRepository subjectRepository,
                           UserRepository userRepository, SchoolYearRepository schoolYearRepository,
-                          SubjectMapper subjectMapper) {
+                          SubjectMapper subjectMapper, GradeMapper gradeMapper, UserGradeRepository userGradeRepository) {
         this.userSubjectRepository = userSubjectRepository;
         this.subjectRepository = subjectRepository;
         this.userRepository = userRepository;
         this.schoolYearRepository = schoolYearRepository;
         this.subjectMapper = subjectMapper;
+        this.gradeMapper = gradeMapper;
+        this.userGradeRepository = userGradeRepository;
     }
 
     public List<SubjectTO> getAllSubjects() {
@@ -90,36 +93,84 @@ public class SubjectService {
         return ("Subject already selected for the given year: " + selectedSubject.getName() + " - " + selectedYear.getName());
     }
 
-    public TreeMap<String, Set<UserSubjectTO>> selectedSubject(long userId) {
-        var userSubjects = userSubjectRepository.findByUserId(userId);
-        TreeMap<String, Set<UserSubjectTO>> subjectsByYear = new TreeMap<>();
-
-        for (UserSubject userSubject : userSubjects) {
-            String year = userSubject.getSchoolYear().getName();
-            var userSubjectTO = new UserSubjectTO();
-            userSubjectTO.setID(userSubject.getId());
-            userSubjectTO.setName(userSubject.getSubject().getName());
-            subjectsByYear.computeIfAbsent(year, k -> new TreeSet<>(Comparator.comparing(UserSubjectTO::getName))).add(userSubjectTO);
-        }
-
-        return subjectsByYear;
-    }
-
     @Transactional
     public boolean deleteSubject(Long subjectId, String userId) {
         Optional<UserSubject> userSubjectOpt = userSubjectRepository.findById(subjectId);
 
-        if (!userSubjectOpt.isPresent()) {
-            System.out.println("User subject not found with ID: " + subjectId);
+        if (userSubjectOpt.isEmpty()) {
+            LOGGER.warning("User subject not found with ID: " + subjectId);
             return false;
         }
+
         UserSubject userSubject = userSubjectOpt.get();
+
         if (!userSubject.getUser().getId().equals(Long.parseLong(userId))) {
-            System.out.println("User ID does not match for subject ID: " + subjectId);
+            LOGGER.warning("User ID does not match for subject ID: " + subjectId);
             return false;
         }
+
+        boolean hasGrades = userGradeRepository.existsByUserSubjectIdAndUserId(subjectId, Long.parseLong(userId));
+        if (hasGrades) {
+            LOGGER.warning("Cannot delete a subject with associated grades, subject ID: " + subjectId);
+            return false;
+        }
+
         userSubjectRepository.delete(userSubject);
-        System.out.println("Subject with ID " + subjectId + " successfully deleted.");
+        LOGGER.info("Subject with ID " + subjectId + " successfully deleted.");
         return true;
+    }
+
+
+    public SubjectOverviewTO getUserSubjectsWithGrades(long userId) {
+        SubjectOverviewTO overviewTO = new SubjectOverviewTO();
+        var userSubjects = userSubjectRepository.findByUserId(userId);
+        Map<SchoolYear, List<UserSubject>> subjectsGroupedByYear =
+                userSubjects.stream().collect(Collectors.groupingBy(UserSubject::getSchoolYear));
+
+        List<YearTO> yearTOs = subjectsGroupedByYear.entrySet().stream()
+                .map(this::getYearTO)
+                .sorted(Comparator.comparing(YearTO::getId).reversed())
+                .collect(Collectors.toList());
+        overviewTO.setYears(yearTOs);
+        return overviewTO;
+    }
+
+    private YearTO getYearTO(Map.Entry<SchoolYear, List<UserSubject>> entry) {
+        var year = entry.getKey();
+        var yearTO = new YearTO();
+        yearTO.setId(year.getId());
+        yearTO.setName(year.getName());
+
+        var subjects = entry.getValue();
+
+        List<UserSubjectTO> userSubjectTOs = subjects.stream()
+                .sorted(Comparator.comparing(userSubject -> userSubject.getSubject().getName()))
+                .map(userSubject -> {
+                    var userSubjectTO = new UserSubjectTO();
+                    userSubjectTO.setId(userSubject.getId());
+                    userSubjectTO.setName(userSubject.getSubject().getName());
+
+                    var userGrades = userSubject.getUserGrades();
+                    Map<String, List<GradeTO>> gradesGroupedByType = userGrades.stream()
+                            .map(gradeMapper::userGradeToGradeTO)
+                            .filter(Objects::nonNull)
+                            .collect(Collectors.groupingBy(GradeTO::getGradeTypeName));
+
+                    Map<String, String> gradesGroupedByTypeAsString = new HashMap<>();
+                    for (var gradesEntry : gradesGroupedByType.entrySet()) {
+                        String gradeType = gradesEntry.getKey();
+                        String gradesAsString = gradesEntry.getValue().stream()
+                                .map(gradeTO -> String.valueOf(gradeTO.getGradeValue()))
+                                .collect(Collectors.joining(", "));
+                        gradesGroupedByTypeAsString.put(gradeType, gradesAsString);
+                    }
+
+                    userSubjectTO.setGradesGroupedByType(gradesGroupedByTypeAsString);
+                    return userSubjectTO;
+                })
+                .collect(Collectors.toList());
+
+        yearTO.setSubjects(userSubjectTOs);
+        return yearTO;
     }
 }

@@ -14,7 +14,7 @@ public class GradeCalculatorApplication {
 
     @Bean
     public CommandLineRunner initializeDatabase(DBInitializer initializer) {
-        return args ->{
+        return args -> {
             initializer.seedData();
         };
     }
